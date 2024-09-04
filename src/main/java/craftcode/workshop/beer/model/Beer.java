@@ -1,8 +1,7 @@
-package craftcode.workshop.beer;
+package craftcode.workshop.beer.model;
 
 import craftcode.workshop.beer.enums.BeerType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +20,9 @@ public class Beer {
     @Enumerated(EnumType.STRING)
     private BeerType beerType;
 
-    private String manufacturedAt;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name= "brewery_id")
+    private Brewery brewery;
 
 }
