@@ -9,3 +9,6 @@ VALUES
     ('grimbergen', 6, 'FRUIT', 2),
     ('pils', 10, 'FRUIT', 3);
 
+INSERT INTO CLASSIFICATION (country, fermentation_type, names_and_origins, used_grain_type)
+VALUES
+    ('BELGIUM', 'WARM', 'ABBEY_BEER', 'BARELY' )

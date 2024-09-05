@@ -4,24 +4,35 @@ import craftcode.workshop.beer.enums.Country;
 import craftcode.workshop.beer.enums.FermentationType;
 import craftcode.workshop.beer.enums.GrainTypes;
 import craftcode.workshop.beer.enums.NamesAndOrigins;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Classification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Enumerated(EnumType.STRING)
     private Country country;
+    @Enumerated(EnumType.STRING)
     private GrainTypes usedGrainType;
+    @Enumerated(EnumType.STRING)
     private FermentationType fermentationType;
+    @Enumerated(EnumType.STRING)
     private NamesAndOrigins namesAndOrigins;
 
+    @ManyToMany
+    @JoinTable(
+            name= "classification_beer",
+            joinColumns = @JoinColumn(name = "classification_id"),
+            inverseJoinColumns = @JoinColumn(name = "beer_id")
+    )
+    private Set<Beer> beers;
 }

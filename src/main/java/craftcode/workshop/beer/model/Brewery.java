@@ -1,15 +1,14 @@
 package craftcode.workshop.beer.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import lombok.*;
+
 
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Brewery {
     @Id
@@ -20,7 +19,6 @@ public class Brewery {
 
     private String location;
 
-    @OneToMany(fetch = FetchType.EAGER ,cascade = CascadeType.ALL, mappedBy = "brewery")
-    @Fetch(FetchMode.SELECT)
-    private Set<Beer> manufacturedBeers;
+    @OneToMany(mappedBy = "brewery")
+    private Set<Beer> beers;
 }

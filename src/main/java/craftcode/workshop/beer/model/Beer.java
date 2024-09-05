@@ -1,12 +1,17 @@
 package craftcode.workshop.beer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import craftcode.workshop.beer.enums.BeerType;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Beer {
     @Id
@@ -21,8 +26,13 @@ public class Beer {
     private BeerType beerType;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name= "brewery_id")
+    @JsonIgnoreProperties("beers")
     private Brewery brewery;
+
+
+    @ManyToMany(mappedBy = "beers")
+    private Set<Classification> classifications;
 
 }
