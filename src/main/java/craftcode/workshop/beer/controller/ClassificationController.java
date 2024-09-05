@@ -24,7 +24,7 @@ public class ClassificationController {
         return classification.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<Classification>> getClassification() {
         List<Classification> classifications = classificationService.getAllClassifications();
         return ResponseEntity.ok(classifications);
