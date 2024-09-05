@@ -1,7 +1,8 @@
 package craftcode.workshop.beer.controller;
 
 import craftcode.workshop.beer.model.Classification;
-import craftcode.workshop.beer.repository.ClassificationRepository;
+import craftcode.workshop.beer.services.ClassificationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,21 +15,18 @@ import java.util.Optional;
 @RequestMapping("/classifications")
 public class ClassificationController {
 
-    private final ClassificationRepository classificationRepository;
-
-    public ClassificationController(ClassificationRepository classificationRepository){
-        this.classificationRepository = classificationRepository;
-    }
+    @Autowired
+    ClassificationService classificationService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Classification> getClassificationById(@PathVariable long id){
-        Optional<Classification> classification = classificationRepository.findById(id);
+        Optional<Classification> classification = classificationService.getClassificationById(id);
         return classification.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/")
     public ResponseEntity<List<Classification>> getClassification() {
-        List<Classification> classifications = classificationRepository.findAll();
+        List<Classification> classifications = classificationService.getAllClassifications();
         return ResponseEntity.ok(classifications);
     }
 }

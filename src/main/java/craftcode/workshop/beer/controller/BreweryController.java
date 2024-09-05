@@ -2,6 +2,8 @@ package craftcode.workshop.beer.controller;
 
 import craftcode.workshop.beer.model.Brewery;
 import craftcode.workshop.beer.repository.BreweryRepository;
+import craftcode.workshop.beer.services.BreweryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,20 +17,17 @@ import java.util.Optional;
 @RequestMapping("/breweries")
 public class BreweryController {
 
-    private final BreweryRepository breweryRepository;
-
-    public BreweryController(BreweryRepository breweryRepository) {
-        this.breweryRepository = breweryRepository;
-    }
+    @Autowired
+    BreweryService breweryService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Brewery> getBreweryById(@PathVariable long id) {
-        Optional<Brewery> brewery = breweryRepository.findById(id);
+        Optional<Brewery> brewery = breweryService.getBreweryById(id);
         return ResponseEntity.ok(brewery.orElseThrow());
     }
     @GetMapping("/")
     public ResponseEntity<List<Brewery>> getBreweries() {
-        List<Brewery> all = breweryRepository.findAll();
+        List<Brewery> all = breweryService.getAllBreweries();
         return ResponseEntity.ok(all);
     }
 }
