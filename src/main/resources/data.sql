@@ -11,4 +11,6 @@ VALUES
 
 INSERT INTO CLASSIFICATION (country, fermentation_type, names_and_origins, used_grain_type)
 VALUES
-    ('BELGIUM', 'WARM', 'ABBEY_BEER', 'BARELY' )
+    ('BELGIUM', 'WARM', 'ABBEY_BEER', 'BARELY' );
+
+INSERT INTO CLASSIFICATION_BEER (beer_id, classification_id) VALUES (1,1)

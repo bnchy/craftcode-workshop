@@ -1,5 +1,6 @@
 package craftcode.workshop.beer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import craftcode.workshop.beer.enums.Country;
 import craftcode.workshop.beer.enums.FermentationType;
 import craftcode.workshop.beer.enums.GrainTypes;
@@ -34,5 +35,6 @@ public class Classification {
             joinColumns = @JoinColumn(name = "classification_id"),
             inverseJoinColumns = @JoinColumn(name = "beer_id")
     )
+    @JsonIgnoreProperties("classifications")
     private Set<Beer> beers;
 }

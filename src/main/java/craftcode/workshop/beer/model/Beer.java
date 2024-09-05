@@ -33,6 +33,7 @@ public class Beer {
 
 
     @ManyToMany(mappedBy = "beers")
+    @JsonIgnoreProperties("beers")
     private Set<Classification> classifications;
 
 }
