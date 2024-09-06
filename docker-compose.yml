@@ -1,0 +1,7 @@
+services:
+  spring-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"

@@ -1,4 +1,4 @@
-package craftcode.workshop.beer;
+package craftcode.workshop.beer.controllers;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
@@ -73,37 +73,7 @@ class BeerControllerTests {
 
         beerRepository.deleteById(4L);
     }
-
-    @Test
-    void shouldReturnAllBreweries () {
-        ResponseEntity<String> response = restTemplate.getForEntity("/breweries", String.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        DocumentContext documentContext = JsonPath.parse(response.getBody());
-        assertThat(documentContext).isNotNull();
-
-        int count = documentContext.read("$.length()", Integer.class);
-        assertThat(count).isEqualTo(3);
-
-        String name = documentContext.read("$[0].name", String.class);
-        assertThat(name).isEqualTo("Brasserie d'Achouffe");
-    }
-
-    @Test
-    void shouldReturnABrewery() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/breweries/2", String.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        DocumentContext documentContext = JsonPath.parse(response.getBody());
-        assertThat(documentContext).isNotNull();
-
-        long id = documentContext.read("$.id", Long.class);
-        assertThat(id).isEqualTo(2L);
-
-        String name = documentContext.read("$.name", String.class);
-        assertThat(name).isEqualTo("Microbrouwerij Grimbergen");
-    }
-
+    
     @Test
     void shouldReturnAClassification() {
         ResponseEntity<String> response = restTemplate.getForEntity("/classifications/1", String.class);

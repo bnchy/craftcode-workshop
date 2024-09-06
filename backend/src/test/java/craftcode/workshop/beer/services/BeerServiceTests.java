@@ -1,10 +1,9 @@
-package craftcode.workshop.beer;
+package craftcode.workshop.beer.services;
 
 import craftcode.workshop.beer.enums.BeerType;
 import craftcode.workshop.beer.model.Beer;
 import craftcode.workshop.beer.repository.BeerRepository;
 import craftcode.workshop.beer.repository.ClassificationRepository;
-import craftcode.workshop.beer.services.BeerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +14,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 
 @SpringBootTest
-public class BeerServiceTests {
+class BeerServiceTests {
 
     @Autowired
     BeerService beerService;
 
     @Autowired
     BeerRepository beerRepository;
+
     @Autowired
     ClassificationRepository classificationRepository;
 
@@ -70,5 +70,4 @@ public class BeerServiceTests {
         String name = newBeers.get(3).getName();
         assertThat(name).isEqualTo("Rene Lindemans kriek");
     }
-
 }
