@@ -1,7 +1,14 @@
 services:
-  spring-backend:
+  spring-app:
     build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    volumes:
+      - h2-data:/data
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+volumes:
+  h2-data:

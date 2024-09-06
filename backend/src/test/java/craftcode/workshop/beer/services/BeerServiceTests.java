@@ -3,71 +3,87 @@ package craftcode.workshop.beer.services;
 import craftcode.workshop.beer.enums.BeerType;
 import craftcode.workshop.beer.model.Beer;
 import craftcode.workshop.beer.repository.BeerRepository;
-import craftcode.workshop.beer.repository.ClassificationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class BeerServiceTests {
 
-    @Autowired
+    @InjectMocks
     BeerService beerService;
 
-    @Autowired
+    @Mock
     BeerRepository beerRepository;
 
-    @Autowired
-    ClassificationRepository classificationRepository;
+    List<Beer> beers;
 
     @BeforeEach
     void setUp() {
-        classificationRepository.deleteAll();
-        beerRepository.deleteAll();
-
         Beer beer1 = new Beer();
-        beer1.setName("chouffe");
+        beer1.setName("Chouffe");
         beer1.setAlcoholPercentage(6);
         beer1.setBeerType(BeerType.ALE);
         Beer beer2 = new Beer();
-        beer2.setName("grimbergen");
+        beer2.setName("Grimbergen");
         beer2.setAlcoholPercentage(6);
         beer2.setBeerType(BeerType.FRUIT);
         Beer beer3 = new Beer();
-        beer3.setName("pils");
+        beer3.setName("Pils");
         beer3.setAlcoholPercentage(10);
         beer3.setBeerType(BeerType.FRUIT);
 
-        beerRepository.saveAll(List.of(beer1, beer2, beer3));
+        beers = List.of(beer1, beer2, beer3);
+    }
+
+    @Test
+    void shouldReturnABeer() {
+        Beer beer = new Beer();
+        beer.setId(1L);
+        beer.setName("Chouffe");
+
+        when(beerRepository.findById(1L)).thenReturn(Optional.of(beer));
+
+        Optional<Beer> foundBeer = beerService.getBeerById(1L);
+        assertThat(foundBeer).isPresent();
+        assertThat(foundBeer.get().getName()).isEqualTo("Chouffe");
     }
 
     @Test
     void shouldReturnAllBeers() {
-        List<Beer> beers = beerService.getAllBeers();
-        assertThat(beers)
+        when(beerRepository.findAll()).thenReturn(beers);
+        List<Beer> foundBeers = beerService.getAllBeers();
+
+        assertThat(foundBeers)
                 .isNotEmpty()
                 .hasSize(3);
 
-        String name = beers.get(0).getName();
-        assertThat(name).isEqualTo("chouffe");
+        String name1 = foundBeers.get(0).getName();
+        assertThat(name1).isEqualTo("Chouffe");
     }
 
     @Test
     void shouldSaveABeer() {
-        Beer beer = new Beer();
-        beer.setName("Rene Lindemans kriek");
-        beer.setBeerType(BeerType.CHERRY);
-        beerService.saveBeer(beer);
+        Beer beer1 = new Beer();
+        beer1.setName("Grimbergen");
+        beer1.setAlcoholPercentage(6);
+        beer1.setBeerType(BeerType.ALE);
 
-        List<Beer> newBeers = beerService.getAllBeers();
-        int count = newBeers.size();
-        assertThat(count).isEqualTo(4);
-        String name = newBeers.get(3).getName();
-        assertThat(name).isEqualTo("Rene Lindemans kriek");
+        when(beerRepository.save(beer1)).thenReturn(beer1);
+
+        Beer savedBeer = beerService.saveBeer(beer1);
+
+        assertThat(savedBeer.getName()).isEqualTo(beer1.getName());
+
     }
+
 }
