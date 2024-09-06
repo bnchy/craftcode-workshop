@@ -5,10 +5,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    volumes:
-      - h2-data:/data
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
 
-volumes:
-  h2-data:
+  angular-app:
+    build:
+      context: ./frontend-beer-frontier
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
