@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
+import { Beer } from '../api';
 
 
 @Injectable({
@@ -15,6 +16,6 @@ export class BeerService {
   }
 
   fetchData() : Observable<any> {
-    return this.http.get(this.beersUrl);
+    return this.http.get<Beer[]>(this.beersUrl);
   }
 }

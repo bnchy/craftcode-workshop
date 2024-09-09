@@ -1,0 +1,196 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /beers:
+    get:
+      tags:
+        - beer-controller
+      operationId: getBeers
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+    post:
+      tags:
+        - beer-controller
+      operationId: addBeer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Beer'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Beer'
+  /classifications:
+    get:
+      tags:
+        - classification-controller
+      operationId: getClassification
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Classification'
+  /classifications/{id}:
+    get:
+      tags:
+        - classification-controller
+      operationId: getClassificationById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Classification'
+  /breweries:
+    get:
+      tags:
+        - brewery-controller
+      operationId: getBreweries
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Brewery'
+  /breweries/{id}:
+    get:
+      tags:
+        - brewery-controller
+      operationId: getBreweryById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Brewery'
+  /beers/{id}:
+    get:
+      tags:
+        - beer-controller
+      operationId: getBeer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Beer'
+components:
+  schemas:
+    Beer:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        alcoholPercentage:
+          type: integer
+          format: int32
+        beerType:
+          type: string
+          enum:
+            - ALCOHOL_FREE
+            - ALE
+            - FRUIT
+            - CHERRY
+        brewery:
+          $ref: '#/components/schemas/Brewery'
+        classifications:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Classification'
+    Brewery:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        location:
+          type: string
+    Classification:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        country:
+          type: string
+          enum:
+            - BELGIUM
+            - GERMANY
+            - AMERICA
+            - SPAIN
+            - FRANCE
+        usedGrainType:
+          type: string
+          enum:
+            - BARELY
+            - WHEAT
+            - CORN
+            - BASE_MALT
+            - OATS
+        fermentationType:
+          type: string
+          enum:
+            - WARM
+            - COOL
+            - WILD
+            - SPONTANEOUS
+        namesAndOrigins:
+          type: string
+          enum:
+            - ABBEY_BEER
+            - TRAPPIST_BEER
+            - DARK_BEER

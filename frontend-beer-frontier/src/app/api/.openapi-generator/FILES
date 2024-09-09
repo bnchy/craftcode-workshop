@@ -1,0 +1,11 @@
+.openapi-generator-ignore
+apis/BeerControllerApi.ts
+apis/BreweryControllerApi.ts
+apis/ClassificationControllerApi.ts
+apis/index.ts
+index.ts
+models/Beer.ts
+models/Brewery.ts
+models/Classification.ts
+models/index.ts
+runtime.ts

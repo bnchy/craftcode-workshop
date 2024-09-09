@@ -1,5 +1,12 @@
-<div>
-    <div *ngIf="data">
-        <pre>{{ data | json }}</pre>
-      </div>
+<div class="beer-container">
+    <mat-card *ngFor="let beer of data" class="beer-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>{{beer.name}}</mat-card-title>
+            <mat-card-subtitle>{{beer.brewery?.name}}</mat-card-subtitle>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+        </mat-card-content>
+      </mat-card> 
 </div>
