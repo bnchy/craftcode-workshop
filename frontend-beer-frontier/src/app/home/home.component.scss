@@ -1,3 +1,13 @@
+$colors: (
+  #e96749,
+  #3def5e, 
+  #528dfc, 
+  #FF33A1, 
+  #FF8C33, 
+  #33FFF5  
+);
+
+
 .beer-container{
     width: 100%;
     display: flex;
@@ -7,10 +17,26 @@
     margin: 15px;
 }
 
-.beer-card{
+.beer-card {
     width: 90%;
     max-width: 550px;
-    height:350px;
+    height: 350px;
     margin: 30px 0;
-}
 
+    background-image: url('/assets/images/beer-placeholder1.jpg');
+    background-size: cover;
+    background-position: center;
+  
+    @for $i from 1 through length($colors) {
+      &:nth-child(#{$i}n) {
+        border-color: nth($colors, $i);
+      }
+    }
+
+    color: #fff;
+    font-weight: bolder;
+  }
+
+.beer-subtitle{
+    color:#dcdada;
+}
