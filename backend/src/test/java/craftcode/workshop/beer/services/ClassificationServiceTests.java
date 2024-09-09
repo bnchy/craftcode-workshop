@@ -80,6 +80,4 @@ class ClassificationServiceTests {
 
         assertThat(foundNamesAndOrigins).isEqualTo(NamesAndOrigins.ABBEY_BEER);
     }
-
-
 }
