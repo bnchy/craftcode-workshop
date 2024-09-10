@@ -15,7 +15,7 @@ export class BeerService {
   constructor(private http: HttpClient) { 
   }
 
-  fetchData() : Observable<any> {
+  fetchData() : Observable<Beer[]> {
     return this.http.get<Beer[]>(this.beersUrl);
   }
 }

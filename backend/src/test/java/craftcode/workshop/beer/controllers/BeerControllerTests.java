@@ -2,16 +2,20 @@ package craftcode.workshop.beer.controllers;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import craftcode.workshop.beer.config.TestSecurityConfig;
 import craftcode.workshop.beer.enums.BeerType;
 import craftcode.workshop.beer.enums.Country;
 import craftcode.workshop.beer.model.Beer;
 import craftcode.workshop.beer.repository.BeerRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
