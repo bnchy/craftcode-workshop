@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from '../../environment/environment';
 
 @Component({
   selector: 'app-login',
@@ -39,12 +40,11 @@ export class LoginComponent {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    this.http.post('http://localhost:8080/login', body.toString(), { headers, observe: 'response' })
+    this.http.post(`${environment.apiUrl}/login`, body.toString(), { headers, observe: 'response' })
       .subscribe(response => {
         if (response.status === 200) {
-          console.log('Login successful');
           localStorage.setItem('user', JSON.stringify(this.userObj));
-          this.router.navigate(['/home']); // Navigate to home or another route
+          this.router.navigate(['/home']);
         }
       }, error => {
         console.log('Login failed', error);
