@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -55,11 +57,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain customSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+                .headers(headers -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
                 .cors(cors -> cors
                         .configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/beers/**").hasRole("USER")
+                        .requestMatchers("/h2-console/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
@@ -70,7 +75,6 @@ public class SecurityConfig {
                             response.setStatus(HttpServletResponse.SC_OK);
                             Map<String, String> data = new HashMap<>();
                             data.put("message", "Login successful");
-                            System.out.println("Login successful");
                             new ObjectMapper().writeValue(response.getOutputStream(), data);
                         })
                         .failureHandler((request, response, exception) -> {
@@ -78,13 +82,11 @@ public class SecurityConfig {
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                             Map<String, String> data = new HashMap<>();
                             data.put("message", "Login failed");
-                            System.out.println("Login failed: " + exception.getMessage());
                             new ObjectMapper().writeValue(response.getOutputStream(), data);
                         })
                         .permitAll()
                 )
-                .logout(logout -> logout
-                        .permitAll()
+                .logout(LogoutConfigurer::permitAll
                 );
         return http.build();
     }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
@@ -14,8 +14,20 @@ export class BeerService {
 
   constructor(private http: HttpClient) { 
   }
+  fetchData(): Observable<Beer[]> {
+    let user = { username: '', password: '' };
+    if (typeof localStorage !== 'undefined') {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        user = JSON.parse(storedUser);
+      }
+    }
 
-  fetchData() : Observable<Beer[]> {
-    return this.http.get<Beer[]>(this.beersUrl);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(`${user.username}:${user.password}`)
+    });
+
+    return this.http.get<Beer[]>(this.beersUrl, { headers });
   }
 }

@@ -6,6 +6,5 @@ import org.springframework.test.context.ActiveProfiles;
 
 @Import(TestSecurityConfig.class)
 @ActiveProfiles("test")
-
 public class ClassificationControllerTests {
 }
