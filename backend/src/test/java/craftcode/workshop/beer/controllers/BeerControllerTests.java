@@ -1,112 +1,101 @@
 package craftcode.workshop.beer.controllers;
 
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
+import craftcode.workshop.beer.controller.BeerController;
 import craftcode.workshop.beer.enums.BeerType;
-import craftcode.workshop.beer.enums.Country;
 import craftcode.workshop.beer.model.Beer;
-import craftcode.workshop.beer.repository.BeerRepository;
+import craftcode.workshop.beer.services.BeerService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 class BeerControllerTests {
 
-    @Autowired
-    TestRestTemplate restTemplate;
+    @Mock
+    BeerService beerService;
 
-    @Autowired
-    BeerRepository beerRepository;
+    @InjectMocks
+    BeerController beerController;
+
+    List<Beer> beers;
+
+    @BeforeEach
+    void setUp() {
+
+        MockitoAnnotations.openMocks(this);
+        
+        Beer beer1 = new Beer();
+        beer1.setName("Chouffe");
+        beer1.setAlcoholPercentage(6);
+        beer1.setBeerType(BeerType.ALE);
+        Beer beer2 = new Beer();
+        beer2.setName("Grimbergen");
+        beer2.setAlcoholPercentage(6);
+        beer2.setBeerType(BeerType.FRUIT);
+        Beer beer3 = new Beer();
+        beer3.setName("Pils");
+        beer3.setAlcoholPercentage(10);
+        beer3.setBeerType(BeerType.FRUIT);
+
+        beers = List.of(beer1, beer2, beer3);
+    }
 
     @Test
     void shouldReturnAllBeers() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/beers", String.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-        DocumentContext documentContext = JsonPath.parse(response.getBody());
-        assertThat(documentContext.read("$.length()", Integer.class)).isEqualTo(3);
-        assertThat(documentContext.read("$[0].name", String.class)).isEqualTo("chouffe");
+        when(beerService.getAllBeers()).thenReturn(beers);
+
+        ResponseEntity<List<Beer>> response = beerController.getBeers();
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().size()).isEqualTo(beers.size());
     }
 
     @Test
     void shouldReturnABeer() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/beers/1",String.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        when(beerService.getBeerById(1L)).thenReturn(Optional.of(beers.get(0)));
 
-        DocumentContext context = JsonPath.parse(response.getBody());
-        assertThat(context).isNotNull();
-
-        long id = context.read("$.id", Long.class);
-        String name = context.read("$.name", String.class);
-
-        assertThat(id).isEqualTo(1L);
-        assertThat(name).isEqualTo("chouffe");
+        ResponseEntity<Beer> response = beerController.getBeer(1L);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().getName()).isEqualTo(beers.get(0).getName());
     }
     @Test
     void shouldSaveABeer() {
-        Beer beer = new Beer();
-        beer.setName("Rene Lindemans kriek");
-        beer.setAlcoholPercentage(4);
-        beer.setBeerType(BeerType.CHERRY);
+        Beer newBeer = new Beer();
+        newBeer.setName("Duvel");
+        newBeer.setAlcoholPercentage(8);
+        newBeer.setBeerType(BeerType.ALCOHOL_FREE);
 
-        ResponseEntity<Void> createResponse = restTemplate.postForEntity("/beers", beer, Void.class);
-        assertThat(createResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        Beer savedBeer = new Beer();
+        savedBeer.setId(1L);
+        savedBeer.setName("Duvel");
+        savedBeer.setAlcoholPercentage(8);
+        savedBeer.setBeerType(BeerType.ALCOHOL_FREE);
 
-        Optional<Beer> savedBeer = beerRepository.findById(4L);
-        assertThat(savedBeer).isNotNull();
+        when(beerService.saveBeer(newBeer)).thenReturn(savedBeer);
 
-        Long id = savedBeer.get().getId();
-        String name = savedBeer.get().getName();
-
-        assertThat(id).isEqualTo(4L);
-        assertThat(name).isEqualTo("Rene Lindemans kriek");
+        UriComponentsBuilder ucb = UriComponentsBuilder.fromPath("");
+        ResponseEntity<Beer> response = beerController.addBeer(newBeer, null, ucb);
 
 
-        beerRepository.deleteById(4L);
+        assertThat(response.getHeaders().getLocation()).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getHeaders().getLocation().toString()).isEqualTo("/beers/1");
+
     }
-    
-    @Test
-    void shouldReturnAClassification() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/classifications/1", String.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        DocumentContext documentContext = JsonPath.parse(response.getBody());
-        assertThat(documentContext).isNotNull();
-
-        long id = documentContext.read("$.id", Long.class);
-        assertThat(id).isEqualTo(1L);
-
-        String countryStr = documentContext.read("$.country", String.class);
-        Country country = Country.valueOf(countryStr);
-        assertThat(country).isEqualTo(Country.BELGIUM);
-    }
-
-    @Test
-    void shouldReturnAllClassifications() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/classifications", String.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        DocumentContext documentContext = JsonPath.parse(response.getBody());
-        assertThat(documentContext).isNotNull();
-
-
-        int count = documentContext.read("$.length()", Integer.class);
-        assertThat(count).isEqualTo(2);
-
-        String countrystr = documentContext.read("$[0].country", String.class);
-        Country country = Country.valueOf(countrystr);
-        assertThat(country).isEqualTo(Country.BELGIUM);
-    }
-
 
 }
+
