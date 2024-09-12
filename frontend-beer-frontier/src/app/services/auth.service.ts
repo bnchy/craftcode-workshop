@@ -11,6 +11,19 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  getUser() : { username: string, password: string } {
+
+    let user = { username: '', password: ''};
+
+    if (typeof localStorage !== 'undefined') {
+      const storedUser = localStorage.getItem('user');
+      if(storedUser) {
+        user = JSON.parse(storedUser);
+      }
+    }
+    return user;
+  }
+
   isLoggedIn(token:string): Observable<boolean>{
 
     if(!token) {

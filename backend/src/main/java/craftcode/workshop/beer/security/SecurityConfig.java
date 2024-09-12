@@ -65,6 +65,8 @@ public class SecurityConfig {
                         .configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/beers/**").hasRole("USER")
+                        .requestMatchers("/breweries/**").hasRole("USER")
+                        .requestMatchers("/classifications/**").hasRole("USER")
                         .requestMatchers("/h2-console/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

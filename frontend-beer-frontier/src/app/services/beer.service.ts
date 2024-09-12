@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
 import { Beer } from '../api';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -10,18 +11,12 @@ import { Beer } from '../api';
 })
 
 export class BeerService {
-  private beersUrl = `${environment.apiUrl}/beers`
+  private beersUrl = `${environment.apiUrl}/beers`;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private authService: AuthService) { 
   }
   fetchData(): Observable<Beer[]> {
-    let user = { username: '', password: '' };
-    if (typeof localStorage !== 'undefined') {
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
-        user = JSON.parse(storedUser);
-      }
-    }
+    let user = this.authService.getUser();
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

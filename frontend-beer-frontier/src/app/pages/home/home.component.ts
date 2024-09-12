@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { BeerService } from '../services/beer.service';
+import { BeerService } from '../../services/beer.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { Beer } from '../api';
+import { Beer } from '../../api';
 
 @Component({
   selector: 'app-home',
