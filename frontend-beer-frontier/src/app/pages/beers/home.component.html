@@ -1,5 +1,5 @@
 <div class="beer-container">
-    <mat-card *ngFor="let beer of data" class="beer-card" appearance="raised">
+    <mat-card [routerLink]="['/beers', beer.id]" *ngFor="let beer of beers" class="beer-card" appearance="raised">
         <mat-card-header>
           <mat-card-title-group>
             <mat-card-title>{{beer.name}}</mat-card-title>

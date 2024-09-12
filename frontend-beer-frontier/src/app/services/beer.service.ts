@@ -13,16 +13,19 @@ import { AuthService } from './auth.service';
 export class BeerService {
   private beersUrl = `${environment.apiUrl}/beers`;
 
+  
+
   constructor(private http: HttpClient, private authService: AuthService) { 
   }
-  fetchData(): Observable<Beer[]> {
-    let user = this.authService.getUser();
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa(`${user.username}:${user.password}`)
-    });
 
+  fetchAllBeers(): Observable<Beer[]> {
+    const headers = this.authService.getHeaders();
     return this.http.get<Beer[]>(this.beersUrl, { headers });
   }
-}
+
+  fetchBeerById(id: number): Observable<Beer> {
+    const headers = this.authService.getHeaders();
+    return this.http.get<Beer>(`${this.beersUrl}/${id}`, { headers});
+  }
+ }

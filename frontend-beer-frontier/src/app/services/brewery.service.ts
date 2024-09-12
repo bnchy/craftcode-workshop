@@ -12,14 +12,13 @@ export class BreweryService {
   private breweryUrl = `${environment.apiUrl}/breweries`;
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  fetchData(): Observable<Brewery[]> {
-    let user = this.authService.getUser();
-
-    const headers = new HttpHeaders({
-      'Content-Type' : 'application/json',
-      'Authorization': 'Basic ' + btoa(`${user.username}:${user.password}`)
-    })
-
+  fetchAllBreweries(): Observable<Brewery[]> {
+    const headers = this.authService.getHeaders();
     return this.http.get<Brewery[]>(this.breweryUrl, {headers});
+  }
+
+  fetchABrewery(id: number): Observable<Brewery> {
+    const headers = this.authService.getHeaders();
+    return this.http.get<Brewery>(`${this.breweryUrl}/${id}`, {headers});
   }
 }

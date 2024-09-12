@@ -12,14 +12,13 @@ export class ClassificationsService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  fetchData() : Observable<Classification[]> {
-    const user = this.authService.getUser();
-
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa(`${user.username}:${user.password}`)
-    }
-    
+  fetchAllClassifications() : Observable<Classification[]> {
+    const headers = this.authService.getHeaders();
     return this.http.get<Classification[]>(`${environment.apiUrl}/classifications`, { headers})
   }
-}
+
+  fetchAClassification(id: number) : Observable<Classification> {
+    const headers = this.authService.getHeaders();
+    return this.http.get<Classification>(`${environment.apiUrl}/classifications/${id}`, { headers})
+  }
+ }

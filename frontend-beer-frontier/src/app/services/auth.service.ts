@@ -24,15 +24,22 @@ export class AuthService {
     return user;
   }
 
+  getHeaders() : HttpHeaders {
+    let user = this.getUser();
+
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(`${user.username}:${user.password}`)
+    });
+  }
+
   isLoggedIn(token:string): Observable<boolean>{
 
     if(!token) {
       return of(false);
     }
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+    const headers = this.getHeaders();
 
     return this.http.post(`${environment.apiUrl}/login`, JSON.parse(token) , { headers, observe: 'response' })
       .pipe(
@@ -56,7 +63,7 @@ export class AuthService {
       map(response => {
       if (response.status === 200) {
         localStorage.setItem('user', JSON.stringify({username, password}));
-        this.router.navigate(['/home']);
+        this.router.navigate(['/beers']);
         return true;
       } else {
         return false;

@@ -21,7 +21,7 @@ export class BreweriesComponent {
   constructor(private breweryService: BreweryService) {}
 
   ngOnInit(){
-    this.breweryService.fetchData().subscribe( data => {
+    this.breweryService.fetchAllBreweries().subscribe( data => {
       this.breweries = data;
     })
   }

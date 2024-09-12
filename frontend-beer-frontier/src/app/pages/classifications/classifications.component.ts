@@ -19,7 +19,7 @@ export class ClassificationsComponent {
   constructor(private classification: ClassificationsService) {}
 
   ngOnInit(){
-    this.classification.fetchData().subscribe( data => {
+    this.classification.fetchAllClassifications().subscribe( data => {
       this.classifications = data;
     })
   }

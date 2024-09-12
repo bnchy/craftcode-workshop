@@ -26,6 +26,8 @@ $colors: (
     background-image: url('/assets/images/beer-placeholder1.jpg');
     background-size: cover;
     background-position: center;
+
+    cursor: pointer;
   
     @for $i from 1 through length($colors) {
       &:nth-child(#{$i}n) {
