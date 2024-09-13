@@ -12,9 +12,35 @@
 
 .beer-content-container-item{
     flex: 1 1 45%;
-    margin: 10px;
+    margin: 10px 0;
 }
+.beer-title-group{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;    
+}
+
+.beer-alcohol-percentage{
+    font-weight: bold;
+    font-size: larger;
+}
+
 .content-item-header{
     font-size: 1.2rem;
+    margin: 0;
+}
 
+
+.beer-container-actions{
+    display: flex;
+    justify-content: space-between;
+}
+
+.beer-container-edit-button{
+    color: #00c3f9;
+}
+
+.beer-container-save-button{
+    color: #00b539;
 }

@@ -1,9 +1,10 @@
-<div class = "beer-container" *ngIf="beer">
+<div class = "beer-container" *ngIf="beer && edit ==false">
     <mat-card>
         <mat-card-header>
-            <mat-card-title-group>
+            <mat-card-title-group class="beer-title-group">
                 <mat-card-title>{{beer.name}}</mat-card-title>
                 <mat-card-subtitle class="beer-subtitle" [routerLink]="['/breweries',beer.brewery?.id]">{{beer.brewery?.name}}</mat-card-subtitle>
+                <p class="beer-alcohol-percentage">{{beer.alcoholPercentage}}%</p>
             </mat-card-title-group>
         </mat-card-header>
         <mat-divider></mat-divider>
@@ -27,5 +28,51 @@
                 </div>
             </div>
         </mat-card-content>
+        <mat-card-actions class="beer-container-actions">
+            <button mat-raised-button color="warn"><mat-icon>delete</mat-icon></button>
+            <button mat-raised-button class="beer-container-edit-button" (click)="edit = true"><mat-icon>edit</mat-icon></button>
+        </mat-card-actions>
     </mat-card>
 </div>
+
+<form class = "beer-container" *ngIf="beer && edit ==true">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title-group>
+                <mat-card-title>{{beer.name}}</mat-card-title>
+                <mat-card-subtitle class="beer-subtitle" [routerLink]="['/breweries',beer.brewery?.id]">{{beer.brewery?.name}}</mat-card-subtitle>
+            </mat-card-title-group>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <div class="beer-content-container" *ngFor="let classification of beer.classifications" >
+                <div class="beer-content-container-item">
+                    <h2 class="content-item-header">Name</h2>
+                    <mat-form-field>
+                        <input matInput placeholder="" [(ngModel)]="beer.name" name="name">
+                    </mat-form-field>
+                </div>
+                <div class="beer-content-container-item">
+                    <h2 class="content-item-header">Alcohol %</h2>
+                    <mat-form-field>
+                        <input matInput placeholder="" [(ngModel)]="beer.alcoholPercentage" name="alcoholPercentage">
+                    </mat-form-field>
+                </div>
+                <div class="beer-content-container-item">
+                    <h2 class="content-item-header">Beertype</h2>
+                    <mat-form-field>
+                        <input matInput placeholder="" [(ngModel)]="beer.beerType" name="beerType">
+                    </mat-form-field>
+                </div>
+                <div class="beer-content-container-item">
+                    <h2 class="content-item-header">Upload banner (WIP)</h2>
+                        <input matInput type="file">
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions class="beer-container-actions">
+            <button mat-raised-button  (click)="edit = false"><mat-icon>cancel</mat-icon></button>
+            <button mat-raised-button class="beer-container-save-button"><mat-icon>save</mat-icon></button>
+        </mat-card-actions>
+    </mat-card>
+</form>
