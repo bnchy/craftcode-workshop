@@ -24,4 +24,13 @@ public class BeerService {
     public Beer saveBeer(Beer beer){
         return beerRepository.save(beer);
     }
+
+    public Optional<Beer> updateBeer(long l, Beer updatedBeer) {
+        return beerRepository.findById(l).map(existingBeer -> {
+            existingBeer.setName(updatedBeer.getName());
+            existingBeer.setAlcoholPercentage(updatedBeer.getAlcoholPercentage());
+            existingBeer.setBeerType(updatedBeer.getBeerType());
+             return beerRepository.save(existingBeer);
+        });
+    }
 }

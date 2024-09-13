@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.swing.text.html.Option;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -44,4 +45,14 @@ public class BeerController {
     }
 
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Beer> updateBeer(@PathVariable long id, @RequestBody Beer beerDetails) {
+        Optional<Beer> updatedBeer = beerService.updateBeer(id, beerDetails);
+
+        if (updatedBeer.isPresent()) {
+            return ResponseEntity.ok(updatedBeer.get());
+        }
+        return ResponseEntity.notFound().build();
+
+    }
 }

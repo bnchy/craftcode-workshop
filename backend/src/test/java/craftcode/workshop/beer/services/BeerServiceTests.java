@@ -83,7 +83,27 @@ class BeerServiceTests {
         Beer savedBeer = beerService.saveBeer(beer1);
 
         assertThat(savedBeer.getName()).isEqualTo(beer1.getName());
-
     }
 
+    @Test
+    void shouldUpdateABeer() {
+        Beer exisitingBeer = new Beer();
+        exisitingBeer.setId(1L);
+        exisitingBeer.setName("Chouffe");
+        exisitingBeer.setAlcoholPercentage(8);
+        exisitingBeer.setBeerType(BeerType.ALE);
+
+        Beer update = new Beer();
+        update.setName("Grimbergen");
+        update.setAlcoholPercentage(6);
+        update.setBeerType(BeerType.FRUIT);
+
+        when(beerRepository.findById(1L)).thenReturn(Optional.of(exisitingBeer));
+        when(beerRepository.save(exisitingBeer)).thenReturn(exisitingBeer);
+
+        Optional<Beer> updatedBeer = beerService.updateBeer(1L, update);
+
+        assertThat(updatedBeer).isPresent();
+        assertThat(updatedBeer.get().getName()).isEqualTo("Grimbergen");
+    }
 }

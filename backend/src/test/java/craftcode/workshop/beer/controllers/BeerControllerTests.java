@@ -4,6 +4,7 @@ import craftcode.workshop.beer.controller.BeerController;
 import craftcode.workshop.beer.enums.BeerType;
 import craftcode.workshop.beer.model.Beer;
 import craftcode.workshop.beer.services.BeerService;
+import org.apache.coyote.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -94,6 +95,27 @@ class BeerControllerTests {
         assertThat(response.getHeaders().getLocation()).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getHeaders().getLocation().toString()).isEqualTo("/beers/1");
+    }
+
+    @Test
+    void shouldUpdateABeer(){
+        Beer existingBeer = new Beer();
+        existingBeer.setId(1L);
+        existingBeer.setName("Chouffe");
+        existingBeer.setAlcoholPercentage(8);
+        existingBeer.setBeerType(BeerType.ALE);
+
+        Beer updatedBeer = new Beer();
+        updatedBeer.setName("Duvel");
+        updatedBeer.setAlcoholPercentage(4);
+        updatedBeer.setBeerType(BeerType.ALCOHOL_FREE);
+
+        when(beerService.updateBeer(1L, updatedBeer)).thenReturn(Optional.of(updatedBeer));
+
+        ResponseEntity<Beer> response = beerController.updateBeer(1L,  updatedBeer);
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().getName()).isEqualTo(updatedBeer.getName());
 
     }
 
