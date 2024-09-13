@@ -75,4 +75,27 @@ class ClassificationControllerTests {
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getId()).isEqualTo(1L);
     }
+    @Test
+    void shouldUpdateAClassification() {
+        Classification exisitingClassification = new Classification();
+        exisitingClassification.setId(1L);
+        exisitingClassification.setUsedGrainType(GrainTypes.BARELY);
+        exisitingClassification.setNamesAndOrigins(NamesAndOrigins.ABBEY_BEER);
+        exisitingClassification.setCountry(Country.BELGIUM);
+        exisitingClassification.setFermentationType(FermentationType.COOL);
+
+        Classification updatedClassification = new Classification();
+        updatedClassification.setId(1L);
+        updatedClassification.setUsedGrainType(GrainTypes.OATS);
+        updatedClassification.setNamesAndOrigins(NamesAndOrigins.DARK_BEER);
+        updatedClassification.setCountry(Country.GERMANY);
+        updatedClassification.setFermentationType(FermentationType.SPONTANEOUS);
+
+        when(classificationService.updateClassification(1L, updatedClassification)).thenReturn(Optional.of(updatedClassification));
+
+        ResponseEntity<Classification> response = classificationController.updateClassification(1L, updatedClassification);
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().getCountry()).isEqualTo(updatedClassification.getCountry());
+    }
 }

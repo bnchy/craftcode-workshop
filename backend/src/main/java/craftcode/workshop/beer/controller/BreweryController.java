@@ -4,10 +4,7 @@ import craftcode.workshop.beer.model.Brewery;
 import craftcode.workshop.beer.services.BreweryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,12 +23,23 @@ public class BreweryController {
     @GetMapping("/{id}")
     public ResponseEntity<Brewery> getBreweryById(@PathVariable long id) {
         Optional<Brewery> brewery = breweryService.getBreweryById(id);
-        logger.info("Fetching brewery with id: " + id);
         return ResponseEntity.ok(brewery.orElseThrow());
     }
     @GetMapping
     public ResponseEntity<List<Brewery>> getBreweries() {
         List<Brewery> all = breweryService.getAllBreweries();
         return ResponseEntity.ok(all);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Brewery> updateBrewery(@PathVariable long id, @RequestBody Brewery updatedBrewery) {
+        Optional<Brewery> brewery = breweryService.updateBrewery(id, updatedBrewery);
+
+        if (brewery.isPresent()) {
+            return ResponseEntity.ok(brewery.get());
+        }
+
+        return ResponseEntity.notFound().build();
+
     }
 }

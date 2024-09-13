@@ -1,6 +1,7 @@
 package craftcode.workshop.beer.controllers;
 
 import craftcode.workshop.beer.controller.BreweryController;
+import craftcode.workshop.beer.enums.Country;
 import craftcode.workshop.beer.model.Brewery;
 import craftcode.workshop.beer.services.BreweryService;
 import org.junit.jupiter.api.BeforeEach;
@@ -67,6 +68,26 @@ class BreweryControllerTests {
 
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getName()).isEqualTo(breweries.get(0).getName());
+    }
+
+    @Test
+    void shouldUpdateABrewery() {
+        Brewery existingBrewery = new Brewery();
+        existingBrewery.setName("Brewery");
+        existingBrewery.setLocation("BELGIUM");
+
+        Brewery updatedBrewery = new Brewery();
+        updatedBrewery.setName("UpdatedBrewery");
+        updatedBrewery.setLocation(Country.GERMANY.toString());
+
+        when(breweryService.updateBrewery(1L,updatedBrewery)).thenReturn(Optional.of(updatedBrewery));
+
+        ResponseEntity<Brewery> response = breweryController.updateBrewery(1L, updatedBrewery);
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().getName()).isEqualTo(updatedBrewery.getName());
+
+
     }
 
 }

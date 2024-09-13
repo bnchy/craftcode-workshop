@@ -4,10 +4,8 @@ import craftcode.workshop.beer.model.Classification;
 import craftcode.workshop.beer.services.ClassificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -28,5 +26,15 @@ public class ClassificationController {
     public ResponseEntity<List<Classification>> getClassification() {
         List<Classification> classifications = classificationService.getAllClassifications();
         return ResponseEntity.ok(classifications);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Classification> updateClassification(@PathVariable Long id, @RequestBody Classification updatedClassification) {
+        Optional<Classification> classification = classificationService.updateClassification(id, updatedClassification);
+
+        if (classification.isPresent()) {
+            return ResponseEntity.ok(classification.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 }

@@ -80,4 +80,30 @@ class ClassificationServiceTests {
 
         assertThat(foundNamesAndOrigins).isEqualTo(NamesAndOrigins.ABBEY_BEER);
     }
+
+    @Test
+    void shouldUpdateAClassification() {
+        Classification exisitingClassification = new Classification();
+        exisitingClassification.setId(1L);
+        exisitingClassification.setNamesAndOrigins(NamesAndOrigins.ABBEY_BEER);
+        exisitingClassification.setCountry(Country.BELGIUM);
+        exisitingClassification.setUsedGrainType(GrainTypes.BARELY);
+        exisitingClassification.setFermentationType(FermentationType.SPONTANEOUS);
+
+        Classification updatedClassification = new Classification();
+        updatedClassification.setId(1L);
+        updatedClassification.setNamesAndOrigins(NamesAndOrigins.DARK_BEER);
+        updatedClassification.setCountry(Country.GERMANY);
+        updatedClassification.setUsedGrainType(GrainTypes.OATS);
+        updatedClassification.setFermentationType(FermentationType.COOL);
+
+        when(classificationRepository.findById(1L)).thenReturn(Optional.of(exisitingClassification));
+        when(classificationRepository.save(exisitingClassification)).thenReturn(exisitingClassification);
+
+        Optional<Classification> foundClassification = classificationService.updateClassification(1L, updatedClassification);
+
+        assertThat(foundClassification).isPresent();
+        assertThat(foundClassification.get().getCountry()).isEqualTo(Country.GERMANY);
+
+    }
 }

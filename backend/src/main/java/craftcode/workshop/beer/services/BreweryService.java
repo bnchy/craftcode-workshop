@@ -21,5 +21,13 @@ public class BreweryService {
     public List<Brewery> getAllBreweries() {
         return breweryRepository.findAll();
     }
+
+    public Optional<Brewery> updateBrewery(Long id, Brewery update) {
+        return breweryRepository.findById(id).map(existingBrewery -> {
+            existingBrewery.setName(update.getName());
+            existingBrewery.setLocation(update.getLocation());
+            return breweryRepository.save(existingBrewery);
+        });
+    }
 }
 

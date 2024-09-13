@@ -1,5 +1,7 @@
 package craftcode.workshop.beer.services;
 
+import craftcode.workshop.beer.enums.Country;
+import craftcode.workshop.beer.model.Beer;
 import craftcode.workshop.beer.model.Brewery;
 import craftcode.workshop.beer.repository.BreweryRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -67,5 +69,27 @@ class BreweryServiceTests {
 
         String name = foundBrewery.get().getName();
         assertThat(name).isEqualTo("Brewery1");
+    }
+
+    @Test
+    void shouldUpdateABrewery() {
+        Brewery existingBrewery = new Brewery();
+        existingBrewery.setId(1L);
+        existingBrewery.setName("existingBrewery");
+        existingBrewery.setLocation("BELGIUM");
+
+        Brewery update = new Brewery();
+        update.setId(1L);
+        update.setName("updatedBrewery");
+        update.setLocation(Country.GERMANY.toString());
+
+        when(breweryRepository.findById(1L)).thenReturn(Optional.of(existingBrewery));
+        when(breweryRepository.save(existingBrewery)).thenReturn(existingBrewery);
+
+        Optional<Brewery> updatedBrewery = breweryService.updateBrewery(1L, update);
+
+        assertThat(updatedBrewery).isPresent();
+        assertThat(updatedBrewery.get().getName()).isEqualTo("updatedBrewery");
+
     }
 }

@@ -21,4 +21,15 @@ public class ClassificationService {
     public List<Classification> getAllClassifications() {
         return classificationRepository.findAll();
     }
+
+    public Optional<Classification> updateClassification(Long id, Classification updatedClassification) {
+        return classificationRepository.findById(id).map(existingClassification -> {
+            existingClassification.setCountry(updatedClassification.getCountry());
+            existingClassification.setFermentationType(updatedClassification.getFermentationType());
+            existingClassification.setNamesAndOrigins(updatedClassification.getNamesAndOrigins());
+            existingClassification.setUsedGrainType(updatedClassification.getUsedGrainType());
+
+            return classificationRepository.save(existingClassification);
+        });
+    }
 }
