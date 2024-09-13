@@ -1,12 +1,15 @@
 <div class="beer-container">
-    <mat-card [routerLink]="['/beers', beer.id]" *ngFor="let beer of beers" class="beer-card" appearance="raised">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title>{{beer.name}}</mat-card-title>
-            <mat-card-subtitle class="beer-subtitle">{{beer.brewery?.name}}</mat-card-subtitle>
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>
-        </mat-card-content>
-      </mat-card> 
+  <mat-card [routerLink]="['/beers', beer.id]" *ngFor="let beer of beers" class="beer-card" appearance="raised">
+    <img class="card-image-header" mat-card-image src="/assets/images/beer-placeholder1.jpg">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title class="beer-title">{{beer.name}}</mat-card-title>
+        <mat-card-subtitle class="beer-subtitle">{{beer.brewery?.name}}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+  <mat-divider></mat-divider>
+    <mat-card-content>
+      <!-- Additional content can go here -->
+    </mat-card-content>
+  </mat-card>
 </div>

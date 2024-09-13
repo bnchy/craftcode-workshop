@@ -1,4 +1,20 @@
 .beer-container{
-    width: 60%;
+    width: 50%;
+    max-width: 750px;
     margin: 20px auto;
+}
+
+.beer-content-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.beer-content-container-item{
+    flex: 1 1 45%;
+    margin: 10px;
+}
+.content-item-header{
+    font-size: 1.2rem;
+
 }

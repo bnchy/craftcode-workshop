@@ -20,6 +20,6 @@
 
     
         <tr mat-header-row *matHeaderRowDef="displayedBreweryColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedBreweryColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedBreweryColumns;" [routerLink]="['/breweries/', row.id]" style="cursor: pointer;"></tr>
     </table>
 </div>

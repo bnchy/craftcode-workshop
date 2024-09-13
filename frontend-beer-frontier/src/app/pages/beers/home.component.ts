@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { Beer } from '../../api';
 import { RouterLink } from '@angular/router';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatCardModule, RouterLink],
+  imports: [CommonModule, MatCardModule, MatDividerModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

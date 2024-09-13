@@ -2,36 +2,37 @@
     <div class="button-container">
          <button mat-raised-button> +  Add classification</button>
      </div>
- 
+
      <table mat-table [dataSource]="classifications" class="mat-elevation-z8 demo-table">
          <ng-container matColumnDef="id">
              <th mat-header-cell *matHeaderCellDef> ID </th>
              <td mat-cell *matCellDef="let classification"> {{classification.id}} </td>
          </ng-container>
+
          <ng-container matColumnDef="country">
-         <th mat-header-cell *matHeaderCellDef> Country </th>
-         <td mat-cell *matCellDef="let classification"> {{classification.country}} </td>
+             <th mat-header-cell *matHeaderCellDef> Country </th>
+             <td mat-cell *matCellDef="let classification"> {{classification.country}} </td>
          </ng-container>
-     
+
          <ng-container matColumnDef="usedGrainType">
-         <th mat-header-cell *matHeaderCellDef> Used Graintype </th>
-         <td mat-cell *matCellDef="let classification"> {{classification.usedGrainType}} </td>
+             <th mat-header-cell *matHeaderCellDef> Used Graintype </th>
+             <td mat-cell *matCellDef="let classification"> {{classification.usedGrainType}} </td>
          </ng-container>
 
          <ng-container matColumnDef="fermentationType">
-            <th mat-header-cell *matHeaderCellDef> Fermentationtype </th>
-            <td mat-cell *matCellDef="let classification"> {{classification.fermentationType}} </td>
-            </ng-container>
+             <th mat-header-cell *matHeaderCellDef> Fermentationtype </th>
+             <td mat-cell *matCellDef="let classification"> {{classification.fermentationType}} </td>
+         </ng-container>
 
-            <ng-container matColumnDef="namesAndOrigins">
-                <th mat-header-cell *matHeaderCellDef> Names and Origins </th>
-                <td mat-cell *matCellDef="let classification"> {{classification.namesAndOrigins}} </td>
-                </ng-container>
-       
- 
-     
+         <ng-container matColumnDef="namesAndOrigins">
+             <th mat-header-cell *matHeaderCellDef> Names and Origins </th>
+             <td mat-cell *matCellDef="let classification"> {{classification.namesAndOrigins}} </td>
+         </ng-container>
+
+         <!-- RouterLink on the row to navigate to the classification detail page -->
          <tr mat-header-row *matHeaderRowDef="displayedClassificationColumns"></tr>
-         <tr mat-row *matRowDef="let row; columns: displayedClassificationColumns;"></tr>
+         <tr mat-row *matRowDef="let row; columns: displayedClassificationColumns;"
+             [routerLink]="['/classifications', row.id]" style="cursor: pointer;">
+         </tr>
      </table>
- </div>
- 
+</div>

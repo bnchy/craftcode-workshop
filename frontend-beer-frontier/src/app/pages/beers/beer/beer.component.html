@@ -1,14 +1,31 @@
-<div class = "beer-container">
+<div class = "beer-container" *ngIf="beer">
     <mat-card>
         <mat-card-header>
             <mat-card-title-group>
                 <mat-card-title>{{beer.name}}</mat-card-title>
-                <mat-card-subtitle class="beer-subtitle">{{beer.brewery?.name}}</mat-card-subtitle>
+                <mat-card-subtitle class="beer-subtitle" [routerLink]="['/breweries',beer.brewery?.id]">{{beer.brewery?.name}}</mat-card-subtitle>
             </mat-card-title-group>
         </mat-card-header>
         <mat-divider></mat-divider>
         <mat-card-content>
-            
+            <div class="beer-content-container" *ngFor="let classification of beer.classifications" >
+                <div class="beer-content-container-item">
+                    <h2 class="content-item-header">Fermentationtype</h2>
+                    <p class="content-item-value">{{ transformEnum(classification.fermentationType)}}</p>
+                </div>
+                <div class="beer-content-container-item">
+                    <h2 class="content-item-header">Used Graintype</h2>
+                    <p class="content-item-value">{{ transformEnum(classification.usedGrainType)}}</p>
+                </div>
+                <div class="beer-content-container-item">
+                    <h2 class="content-item-header">Country</h2>
+                    <p class="content-item-value">{{ transformEnum(classification.country)}}</p>
+                </div>
+                <div class="beer-content-container-item">
+                    <h2 class="content-item-header">Names and origins</h2>
+                    <p class="content-item-value">{{ transformEnum(classification.namesAndOrigins)}}</p>
+                </div>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>
