@@ -2,14 +2,32 @@
   <mat-card [routerLink]="['/beers', beer.id]" *ngFor="let beer of beers" class="beer-card" appearance="raised">
     <img class="card-image-header" mat-card-image src="/assets/images/beer-placeholder1.jpg">
     <mat-card-header>
-      <mat-card-title-group>
+      <mat-card-title-group class="beer-title-group">
         <mat-card-title class="beer-title">{{beer.name}}</mat-card-title>
         <mat-card-subtitle class="beer-subtitle">{{beer.brewery?.name}}</mat-card-subtitle>
+        <p class="beer-alcohol-percentage">{{beer.alcoholPercentage}}%</p>
       </mat-card-title-group>
     </mat-card-header>
   <mat-divider></mat-divider>
-    <mat-card-content>
-      <!-- Additional content can go here -->
-    </mat-card-content>
+  <mat-card-content>
+    <div class="beer-content-container" *ngFor="let classification of beer.classifications" >
+        <div class="beer-content-container-item">
+            <h2 class="content-item-header">Fermentationtype</h2>
+            <p class="content-item-value">{{ transformEnum(classification.fermentationType)}}</p>
+        </div>
+        <div class="beer-content-container-item">
+            <h2 class="content-item-header">Used Graintype</h2>
+            <p class="content-item-value">{{ transformEnum(classification.usedGrainType)}}</p>
+        </div>
+        <div class="beer-content-container-item">
+            <h2 class="content-item-header">Country</h2>
+            <p class="content-item-value">{{ transformEnum(classification.country)}}</p>
+        </div>
+        <div class="beer-content-container-item">
+            <h2 class="content-item-header">Names and origins</h2>
+            <p class="content-item-value">{{ transformEnum(classification.namesAndOrigins)}}</p>
+        </div>
+    </div>
+</mat-card-content>
   </mat-card>
 </div>

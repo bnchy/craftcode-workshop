@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Beer } from '../../api';
 import { RouterLink } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
+import { transformEnumValue } from '../../utils/string-utils';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,15 @@ export class HomeComponent {
   ngOnInit() {
     this.beerService.fetchAllBeers().subscribe(data => {
       this.beers = data;
+      console.log(this.beers);
     });
+  }
+
+  transformEnum(value: string | undefined) : string {
+    if (!value) {
+      return '';
+    }
+    console.log(value);
+    return transformEnumValue(value);
   }
 }

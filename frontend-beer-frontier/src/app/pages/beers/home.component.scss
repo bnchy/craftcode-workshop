@@ -45,3 +45,40 @@ $colors: (
   color:#525252
 }
 
+.beer-title-group{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;    
+}
+
+.beer-content-container{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.beer-content-container-item{
+  flex: 1 1 45%;
+}
+
+.beer-alcohol-percentage{
+  font-weight: bold;
+  font-size: larger;
+}
+
+.content-item-header{
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin: 0;
+  padding:0;
+}
+
+.content-item-value{
+  font-size: 1rem;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+
+}
+

@@ -51,7 +51,6 @@ export class BeerComponent implements OnInit {
   updateBeer() {
     this.beerService.updateBeer(this.beer!).subscribe(updatedBeer => {
       this.edit = false;
-      this.router.navigate([this.router.url]);
     })
   }
 }
