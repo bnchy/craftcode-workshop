@@ -21,4 +21,9 @@ export class BreweryService {
     const headers = this.authService.getHeaders();
     return this.http.get<Brewery>(`${this.breweryUrl}/${id}`, {headers});
   }
+
+  updateABrewery(brewery: Brewery): Observable<Brewery> {
+    const headers = this.authService.getHeaders();
+    return this.http.put<Brewery>(`${this.breweryUrl}/${brewery.id}`, brewery, {headers});
+  }
 }

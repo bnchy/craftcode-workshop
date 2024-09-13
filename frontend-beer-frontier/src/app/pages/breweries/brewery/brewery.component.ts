@@ -15,6 +15,7 @@ import { MatDividerModule } from '@angular/material/divider';
 export class BreweryComponent {
 
   brewery!: Brewery;
+  edit: boolean = false;
 
   constructor(private breweryService: BreweryService, private router: ActivatedRoute) {}
 
@@ -23,6 +24,11 @@ export class BreweryComponent {
     this.breweryService.fetchABrewery(+id!).subscribe( data => {
       this.brewery = data;
     } )
+  }
+  updateBrewery(brewery: Brewery) {
+    this.breweryService.updateABrewery(brewery).subscribe(data => {
+      this.edit = false;
+    });
   }
 
 }

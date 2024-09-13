@@ -21,4 +21,9 @@ export class ClassificationsService {
     const headers = this.authService.getHeaders();
     return this.http.get<Classification>(`${environment.apiUrl}/classifications/${id}`, { headers})
   }
+  updateAClassification(classification: Classification): Observable<Classification>{
+    const headers = this.authService.getHeaders();
+    return this.http.put<Classification>(`${environment.apiUrl}/classifications/${classification.id}`, headers)
+
+  }
  }

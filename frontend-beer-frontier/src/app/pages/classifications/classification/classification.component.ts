@@ -15,6 +15,7 @@ import { MatDividerModule } from '@angular/material/divider';
 export class ClassificationComponent {
 
   classification!: Classification;
+  edit: boolean = false;
   constructor(private classificationService: ClassificationsService, private router: ActivatedRoute) {}
 
   ngOnInit() {
@@ -22,5 +23,10 @@ export class ClassificationComponent {
     this.classificationService.fetchAClassification(+id!).subscribe(data => {
       this.classification = data;
     })
+  }
+  updateAClassification(classification: Classification) {
+    this.classificationService.updateAClassification(classification).subscribe(data => {
+      this.edit = false;
+    });
   }
 }
