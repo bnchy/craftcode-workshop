@@ -38,9 +38,10 @@
 <form class = "beer-container" *ngIf="beer && edit ==true">
     <mat-card>
         <mat-card-header>
-            <mat-card-title-group>
+            <mat-card-title-group class="beer-title-group">
                 <mat-card-title>{{beer.name}}</mat-card-title>
                 <mat-card-subtitle class="beer-subtitle" [routerLink]="['/breweries',beer.brewery?.id]">{{beer.brewery?.name}}</mat-card-subtitle>
+                <p class="beer-alcohol-percentage">{{beer.alcoholPercentage}}%</p>
             </mat-card-title-group>
         </mat-card-header>
         <mat-divider></mat-divider>
@@ -72,7 +73,7 @@
         </mat-card-content>
         <mat-card-actions class="beer-container-actions">
             <button mat-raised-button  (click)="edit = false"><mat-icon>cancel</mat-icon></button>
-            <button mat-raised-button class="beer-container-save-button"><mat-icon>save</mat-icon></button>
+            <button mat-raised-button (click)="updateBeer()" class="beer-container-save-button"><mat-icon>save</mat-icon></button>
         </mat-card-actions>
     </mat-card>
 </form>

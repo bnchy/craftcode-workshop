@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BeerService } from '../../../services/beer.service';
 import { Beer } from '../../../api';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -31,7 +31,7 @@ export class BeerComponent implements OnInit {
   edit: boolean = false;
   beer: Beer | undefined;
 
-  constructor(private beerService: BeerService, private route: ActivatedRoute) {}
+  constructor(private beerService: BeerService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -46,5 +46,12 @@ export class BeerComponent implements OnInit {
       return '';
     }
     return transformEnumValue(value);
+  }
+
+  updateBeer() {
+    this.beerService.updateBeer(this.beer!).subscribe(updatedBeer => {
+      this.edit = false;
+      this.router.navigate([this.router.url]);
+    })
   }
 }

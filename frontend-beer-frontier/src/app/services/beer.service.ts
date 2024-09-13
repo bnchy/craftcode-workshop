@@ -28,4 +28,10 @@ export class BeerService {
     const headers = this.authService.getHeaders();
     return this.http.get<Beer>(`${this.beersUrl}/${id}`, { headers});
   }
+
+  updateBeer(beer: Beer): Observable<Beer> {
+    const headers = this.authService.getHeaders();
+    return this.http.put<Beer>(`${this.beersUrl}/${beer.id}`, beer, { headers });
+  }
+
  }
