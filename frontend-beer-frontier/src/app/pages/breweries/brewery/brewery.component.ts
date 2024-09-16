@@ -6,11 +6,16 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { BeerService } from '../../../services/beer.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-brewery',
   standalone: true,
-  imports: [CommonModule,MatCardModule , MatDividerModule, RouterLink ],
+  imports: [CommonModule, FormsModule, MatInputModule, MatCardModule , MatDividerModule, MatIconModule, MatButtonModule, MatFormFieldModule, RouterLink ],
   templateUrl: './brewery.component.html',
   styleUrl: './brewery.component.scss'
 })
@@ -29,8 +34,8 @@ export class BreweryComponent {
     } )
     this.fetchBeersForBrewery(+id!);
   }
-  updateBrewery(brewery: Brewery) {
-    this.breweryService.updateABrewery(brewery).subscribe(data => {
+  updateBrewery() {
+    this.breweryService.updateABrewery(this.brewery).subscribe(data => {
       this.edit = false;
     });
   }

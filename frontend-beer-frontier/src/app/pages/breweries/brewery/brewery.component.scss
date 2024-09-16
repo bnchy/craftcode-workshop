@@ -37,3 +37,36 @@
 .brewery-beer-alcohol{
     font-size: 22px;
 }
+
+.brewery-container-actions{
+    display: flex;
+    justify-content: space-between;
+}
+
+.brewery-container-edit-button{
+    color: #00c3f9;
+}
+
+.brewery-container-save-button{
+    color: #00b539;
+}
+
+
+
+//form scss
+
+.brewery-form-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.brewery-form-container-item{
+    flex: 1 1 45%;
+    margin: 10px 0;
+}
+
+.form-item-header{
+    font-size: 1.2rem;
+    margin: 0;
+}
