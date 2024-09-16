@@ -72,6 +72,15 @@ class BeerServiceTests {
     }
 
     @Test
+    void shouldReturnBeersByBreweryId(){
+        when(beerRepository.findBeersByBreweryId(1L)).thenReturn(beers);
+        
+        List<Beer> foundBeers = beerService.getBeersByBreweryId(1L);
+
+        assertThat(foundBeers.size()).isEqualTo(3);
+    }
+
+    @Test
     void shouldSaveABeer() {
         Beer beer1 = new Beer();
         beer1.setName("Grimbergen");
@@ -106,4 +115,5 @@ class BeerServiceTests {
         assertThat(updatedBeer).isPresent();
         assertThat(updatedBeer.get().getName()).isEqualTo("Grimbergen");
     }
+
 }

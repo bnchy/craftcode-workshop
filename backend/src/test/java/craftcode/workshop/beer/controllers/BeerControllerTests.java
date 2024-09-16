@@ -73,6 +73,16 @@ class BeerControllerTests {
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getName()).isEqualTo(beers.get(0).getName());
     }
+
+    @Test
+    void shouldReturnBeersByBreweryId() {
+        when(beerService.getBeersByBreweryId(1L)).thenReturn(beers);
+        ResponseEntity<List<Beer>> foundBeers = beerController.getBeersByBreweryId(1L);
+
+        assertThat(foundBeers.getBody()).isNotNull();
+        assertThat(foundBeers.getBody().size()).isEqualTo(beers.size());
+
+    }
     @Test
     void shouldSaveABeer() {
         Beer newBeer = new Beer();

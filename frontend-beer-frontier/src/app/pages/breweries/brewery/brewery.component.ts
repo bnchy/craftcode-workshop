@@ -4,11 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { BreweryService } from '../../../services/brewery.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-brewery',
   standalone: true,
-  imports: [MatCardModule , MatDividerModule],
+  imports: [CommonModule,MatCardModule , MatDividerModule],
   templateUrl: './brewery.component.html',
   styleUrl: './brewery.component.scss'
 })

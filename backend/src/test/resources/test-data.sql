@@ -6,9 +6,10 @@ VALUES ('Brasserie d''Achouffe', 'Achouffe 32, 6666 Houffalize'),
 INSERT INTO BEER (name, alcohol_percentage, beer_type, brewery_id)
 VALUES
     ('chouffe', 6, 'ALE', 1),
+    ('chouffe blond', 6, 'ALE', 1),
+    ('chouffe donker', 6, 'ALE', 1),
     ('grimbergen', 6, 'FRUIT', 2),
-    ('pils', 10, 'FRUIT', 3),
-    ('chouffe blond', 6, 'ALE', 1);
+    ('pils', 10, 'FRUIT', 3);
 
 INSERT INTO CLASSIFICATION (country, fermentation_type, names_and_origins, used_grain_type)
 VALUES

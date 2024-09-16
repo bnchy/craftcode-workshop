@@ -6,6 +6,7 @@ import craftcode.workshop.beer.services.BeerService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -53,6 +54,17 @@ public class BeerController {
             return ResponseEntity.ok(updatedBeer.get());
         }
         return ResponseEntity.notFound().build();
+
+    }
+
+    @GetMapping("by-brewery/{breweryId}")
+    public ResponseEntity<List<Beer>> getBeersByBreweryId(@PathVariable Long breweryId) {
+        List<Beer> beers = beerService.getBeersByBreweryId(breweryId);
+        if (!beers.isEmpty()) {
+            return ResponseEntity.ok(beers);
+        }  else {
+            return ResponseEntity.notFound().build();
+        }
 
     }
 }

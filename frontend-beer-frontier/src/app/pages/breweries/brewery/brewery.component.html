@@ -8,6 +8,13 @@
         </mat-card-header>
         <mat-divider></mat-divider>
         <mat-card-content>
+            <h2 class="brewery-beer-list">Beer list:</h2>
+            <div class="brewery-beers-container">
+                <div class="brewery-beer-item" *ngFor="let beer of brewery.beers">
+                    <h3>{{beer.name}}</h3>
+                    <p></p>
+                </div>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

@@ -33,4 +33,8 @@ public class BeerService {
              return beerRepository.save(existingBeer);
         });
     }
+
+    public List<Beer> getBeersByBreweryId(long id) {
+        return beerRepository.findBeersByBreweryId(id);
+    }
 }
