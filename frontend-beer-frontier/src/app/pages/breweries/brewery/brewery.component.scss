@@ -1,6 +1,12 @@
+@use '../../../../styles.scss';
+
 .brewery-container{
     width: 60%;
     margin: 20px auto;
+}
+.brewery-beer-list-header{
+    width: 100%;
+    text-align: center;
 }
 .brewery-beers-container{
     display: flex;
@@ -8,8 +14,26 @@
     flex-direction: column;
 }
 
-.brewery-beer-item{
+
+.brewery-beer-item {
     display: flex;
-    flex-direction: row;
-    flex-wrap:nowrap;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.3s ease, border-bottom 0.4s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.brewery-beer-item:hover{
+    color: styles.$url-hover-hex;
+    cursor: pointer;
+    border-bottom: 2px solid styles.$url-hover-hex;
+}
+
+
+.brewery-beer-header2{
+    font-size: larger;
+}
+
+.brewery-beer-alcohol{
+    font-size: 22px;
 }
