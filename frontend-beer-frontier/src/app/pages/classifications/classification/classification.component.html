@@ -34,7 +34,7 @@
         </div>
       </div>
     </mat-card-content>
-        <mat-card-actions class="brewery-container-actions">
+    <mat-card-actions class="brewery-container-actions">
       <button mat-raised-button color="warn">
         <mat-icon>delete</mat-icon>
       </button>
@@ -61,7 +61,9 @@
         <div class="classification-form-container-item">
           <h2 class="form-item-header">Fermentationtype</h2>
           <mat-form-field>
-            <mat-select [(ngModel)]="classification.fermentationType" name="fermentationType">
+            <mat-select
+              [(ngModel)]="classification.fermentationType"
+              name="fermentationType">
               <mat-option *ngFor="let type of fermentationTypes" [value]="type">
                 {{ type }}
               </mat-option>
@@ -71,7 +73,9 @@
         <div class="classification-form-container-item">
           <h2 class="form-item-header">Graintype</h2>
           <mat-form-field>
-            <mat-select [(ngModel)]="classification.usedGrainType" name="usedGrainType">
+            <mat-select
+              [(ngModel)]="classification.usedGrainType"
+              name="usedGrainType">
               <mat-option *ngFor="let type of grainTypes" [value]="type">
                 {{ type }}
               </mat-option>
@@ -91,7 +95,9 @@
         <div class="classification-form-container-item">
           <h2 class="form-item-header">Names and Origins</h2>
           <mat-form-field>
-            <mat-select [(ngModel)]="classification.namesAndOrigins" name="namesAndOrigins">
+            <mat-select
+              [(ngModel)]="classification.namesAndOrigins"
+              name="namesAndOrigins">
               <mat-option *ngFor="let name of namesAndOrigins" [value]="name">
                 {{ name }}
               </mat-option>

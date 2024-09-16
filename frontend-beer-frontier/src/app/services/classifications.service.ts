@@ -34,7 +34,8 @@ export class ClassificationsService {
   ): Observable<Classification> {
     const headers = this.authService.getHeaders();
     return this.http.put<Classification>(
-      `${environment.apiUrl}/classifications/${classification.id}`, classification,
+      `${environment.apiUrl}/classifications/${classification.id}`,
+      classification,
       { headers }
     );
   }

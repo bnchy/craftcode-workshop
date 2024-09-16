@@ -55,7 +55,7 @@ export class BeerComponent implements OnInit {
   }
 
   updateBeer() {
-    this.beerService.updateBeer(this.beer!).subscribe(updatedBeer => {
+    this.beerService.updateBeer(this.beer!).subscribe(() => {
       this.edit = false;
     });
   }

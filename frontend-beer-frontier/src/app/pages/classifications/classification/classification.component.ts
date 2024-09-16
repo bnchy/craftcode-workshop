@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Classification, ClassificationCountryEnum, ClassificationFermentationTypeEnum, ClassificationNamesAndOriginsEnum, ClassificationUsedGrainTypeEnum } from '../../../api';
+import {
+  Classification,
+  ClassificationCountryEnum,
+  ClassificationFermentationTypeEnum,
+  ClassificationNamesAndOriginsEnum,
+  ClassificationUsedGrainTypeEnum,
+} from '../../../api';
 import { ClassificationsService } from '../../../services/classifications.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -17,7 +23,19 @@ import { MatSelectModule } from '@angular/material/select';
 @Component({
   selector: 'app-classification',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatOptionModule, MatSelectModule, MatButtonModule, MatInputModule, MatCardModule, MatDividerModule, MatFormFieldModule, MatIconModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatIconModule,
+  ],
   templateUrl: './classification.component.html',
   styleUrl: './classification.component.scss',
 })
