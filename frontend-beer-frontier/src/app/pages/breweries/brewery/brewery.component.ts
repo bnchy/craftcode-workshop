@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Beer, Brewery } from '../../../api';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BreweryService } from '../../../services/brewery.service';
@@ -15,35 +15,49 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-brewery',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatInputModule, MatCardModule , MatDividerModule, MatIconModule, MatButtonModule, MatFormFieldModule, RouterLink ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatInputModule,
+    MatCardModule,
+    MatDividerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    RouterLink,
+  ],
   templateUrl: './brewery.component.html',
-  styleUrl: './brewery.component.scss'
+  styleUrl: './brewery.component.scss',
 })
-export class BreweryComponent {
-
+export class BreweryComponent implements OnInit {
   brewery!: Brewery;
-  beers! : Beer[];
-  edit: boolean = false;
+  beers!: Beer[];
+  edit = false;
 
-  constructor(private breweryService: BreweryService, private beerService: BeerService, private router: ActivatedRoute) {}
+  constructor(
+    private breweryService: BreweryService,
+    private beerService: BeerService,
+    private router: ActivatedRoute
+  ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     const id = this.router.snapshot.paramMap.get('id');
-    this.breweryService.fetchABrewery(+id!).subscribe( data  => {
+    this.breweryService.fetchABrewery(+id!).subscribe(data => {
       this.brewery = data;
-    } )
+    });
     this.fetchBeersForBrewery(+id!);
   }
   updateBrewery() {
-    this.breweryService.updateABrewery(this.brewery).subscribe(data => {
+    this.breweryService.updateABrewery(this.brewery).subscribe(() => {
       this.edit = false;
     });
   }
 
   fetchBeersForBrewery(breweryId: number) {
-    this.beerService.fetchBeersByBreweryId(breweryId).subscribe((data : Beer[]) => {
-      this.beers = data;
-    });
+    this.beerService
+      .fetchBeersByBreweryId(breweryId)
+      .subscribe((data: Beer[]) => {
+        this.beers = data;
+      });
   }
-
 }

@@ -7,8 +7,8 @@ import { appConfig } from './app/app.config';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideHttpClient(),  // Add this provider
+    provideHttpClient(), // Add this provider
     provideRouter(routes),
-    ...appConfig.providers 
-  ]
+    ...appConfig.providers,
+  ],
 }).catch(err => console.error(err));

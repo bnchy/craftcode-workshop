@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BeerService } from '../../services/beer.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -12,14 +12,12 @@ import { transformEnumValue } from '../../utils/string-utils';
   standalone: true,
   imports: [CommonModule, MatCardModule, MatDividerModule, RouterLink],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
-
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   beers: Beer[] = [];
 
-  constructor(private beerService: BeerService) {
-  }
+  constructor(private beerService: BeerService) {}
 
   ngOnInit() {
     this.beerService.fetchAllBeers().subscribe(data => {
@@ -28,7 +26,7 @@ export class HomeComponent {
     });
   }
 
-  transformEnum(value: string | undefined) : string {
+  transformEnum(value: string | undefined): string {
     if (!value) {
       return '';
     }

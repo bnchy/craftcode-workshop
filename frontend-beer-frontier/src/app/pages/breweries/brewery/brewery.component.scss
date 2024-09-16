@@ -1,72 +1,70 @@
 @use '../../../../styles.scss';
 
-.brewery-container{
-    width: 60%;
-    margin: 20px auto;
+.brewery-container {
+  width: 60%;
+  margin: 20px auto;
 }
-.brewery-beer-list-header{
-    width: 100%;
-    text-align: center;
+.brewery-beer-list-header {
+  width: 100%;
+  text-align: center;
 }
-.brewery-beers-container{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+.brewery-beers-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
-
 
 .brewery-beer-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: color 0.3s ease, border-bottom 0.4s ease;
-    border-bottom: 2px solid transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition:
+    color 0.3s ease,
+    border-bottom 0.4s ease;
+  border-bottom: 2px solid transparent;
 }
 
-.brewery-beer-item:hover{
-    color: styles.$url-hover-hex;
-    cursor: pointer;
-    border-bottom: 2px solid styles.$url-hover-hex;
+.brewery-beer-item:hover {
+  color: styles.$url-hover-hex;
+  cursor: pointer;
+  border-bottom: 2px solid styles.$url-hover-hex;
 }
 
-
-.brewery-beer-header2{
-    font-size: larger;
+.brewery-beer-header2 {
+  font-size: larger;
 }
 
-.brewery-beer-alcohol{
-    font-size: 22px;
+.brewery-beer-alcohol {
+  font-size: 22px;
 }
 
-.brewery-container-actions{
-    display: flex;
-    justify-content: space-between;
+.brewery-container-actions {
+  display: flex;
+  justify-content: space-between;
 }
 
-.brewery-container-edit-button{
-    color: #00c3f9;
+.brewery-container-edit-button {
+  color: #00c3f9;
 }
 
-.brewery-container-save-button{
-    color: #00b539;
+.brewery-container-save-button {
+  color: #00b539;
 }
-
-
 
 //form scss
 
-.brewery-form-container{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.brewery-form-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.brewery-form-container-item{
-    flex: 1 1 45%;
-    margin: 10px 0;
+.brewery-form-container-item {
+  flex: 1 1 45%;
+  margin: 10px 0;
 }
 
-.form-item-header{
-    font-size: 1.2rem;
-    margin: 0;
+.form-item-header {
+  font-size: 1.2rem;
+  margin: 0;
 }

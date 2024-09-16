@@ -1,14 +1,6 @@
-$colors: (
-  #e96749,
-  #3def5e, 
-  #528dfc, 
-  #FF33A1, 
-  #FF8C33, 
-  #33FFF5  
-);
+$colors: (#e96749, #3def5e, #528dfc, #ff33a1, #ff8c33, #33fff5);
 
-
-.beer-container{
+.beer-container {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -34,51 +26,49 @@ $colors: (
   font-weight: bolder;
 }
 
-.card-image-header{
+.card-image-header {
   width: 100%;
   height: 120px;
   object-fit: cover;
   object-position: center bottom;
 }
 
-.beer-subtitle{
-  color:#525252
+.beer-subtitle {
+  color: #525252;
 }
 
-.beer-title-group{
+.beer-title-group {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;    
+  width: 100%;
 }
 
-.beer-content-container{
+.beer-content-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-.beer-content-container-item{
+.beer-content-container-item {
   flex: 1 1 45%;
 }
 
-.beer-alcohol-percentage{
+.beer-alcohol-percentage {
   font-weight: bold;
   font-size: larger;
 }
 
-.content-item-header{
+.content-item-header {
   font-size: 1.2rem;
   font-weight: normal;
   margin: 0;
-  padding:0;
+  padding: 0;
 }
 
-.content-item-value{
+.content-item-value {
   font-size: 1rem;
   font-weight: normal;
   margin: 0;
   padding: 0;
-
 }
-

@@ -1,46 +1,45 @@
-.beer-container{
-    width: 50%;
-    max-width: 750px;
-    margin: 20px auto;
+.beer-container {
+  width: 50%;
+  max-width: 750px;
+  margin: 20px auto;
 }
 
-.beer-content-container{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.beer-content-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.beer-content-container-item{
-    flex: 1 1 45%;
-    margin: 10px 0;
+.beer-content-container-item {
+  flex: 1 1 45%;
+  margin: 10px 0;
 }
-.beer-title-group{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;    
-}
-
-.beer-alcohol-percentage{
-    font-weight: bold;
-    font-size: larger;
+.beer-title-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-.content-item-header{
-    font-size: 1.2rem;
-    margin: 0;
+.beer-alcohol-percentage {
+  font-weight: bold;
+  font-size: larger;
 }
 
-
-.beer-container-actions{
-    display: flex;
-    justify-content: space-between;
+.content-item-header {
+  font-size: 1.2rem;
+  margin: 0;
 }
 
-.beer-container-edit-button{
-    color: #00c3f9;
+.beer-container-actions {
+  display: flex;
+  justify-content: space-between;
 }
 
-.beer-container-save-button{
-    color: #00b539;
+.beer-container-edit-button {
+  color: #00c3f9;
+}
+
+.beer-container-save-button {
+  color: #00b539;
 }

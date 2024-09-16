@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ClassificationsService } from '../../services/classifications.service';
 import { Classification } from '../../api';
 import { MatTableModule } from '@angular/material/table';
@@ -10,18 +10,23 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [MatTableModule, MatButtonModule, RouterLink],
   templateUrl: './classifications.component.html',
-  styleUrl: './classifications.component.scss'
+  styleUrl: './classifications.component.scss',
 })
-export class ClassificationsComponent {
-
+export class ClassificationsComponent implements OnInit {
   classifications: Classification[] = [];
-  displayedClassificationColumns : string[] = ['id', 'country', 'usedGrainType', 'fermentationType', 'namesAndOrigins']
+  displayedClassificationColumns: string[] = [
+    'id',
+    'country',
+    'usedGrainType',
+    'fermentationType',
+    'namesAndOrigins',
+  ];
 
   constructor(private classification: ClassificationsService) {}
 
-  ngOnInit(){
-    this.classification.fetchAllClassifications().subscribe( data => {
+  ngOnInit() {
+    this.classification.fetchAllClassifications().subscribe(data => {
       this.classifications = data;
-    })
+    });
   }
 }

@@ -1,4 +1,48 @@
-.classification-container{
-    width: 60%;
-    margin: 20px auto;
+.classification-container {
+  width: 60%;
+  margin: 20px auto;
+}
+
+.classification-content-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.classification-content-container-item {
+  flex: 1 1 45%;
+  margin: 10px 0;
+}
+
+
+.classification-container-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.classification-container-edit-button {
+  color: #00c3f9;
+}
+
+.classification-container-save-button {
+  color: #00b539;
+}
+
+//form scss
+
+.classification-form-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.classification-form-container-item {
+  flex: 1 1 45%;
+  margin: 10px 0;
+}
+
+.classification-item-header {
+  font-size: 1.2rem;
+  margin: 0;
 }

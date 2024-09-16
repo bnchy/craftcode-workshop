@@ -15,7 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-beer',
   standalone: true,
-  imports: [    CommonModule,
+  imports: [
+    CommonModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -23,15 +24,20 @@ import { MatInputModule } from '@angular/material/input';
     MatDividerModule,
     MatIconModule,
     MatCardModule,
-    RouterLink],
+    RouterLink,
+  ],
   templateUrl: './beer.component.html',
-  styleUrls: ['./beer.component.scss']
+  styleUrls: ['./beer.component.scss'],
 })
 export class BeerComponent implements OnInit {
-  edit: boolean = false;
+  edit = false;
   beer: Beer | undefined;
 
-  constructor(private beerService: BeerService, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private beerService: BeerService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -41,7 +47,7 @@ export class BeerComponent implements OnInit {
       });
     }
   }
-  transformEnum(value: string | undefined) : string {
+  transformEnum(value: string | undefined): string {
     if (!value) {
       return '';
     }
@@ -51,6 +57,6 @@ export class BeerComponent implements OnInit {
   updateBeer() {
     this.beerService.updateBeer(this.beer!).subscribe(updatedBeer => {
       this.edit = false;
-    })
+    });
   }
 }

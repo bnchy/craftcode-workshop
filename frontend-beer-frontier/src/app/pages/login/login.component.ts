@@ -16,24 +16,26 @@ import { AuthService } from '../../services/auth.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  userObj: any = {
+  userObj = {
     username: '',
-    password: ''
-  }
+    password: '',
+  };
 
   constructor(private authService: AuthService) {}
 
   login() {
-    this.authService.login(this.userObj.username, this.userObj.password).subscribe(success => {
-      if (!success) {
-        alert('Login failed');
-      }
-    });
+    this.authService
+      .login(this.userObj.username, this.userObj.password)
+      .subscribe(success => {
+        if (!success) {
+          alert('Login failed');
+        }
+      });
   }
 }

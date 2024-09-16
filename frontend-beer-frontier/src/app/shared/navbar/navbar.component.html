@@ -1,11 +1,11 @@
-<nav class="navbar">  
+<nav class="navbar">
   <a mat-button routerLink="/beers">Beers</a>
-  <a mat-button routerLink="/breweries">Breweries</a> 
+  <a mat-button routerLink="/breweries">Breweries</a>
   <a mat-button routerLink="/classifications">Classifications</a>
 
   <span class="spacer"></span>
-  <a mat-button (click)="logout()">
+  <button mat-button (keydown.enter)="logout()" (click)="logout()">
     logout
     <mat-icon>exit_to_app</mat-icon>
-  </a>
+  </button>
 </nav>

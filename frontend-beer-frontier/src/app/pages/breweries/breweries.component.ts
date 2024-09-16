@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreweryService } from '../../services/brewery.service';
 import { Brewery } from '../../api';
 import { MatCardModule } from '@angular/material/card';
@@ -10,21 +10,25 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-breweries',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatTableModule, MatButtonModule, RouterLink],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatTableModule,
+    MatButtonModule,
+    RouterLink,
+  ],
   templateUrl: './breweries.component.html',
-  styleUrl: './breweries.component.scss'
+  styleUrl: './breweries.component.scss',
 })
-export class BreweriesComponent {
-
+export class BreweriesComponent implements OnInit {
   breweries: Brewery[] = [];
-  displayedBreweryColumns : string[] = ['id','name', 'location'];
+  displayedBreweryColumns: string[] = ['id', 'name', 'location'];
 
   constructor(private breweryService: BreweryService) {}
 
-  ngOnInit(){
-    this.breweryService.fetchAllBreweries().subscribe( data => {
+  ngOnInit() {
+    this.breweryService.fetchAllBreweries().subscribe(data => {
       this.breweries = data;
-    })
+    });
   }
-
 }

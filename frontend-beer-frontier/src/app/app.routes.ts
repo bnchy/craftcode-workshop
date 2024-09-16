@@ -9,14 +9,28 @@ import { ClassificationComponent } from './pages/classifications/classification/
 import { BreweryComponent } from './pages/breweries/brewery/brewery.component';
 
 export const routes: Routes = [
-    {path: "", redirectTo: "/beers", pathMatch: "full"},
-    {path: "login", component: LoginComponent},
-    {path: "beers", component: HomeComponent, canActivate: [AuthGuard]},
-    {path: "beers/:id", component: BeerComponent, canActivate: [AuthGuard]},
-    {path: "breweries", component: BreweriesComponent, canActivate: [AuthGuard]},
-    {path: "breweries/:id", component: BreweryComponent, canActivate: [AuthGuard]},
-    {path: "classifications", component: ClassificationsComponent, canActivate: [AuthGuard]},
-    {path: "classifications/:id", component: ClassificationComponent, canActivate: [AuthGuard]}
-
+  { path: '', redirectTo: '/beers', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'beers', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'beers/:id', component: BeerComponent, canActivate: [AuthGuard] },
+  {
+    path: 'breweries',
+    component: BreweriesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'breweries/:id',
+    component: BreweryComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'classifications',
+    component: ClassificationsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'classifications/:id',
+    component: ClassificationComponent,
+    canActivate: [AuthGuard],
+  },
 ];
-

@@ -1,66 +1,95 @@
-<div class = "brewery-container" *ngIf="!edit">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title-group>
-                <mat-card-title>{{brewery.name}}</mat-card-title>
-                <mat-card-subtitle class="brewery-subtitle">{{brewery.location}}</mat-card-subtitle>
-            </mat-card-title-group>
-        </mat-card-header>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-            <h2 class="brewery-beer-list-header">Beer list</h2>
-            <div class="brewery-beers-container">
-                <div [routerLink]="['/beers', beer.id]" class="brewery-beer-item" *ngFor="let beer of beers">
-                    <h3 class="brewery-beer-header2">{{ beer.name }}</h3>
-                    <p class="brewery-beer-alcohol">{{ beer.alcoholPercentage }}%</p>
-                </div>
-            </div>
-        </mat-card-content>
-        <mat-card-actions class="brewery-container-actions">
-            <button mat-raised-button color="warn"><mat-icon>delete</mat-icon></button>
-            <button mat-raised-button class="brewery-container-edit-button" (click)="edit = true"><mat-icon>edit</mat-icon></button>
-        </mat-card-actions>
-    </mat-card>
+<div class="brewery-container" *ngIf="!edit">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{ brewery.name }}</mat-card-title>
+        <mat-card-subtitle class="brewery-subtitle">{{
+          brewery.location
+        }}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <h2 class="brewery-beer-list-header">Beer list</h2>
+      <div class="brewery-beers-container">
+        <div
+          [routerLink]="['/beers', beer.id]"
+          class="brewery-beer-item"
+          *ngFor="let beer of beers">
+          <h3 class="brewery-beer-header2">{{ beer.name }}</h3>
+          <p class="brewery-beer-alcohol">{{ beer.alcoholPercentage }}%</p>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="brewery-container-actions">
+      <button mat-raised-button color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button
+        mat-raised-button
+        class="brewery-container-edit-button"
+        (click)="edit = true">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>
 
-<form class = "brewery-container" *ngIf="edit">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title-group>
-                <mat-card-title>{{brewery.name}}</mat-card-title>
-                <mat-card-subtitle class="brewery-subtitle">{{brewery.location}}</mat-card-subtitle>
-            </mat-card-title-group>
-        </mat-card-header>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-            <div class="brewery-form-container" >
-                <div class="brewery-form-container-item">
-                    <h2 class="form-item-header">Name</h2>
-                    <mat-form-field>
-                        <input matInput placeholder="" [(ngModel)]="brewery.name" name="name">
-                    </mat-form-field>
-                </div>
-                <div class="brewery-form-container-item">
-                    <h2 class="form-item-header">Alcohol %</h2>
-                    <mat-form-field>
-                        <input matInput placeholder="" [(ngModel)]="brewery.location" name="location">
-                    </mat-form-field>
-                </div>
-                <div class="brewery-form-container-item">
-                    <h2 class="form-item-header">Beers (WIP)</h2>
-                    <mat-form-field>
-                        <input matInput placeholder="" name="beerType">
-                    </mat-form-field>
-                </div>
-                <div class="brewery-form-container-item">
-                    <h2 class="form-item-header">Upload banner (WIP)</h2>
-                    <input type="file">
-                </div>
-            </div>
-        </mat-card-content>
-        <mat-card-actions class="brewery-container-actions">
-            <button mat-raised-button (click)="edit = false"><mat-icon>cancel</mat-icon></button>
-            <button mat-raised-button (click)="updateBrewery()" class="brewery-container-save-button"><mat-icon>save</mat-icon></button>
-        </mat-card-actions>
-    </mat-card>
+<form class="brewery-container" *ngIf="edit">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{ brewery.name }}</mat-card-title>
+        <mat-card-subtitle class="brewery-subtitle">{{
+          brewery.location
+        }}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div class="brewery-form-container">
+        <div class="brewery-form-container-item">
+          <h2 class="form-item-header">Name</h2>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder=""
+              [(ngModel)]="brewery.name"
+              name="name" />
+          </mat-form-field>
+        </div>
+        <div class="brewery-form-container-item">
+          <h2 class="form-item-header">Alcohol %</h2>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder=""
+              [(ngModel)]="brewery.location"
+              name="location" />
+          </mat-form-field>
+        </div>
+        <div class="brewery-form-container-item">
+          <h2 class="form-item-header">Beers (WIP)</h2>
+          <mat-form-field>
+            <input matInput placeholder="" name="beerType" />
+          </mat-form-field>
+        </div>
+        <div class="brewery-form-container-item">
+          <h2 class="form-item-header">Upload banner (WIP)</h2>
+          <input type="file" />
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="brewery-container-actions">
+      <button mat-raised-button (click)="edit = false">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <button
+        mat-raised-button
+        (click)="updateBrewery()"
+        class="brewery-container-save-button">
+        <mat-icon>save</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </form>

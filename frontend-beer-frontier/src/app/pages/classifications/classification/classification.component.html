@@ -1,13 +1,115 @@
-<div class = "classification-container">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title-group>
-                <mat-card-title>{{classification.id}}</mat-card-title>
-                <mat-card-subtitle class="brewery-subtitle">{{classification.fermentationType}}</mat-card-subtitle>
-            </mat-card-title-group>
-        </mat-card-header>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-        </mat-card-content>
-    </mat-card>
+<div class="classification-container" *ngIf="!edit && classification">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{ classification.id }}</mat-card-title>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div class="classification-content-container">
+        <div class="classification-content-container-item">
+          <h2 class="classification-item-header">Fermentationtype</h2>
+          <p class="classification-item-value">
+            {{ transformEnum(classification.fermentationType) }}
+          </p>
+        </div>
+        <div class="classification-content-container-item">
+          <h2 class="content-item-header">Used Graintype</h2>
+          <p class="content-item-value">
+            {{ transformEnum(classification.usedGrainType) }}
+          </p>
+        </div>
+        <div class="classification-content-container-item">
+          <h2 class="content-item-header">Country</h2>
+          <p class="content-item-value">
+            {{ transformEnum(classification.country) }}
+          </p>
+        </div>
+        <div class="classification-content-container-item">
+          <h2 class="content-item-header">Names and origins</h2>
+          <p class="content-item-value">
+            {{ transformEnum(classification.namesAndOrigins) }}
+          </p>
+        </div>
+      </div>
+    </mat-card-content>
+        <mat-card-actions class="brewery-container-actions">
+      <button mat-raised-button color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button
+        mat-raised-button
+        class="brewery-container-edit-button"
+        (click)="edit = true">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>
+
+<form class="classification-container" *ngIf="edit && classification">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{ classification.id }}</mat-card-title>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div class="classification-form-container">
+        <div class="classification-form-container-item">
+          <h2 class="form-item-header">Fermentationtype</h2>
+          <mat-form-field>
+            <mat-select [(ngModel)]="classification.fermentationType" name="fermentationType">
+              <mat-option *ngFor="let type of fermentationTypes" [value]="type">
+                {{ type }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="classification-form-container-item">
+          <h2 class="form-item-header">Graintype</h2>
+          <mat-form-field>
+            <mat-select [(ngModel)]="classification.usedGrainType" name="usedGrainType">
+              <mat-option *ngFor="let type of grainTypes" [value]="type">
+                {{ type }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="classification-form-container-item">
+          <h2 class="form-item-header">Country</h2>
+          <mat-form-field>
+            <mat-select [(ngModel)]="classification.country" name="country">
+              <mat-option *ngFor="let country of countries" [value]="country">
+                {{ country }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="classification-form-container-item">
+          <h2 class="form-item-header">Names and Origins</h2>
+          <mat-form-field>
+            <mat-select [(ngModel)]="classification.namesAndOrigins" name="namesAndOrigins">
+              <mat-option *ngFor="let name of namesAndOrigins" [value]="name">
+                {{ name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="classification-container-actions">
+      <button mat-raised-button (click)="edit = false">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <button
+        mat-raised-button
+        (click)="updateAClassification()"
+        class="classification-container-save-button">
+        <mat-icon>save</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>
