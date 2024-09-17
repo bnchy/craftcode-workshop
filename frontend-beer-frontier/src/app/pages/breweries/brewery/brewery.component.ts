@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Beer, Brewery } from '../../../api';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BreweryService } from '../../../services/brewery.service';
@@ -11,6 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { RemoveDialogComponent } from '../../../shared/remove-dialog/remove-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-brewery',
@@ -19,11 +22,13 @@ import { MatInputModule } from '@angular/material/input';
     CommonModule,
     FormsModule,
     MatInputModule,
+    MatExpansionModule,
     MatCardModule,
     MatDividerModule,
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatExpansionModule,
     RouterLink,
   ],
   templateUrl: './brewery.component.html',
@@ -32,12 +37,15 @@ import { MatInputModule } from '@angular/material/input';
 export class BreweryComponent implements OnInit {
   brewery!: Brewery;
   beers!: Beer[];
-  edit = false;
+  edit = true;
+  readonly panelOpenState = signal(false);
+  readonly dialog = inject(MatDialog);
 
   constructor(
     private breweryService: BreweryService,
     private beerService: BeerService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private removeDialog: RemoveDialogComponent
   ) {}
 
   ngOnInit() {

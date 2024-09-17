@@ -1,4 +1,4 @@
-<div class="brewery-container" *ngIf="!edit">
+<div class="brewery-container" *ngIf="!edit && brewery">
   <mat-card>
     <mat-card-header>
       <mat-card-title-group>
@@ -22,11 +22,11 @@
       </div>
     </mat-card-content>
     <mat-card-actions class="brewery-container-actions">
-      <button mat-raised-button color="warn">
+      <button mat-icon-button color="warn">
         <mat-icon>delete</mat-icon>
       </button>
       <button
-        mat-raised-button
+        mat-icon-button
         class="brewery-container-edit-button"
         (click)="edit = true">
         <mat-icon>edit</mat-icon>
@@ -35,7 +35,7 @@
   </mat-card>
 </div>
 
-<form class="brewery-container" *ngIf="edit">
+<form class="brewery-container" *ngIf="edit && brewery">
   <mat-card>
     <mat-card-header>
       <mat-card-title-group>
@@ -79,13 +79,41 @@
           <input type="file" />
         </div>
       </div>
+      <div class="brewery-form-beer-list">
+        <h2 class="form-list-header">Manufactured beers</h2>
+        <div class="form-list-container">
+          <mat-accordion class="form-list-accordion" *ngFor="let beer of beers">
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header class="form-list-accordion-header">
+                <div class="header-content">
+                  <mat-panel-title> {{ beer.name }} </mat-panel-title>
+                  <mat-panel-description>
+                    {{ beer.alcoholPercentage }}%
+                  </mat-panel-description>
+                </div>
+              </mat-expansion-panel-header>
+              <mat-card-actions class="brewery-container-actions">
+                <button mat-icon-button (click)="edit = false">
+                  <mat-icon>link_off</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  (click)="updateBrewery()"
+                  class="brewery-container-edit-button">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
     </mat-card-content>
     <mat-card-actions class="brewery-container-actions">
-      <button mat-raised-button (click)="edit = false">
+      <button mat-icon-button (click)="edit = false">
         <mat-icon>cancel</mat-icon>
       </button>
       <button
-        mat-raised-button
+        mat-icon-button
         (click)="updateBrewery()"
         class="brewery-container-save-button">
         <mat-icon>save</mat-icon>

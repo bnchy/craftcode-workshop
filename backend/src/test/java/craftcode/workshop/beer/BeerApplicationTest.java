@@ -10,10 +10,9 @@ public class BeerApplicationTest {
     void contextLoads() {
         assertThat(true).isTrue();
     }
+
     @Test
     void main() {
         BeerApplication.main(new String[] {});
     }
-
-
 }
