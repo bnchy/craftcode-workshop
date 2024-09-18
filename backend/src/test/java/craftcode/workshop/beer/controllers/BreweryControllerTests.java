@@ -2,6 +2,7 @@ package craftcode.workshop.beer.controllers;
 
 import craftcode.workshop.beer.controller.BreweryController;
 import craftcode.workshop.beer.enums.Country;
+import craftcode.workshop.beer.model.Beer;
 import craftcode.workshop.beer.model.Brewery;
 import craftcode.workshop.beer.services.BreweryService;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +15,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -86,8 +89,33 @@ class BreweryControllerTests {
 
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getName()).isEqualTo(updatedBrewery.getName());
+    }
+    @Test
+    void shouldUnlinkABeerFromBrewery() {
+        Brewery existingBrewery = new Brewery();
+        existingBrewery.setId(1L);
+        existingBrewery.setName("Brewery");
+        existingBrewery.setLocation("BELGIUM");
 
+        Beer beer = new Beer();
+        beer.setId(1L);
+        beer.setName("Grimbergen blond");
 
+        existingBrewery.setBeers(new HashSet<>(Set.of(beer)));
+
+        Brewery updatedBrewery = new Brewery();
+        updatedBrewery.setId(1L);
+        updatedBrewery.setName("Brewery");
+        updatedBrewery.setLocation("BELGIUM");
+        updatedBrewery.setBeers(new HashSet<>());
+
+        when(breweryService.unlinkBeer(1L, 1L)).thenReturn(Optional.of(updatedBrewery));
+
+        ResponseEntity<Brewery> foundBrewery = breweryController.unlinkBeer(1L, 1L);
+
+        assertThat(foundBrewery).isNotNull();
+        assertThat(foundBrewery.getBody()).isNotNull();
+        assertThat(foundBrewery.getBody().getBeers()).isEmpty(); 
     }
 
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,5 +21,5 @@ public class Brewery {
     private String location;
 
     @OneToMany(mappedBy = "brewery")
-    private Set<Beer> beers;
+    private Set<Beer> beers = new HashSet<>();
 }

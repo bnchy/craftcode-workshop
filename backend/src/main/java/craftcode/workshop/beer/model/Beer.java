@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,6 +35,6 @@ public class Beer {
 
     @ManyToMany(mappedBy = "beers")
     @JsonIgnoreProperties("beers")
-    private Set<Classification> classifications;
+    private Set<Classification> classifications = new HashSet<>();
 
 }

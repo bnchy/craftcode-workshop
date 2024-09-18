@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -41,5 +42,15 @@ public class BreweryController {
 
         return ResponseEntity.notFound().build();
 
+    }
+
+    @PutMapping("/unlinkBeer/{breweryId}/{beerId}")
+    public ResponseEntity<Brewery> unlinkBeer(@PathVariable Long breweryId, @PathVariable Long beerId) {
+        Optional<Brewery> brewery = breweryService.unlinkBeer(breweryId, beerId);
+        if (brewery.isPresent()) {
+            return ResponseEntity.ok(brewery.get());
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }

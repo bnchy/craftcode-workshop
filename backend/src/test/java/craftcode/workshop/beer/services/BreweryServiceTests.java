@@ -3,6 +3,7 @@ package craftcode.workshop.beer.services;
 import craftcode.workshop.beer.enums.Country;
 import craftcode.workshop.beer.model.Beer;
 import craftcode.workshop.beer.model.Brewery;
+import craftcode.workshop.beer.repository.BeerRepository;
 import craftcode.workshop.beer.repository.BreweryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,8 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -25,6 +28,8 @@ class BreweryServiceTests {
 
     @Mock
     BreweryRepository breweryRepository;
+    @Mock
+    BeerRepository beerRepository;
 
     List<Brewery> breweries;
 
@@ -90,6 +95,30 @@ class BreweryServiceTests {
 
         assertThat(updatedBrewery).isPresent();
         assertThat(updatedBrewery.get().getName()).isEqualTo("updatedBrewery");
+
+    }
+
+    @Test
+    void shouldUnlinkBeerFromSpecificBrewery() {
+        Brewery existingBrewery = new Brewery();
+        existingBrewery.setId(1L);
+        existingBrewery.setName("existingBrewery");
+        existingBrewery.setLocation("BELGIUM");
+
+        Beer beer = new Beer();
+        beer.setId(1L);
+        beer.setName("Grimbergen blond");
+
+        existingBrewery.setBeers(new HashSet<>(Set.of(beer)));
+
+
+        when(breweryRepository.findById(1L)).thenReturn(Optional.of(existingBrewery));
+        when(beerRepository.findById(1L)).thenReturn(Optional.of(beer));
+        when(breweryRepository.save(existingBrewery)).thenReturn(existingBrewery);
+
+        Optional<Brewery> updatedBrewery = breweryService.unlinkBeer(1L, 1L);
+
+        assertThat(updatedBrewery).isPresent();
 
     }
 }

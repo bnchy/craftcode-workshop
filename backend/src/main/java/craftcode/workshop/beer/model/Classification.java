@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -36,5 +37,5 @@ public class Classification {
             inverseJoinColumns = @JoinColumn(name = "beer_id")
     )
     @JsonIgnoreProperties("classifications")
-    private Set<Beer> beers;
+    private Set<Beer> beers = new HashSet<>();
 }
