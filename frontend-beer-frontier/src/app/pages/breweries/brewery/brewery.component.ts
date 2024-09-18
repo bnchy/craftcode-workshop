@@ -69,15 +69,27 @@ export class BreweryComponent implements OnInit {
       });
   }
 
-  openDialog(beerName: string, breweryName: string): void {
+  openDialog(beerName: string, breweryName: string, beerId:number): void {
     const dialogRef = this.dialog.open(DialogOverviewComponent, {
       data: { itemName: beerName, removeFrom: breweryName },
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.beerId.set(result);
+      if (result === true) {
+        this.unlinkBeer(beerId);
       }
     });
   }
+
+  unlinkBeer(beerId: number) {
+    if(this.brewery.id !== undefined) {
+          this.breweryService
+      .unlinkBeerFromBrewery(this.brewery.id, beerId)
+      .subscribe(() => {
+        this.fetchBeersForBrewery(this.brewery.id!);
+      });
+    }
+
+  }
+
 }

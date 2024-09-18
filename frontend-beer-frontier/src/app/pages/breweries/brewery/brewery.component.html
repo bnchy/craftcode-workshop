@@ -95,8 +95,8 @@
               <mat-card-actions class="brewery-container-actions">
                 <button
                   mat-icon-button
-                  (click)="openDialog(beer.name, brewery.name)"
-                  *ngIf="beer.name && brewery.name">
+                  (click)="openDialog(beer.name, brewery.name, beer.id)"
+                  *ngIf="beer.name && brewery.name && beer.id">
                   <mat-icon>link_off</mat-icon>
                 </button>
                 <button

@@ -38,10 +38,7 @@ export class DialogOverviewComponent {
   }
 
   onYesClick(): void {
-    this.dialogRef.close({
-      itemName: this.itemName(),
-      removeFrom: this.removeFrom(),
-    });
+    this.dialogRef.close(true);
   }
 }
 
