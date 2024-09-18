@@ -103,19 +103,12 @@ class BreweryControllerTests {
 
         existingBrewery.setBeers(new HashSet<>(Set.of(beer)));
 
-        Brewery updatedBrewery = new Brewery();
-        updatedBrewery.setId(1L);
-        updatedBrewery.setName("Brewery");
-        updatedBrewery.setLocation("BELGIUM");
-        updatedBrewery.setBeers(new HashSet<>());
+        when(breweryService.unlinkBeerFromBrewery(1L, 1L)).thenReturn(true);
 
-        when(breweryService.unlinkBeer(1L, 1L)).thenReturn(Optional.of(updatedBrewery));
+        ResponseEntity<Void> response = breweryController.unlinkBeer(1L, 1L);
 
-        ResponseEntity<Brewery> foundBrewery = breweryController.unlinkBeer(1L, 1L);
-
-        assertThat(foundBrewery).isNotNull();
-        assertThat(foundBrewery.getBody()).isNotNull();
-        assertThat(foundBrewery.getBody().getBeers()).isEmpty(); 
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -35,16 +35,25 @@ public class BreweryService {
         });
     }
 
-    public Optional<Brewery> unlinkBeer(long breweryId, long beerId) {
-        return breweryRepository.findById(breweryId).map(existingBrewery -> {
-            Beer beerToRemove = beerRepository.findById(beerId)
-                    .orElseThrow(() -> new RuntimeException("Beer with id " + beerId + " not found"));
-            existingBrewery.getBeers().remove(beerToRemove);
-            beerToRemove.setBrewery(null);
-            beerRepository.save(beerToRemove);
+    public boolean unlinkBeerFromBrewery(long breweryId, long beerId) {
+        Optional<Brewery> breweryOptional = breweryRepository.findById(breweryId);
 
-            return breweryRepository.save(existingBrewery);
-        });
+        if (breweryOptional.isPresent()) {
+            Brewery brewery = breweryOptional.get();
+            Optional<Beer> beerOptional = beerRepository.findById(beerId);
+
+            if (beerOptional.isPresent()) {
+                Beer beerToRemove = beerOptional.get();
+                brewery.getBeers().remove(beerToRemove);
+                beerToRemove.setBrewery(null);
+
+                beerRepository.save(beerToRemove);
+                breweryRepository.save(brewery);
+
+                return true;
+            }
+        }
+        return false;
     }
 }
 

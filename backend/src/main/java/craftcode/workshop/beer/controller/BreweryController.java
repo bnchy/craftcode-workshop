@@ -44,11 +44,12 @@ public class BreweryController {
 
     }
 
-    @PutMapping("/unlinkBeer/{breweryId}/{beerId}")
-    public ResponseEntity<Brewery> unlinkBeer(@PathVariable Long breweryId, @PathVariable Long beerId) {
-        Optional<Brewery> brewery = breweryService.unlinkBeer(breweryId, beerId);
-        if (brewery.isPresent()) {
-            return ResponseEntity.ok(brewery.get());
+    @DeleteMapping("/{breweryId}/beers/{beerId}")
+    public ResponseEntity<Void> unlinkBeer(@PathVariable Long breweryId, @PathVariable Long beerId) {
+        boolean unlinked = breweryService.unlinkBeerFromBrewery(breweryId, beerId);
+
+        if (unlinked) {
+            return ResponseEntity.noContent().build();
         }
 
         return ResponseEntity.notFound().build();

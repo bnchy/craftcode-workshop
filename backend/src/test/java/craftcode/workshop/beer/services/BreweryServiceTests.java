@@ -111,14 +111,13 @@ class BreweryServiceTests {
 
         existingBrewery.setBeers(new HashSet<>(Set.of(beer)));
 
-
         when(breweryRepository.findById(1L)).thenReturn(Optional.of(existingBrewery));
         when(beerRepository.findById(1L)).thenReturn(Optional.of(beer));
         when(breweryRepository.save(existingBrewery)).thenReturn(existingBrewery);
 
-        Optional<Brewery> updatedBrewery = breweryService.unlinkBeer(1L, 1L);
+        boolean result = breweryService.unlinkBeerFromBrewery(1L, 1L);
 
-        assertThat(updatedBrewery).isPresent();
-
+        assertThat(result).isTrue();
+        assertThat(existingBrewery.getBeers()).isEmpty();
     }
 }
