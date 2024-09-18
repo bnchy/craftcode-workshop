@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Unlink {{ data.itemName }} from {{ data.removeFrom }}</h2>
+<mat-dialog-content>
+  <p>
+    Are you sure you want to unlink {{ data.itemName }} from
+    {{ data.removeFrom }}? <br />You can link the specific beer with a different
+    brewery from the beer page.
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-action-buttons">
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onYesClick()" cdkFocusInitial>Yes</button>
+</mat-dialog-actions>

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RemoveDialogComponent } from './remove-dialog.component';
+import { DialogOverviewComponent } from './dialog-overview.component';
 
-describe('RemoveDialogComponent', () => {
-  let component: RemoveDialogComponent;
-  let fixture: ComponentFixture<RemoveDialogComponent>;
+describe('DialogOverviewComponent', () => {
+  let component: DialogOverviewComponent;
+  let fixture: ComponentFixture<DialogOverviewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RemoveDialogComponent],
+      imports: [DialogOverviewComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RemoveDialogComponent);
+    fixture = TestBed.createComponent(DialogOverviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

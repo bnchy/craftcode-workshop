@@ -12,8 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { RemoveDialogComponent } from '../../../shared/remove-dialog/remove-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogOverviewComponent } from '../../../shared/dialog/dialog-overview/dialog-overview.component';
 
 @Component({
   selector: 'app-brewery',
@@ -38,14 +38,14 @@ export class BreweryComponent implements OnInit {
   brewery!: Brewery;
   beers!: Beer[];
   edit = true;
-  readonly panelOpenState = signal(false);
+
+  readonly beerId = signal('');
   readonly dialog = inject(MatDialog);
 
   constructor(
     private breweryService: BreweryService,
     private beerService: BeerService,
-    private router: ActivatedRoute,
-    private removeDialog: RemoveDialogComponent
+    private router: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -67,5 +67,17 @@ export class BreweryComponent implements OnInit {
       .subscribe((data: Beer[]) => {
         this.beers = data;
       });
+  }
+
+  openDialog(beerName: string, breweryName: string): void {
+    const dialogRef = this.dialog.open(DialogOverviewComponent, {
+      data: { itemName: beerName, removeFrom: breweryName },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.beerId.set(result);
+      }
+    });
   }
 }

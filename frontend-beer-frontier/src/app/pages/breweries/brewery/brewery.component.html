@@ -93,7 +93,10 @@
                 </div>
               </mat-expansion-panel-header>
               <mat-card-actions class="brewery-container-actions">
-                <button mat-icon-button (click)="edit = false">
+                <button
+                  mat-icon-button
+                  (click)="openDialog(beer.name, brewery.name)"
+                  *ngIf="beer.name && brewery.name">
                   <mat-icon>link_off</mat-icon>
                 </button>
                 <button
