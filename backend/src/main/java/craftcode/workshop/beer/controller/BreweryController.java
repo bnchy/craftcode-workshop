@@ -16,8 +16,6 @@ import java.util.logging.Logger;
 @RequestMapping("/breweries")
 public class BreweryController {
 
-    private static final Logger logger = Logger.getLogger(BreweryController.class.getName());
-
     @Autowired
     BreweryService breweryService;
 

@@ -79,7 +79,7 @@
           <input type="file" />
         </div>
       </div>
-      <div class="brewery-form-beer-list">
+      <div class="brewery-form-beer-list" *ngIf="beers.length > 0">
         <h2 class="form-list-header">Manufactured beers</h2>
         <div class="form-list-container">
           <mat-accordion class="form-list-accordion" *ngFor="let beer of beers">

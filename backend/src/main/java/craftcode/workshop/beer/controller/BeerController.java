@@ -53,18 +53,13 @@ public class BeerController {
         if (updatedBeer.isPresent()) {
             return ResponseEntity.ok(updatedBeer.get());
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.noContent().build();
 
     }
 
     @GetMapping("by-brewery/{breweryId}")
     public ResponseEntity<List<Beer>> getBeersByBreweryId(@PathVariable Long breweryId) {
         List<Beer> beers = beerService.getBeersByBreweryId(breweryId);
-        if (!beers.isEmpty()) {
-            return ResponseEntity.ok(beers);
-        }  else {
-            return ResponseEntity.notFound().build();
-        }
-
+        return ResponseEntity.ok(beers);
     }
 }
