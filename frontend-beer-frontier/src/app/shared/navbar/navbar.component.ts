@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +21,22 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  constructor(private router: Router) {}
+  currentUrl = '';
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.currentUrl = this.router.url;
+      });
+  }
+
+  isActive(route: string): boolean {
+    return this.currentUrl === route;
+  }
 
   logout() {
     localStorage.removeItem('user');
