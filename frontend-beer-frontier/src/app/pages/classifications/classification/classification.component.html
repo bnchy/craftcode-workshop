@@ -2,7 +2,9 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title-group>
-        <mat-card-title>{{ classification.id }}</mat-card-title>
+        <mat-card-title
+          >Classifications for {{ classification.id }}</mat-card-title
+        >
       </mat-card-title-group>
     </mat-card-header>
     <mat-divider></mat-divider>
@@ -15,32 +17,33 @@
           </p>
         </div>
         <div class="classification-content-container-item">
-          <h2 class="content-item-header">Used Graintype</h2>
+          <h2 class="classification-item-header">Used Graintype</h2>
           <p class="content-item-value">
             {{ transformEnum(classification.usedGrainType) }}
           </p>
         </div>
         <div class="classification-content-container-item">
-          <h2 class="content-item-header">Country</h2>
+          <h2 class="classification-item-header">Country</h2>
           <p class="content-item-value">
             {{ transformEnum(classification.country) }}
           </p>
         </div>
         <div class="classification-content-container-item">
-          <h2 class="content-item-header">Names and origins</h2>
+          <h2 class="classification-item-header">Names and origins</h2>
           <p class="content-item-value">
             {{ transformEnum(classification.namesAndOrigins) }}
           </p>
         </div>
       </div>
     </mat-card-content>
-    <mat-card-actions class="brewery-container-actions">
-      <button mat-raised-button color="warn">
+    <mat-divider class="mat-divider"></mat-divider>
+    <mat-card-actions class="classification-container-actions">
+      <button mat-icon-button color="warn">
         <mat-icon>delete</mat-icon>
       </button>
       <button
-        mat-raised-button
-        class="brewery-container-edit-button"
+        mat-icon-button
+        class="classification-container-edit-button"
         (click)="edit = true">
         <mat-icon>edit</mat-icon>
       </button>
@@ -52,14 +55,16 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title-group>
-        <mat-card-title>{{ classification.id }}</mat-card-title>
+        <mat-card-title
+          >Editing classifications for {{ classification.id }}</mat-card-title
+        >
       </mat-card-title-group>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
       <div class="classification-form-container">
         <div class="classification-form-container-item">
-          <h2 class="form-item-header">Fermentationtype</h2>
+          <h2 class="classification-item-header">Fermentationtype</h2>
           <mat-form-field>
             <mat-select
               [(ngModel)]="classification.fermentationType"
@@ -71,7 +76,7 @@
           </mat-form-field>
         </div>
         <div class="classification-form-container-item">
-          <h2 class="form-item-header">Graintype</h2>
+          <h2 class="classification-item-header">Graintype</h2>
           <mat-form-field>
             <mat-select
               [(ngModel)]="classification.usedGrainType"
@@ -83,7 +88,7 @@
           </mat-form-field>
         </div>
         <div class="classification-form-container-item">
-          <h2 class="form-item-header">Country</h2>
+          <h2 class="classification-item-header">Country</h2>
           <mat-form-field>
             <mat-select [(ngModel)]="classification.country" name="country">
               <mat-option *ngFor="let country of countries" [value]="country">
@@ -93,7 +98,7 @@
           </mat-form-field>
         </div>
         <div class="classification-form-container-item">
-          <h2 class="form-item-header">Names and Origins</h2>
+          <h2 class="classification-item-header">Names and Origins</h2>
           <mat-form-field>
             <mat-select
               [(ngModel)]="classification.namesAndOrigins"
@@ -106,12 +111,13 @@
         </div>
       </div>
     </mat-card-content>
+    <mat-divider class="mat-divider"></mat-divider>
     <mat-card-actions class="classification-container-actions">
-      <button mat-raised-button (click)="edit = false">
+      <button mat-icon-button (click)="edit = false">
         <mat-icon>cancel</mat-icon>
       </button>
       <button
-        mat-raised-button
+        mat-icon-button
         (click)="updateAClassification()"
         class="classification-container-save-button">
         <mat-icon>save</mat-icon>

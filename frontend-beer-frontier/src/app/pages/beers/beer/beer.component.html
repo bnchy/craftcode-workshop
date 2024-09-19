@@ -18,7 +18,9 @@
     </mat-card-header>
     <mat-divider class="mat-divider"></mat-divider>
     <mat-card-content>
-      <div class="beer-content-container">
+      <div
+        class="beer-content-container"
+        [routerLink]="['/classifications', beer.classification?.id]">
         <div class="beer-content-container-item">
           <h2 class="content-item-header">Fermentationtype</h2>
           <p class="content-item-value">

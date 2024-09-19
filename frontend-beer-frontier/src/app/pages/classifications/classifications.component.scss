@@ -8,3 +8,11 @@
   justify-content: end;
   margin: 15px 5px;
 }
+
+.classification-row {
+  cursor: pointer;
+}
+
+.classification-row:hover {
+  background-color: hsl(25, 95%, 93%);
+}

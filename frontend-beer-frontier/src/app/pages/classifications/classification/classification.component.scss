@@ -1,20 +1,27 @@
 .classification-container {
   width: 60%;
-  margin: 20px auto;
+  margin: 40px auto;
 }
 
 .classification-content-container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 20px;
 }
 
 .classification-content-container-item {
-  flex: 1 1 45%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   margin: 10px 0;
 }
 
+.classification-item-header {
+  font-size: 32px;
+}
 .classification-container-actions {
   display: flex;
   justify-content: space-between;
@@ -33,15 +40,23 @@
 .classification-form-container {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   flex-wrap: wrap;
 }
 
 .classification-form-container-item {
-  flex: 1 1 45%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   margin: 10px 0;
 }
 
 .classification-item-header {
-  font-size: 1.2rem;
+  font-size: 20px;
   margin: 0;
+}
+
+.mat-divider {
+  border-top-color: #b8b7b6;
+  margin: 10px 0;
 }
