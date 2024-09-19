@@ -12,8 +12,6 @@
   margin: 15px 5px;
 }
 
-.brewery-card{
-}
 .brewery-beer-list-header {
   width: 100%;
   text-align: center;
@@ -29,12 +27,12 @@
   justify-content: space-between;
   align-items: center;
   transition:
-  color 0.3s ease,
-  border-bottom 0.4s ease;
+    color 0.3s ease,
+    border-bottom 0.4s ease;
   border-bottom: 2px solid transparent;
 }
 
-.no-items-found{
+.no-items-found {
   text-align: center;
 }
 

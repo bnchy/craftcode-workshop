@@ -61,21 +61,21 @@ export class BreweryComponent implements OnInit {
     });
   }
 
-fetchBeersForBrewery(breweryId: number) {
-  this.beerService.fetchBeersByBreweryId(breweryId).subscribe(
-    (data: Beer[] | null) => {
-      this.beers = data || [];
-      if (this.beers.length === 0) {
-        console.log("No more beers in the brewery");
+  fetchBeersForBrewery(breweryId: number) {
+    this.beerService.fetchBeersByBreweryId(breweryId).subscribe(
+      (data: Beer[] | null) => {
+        this.beers = data || [];
+        if (this.beers.length === 0) {
+          console.log('No more beers in the brewery');
+        }
+      },
+      error => {
+        console.error('Error fetching beers', error);
       }
-    },
-    (error) => {
-      console.error('Error fetching beers', error);
-    }
-  );
-}
+    );
+  }
 
-  openDialog(beerName: string, breweryName: string, beerId:number): void {
+  openDialog(beerName: string, breweryName: string, beerId: number): void {
     const dialogRef = this.dialog.open(DialogOverviewComponent, {
       data: { itemName: beerName, removeFrom: breweryName },
     });
@@ -88,14 +88,12 @@ fetchBeersForBrewery(breweryId: number) {
   }
 
   unlinkBeer(beerId: number) {
-    if(this.brewery.id !== undefined) {
-          this.breweryService
-      .unlinkBeerFromBrewery(this.brewery.id, beerId)
-      .subscribe(() => {
-        this.fetchBeersForBrewery(this.brewery.id!);
-      });
+    if (this.brewery.id !== undefined) {
+      this.breweryService
+        .unlinkBeerFromBrewery(this.brewery.id, beerId)
+        .subscribe(() => {
+          this.fetchBeersForBrewery(this.brewery.id!);
+        });
     }
-
   }
-
 }

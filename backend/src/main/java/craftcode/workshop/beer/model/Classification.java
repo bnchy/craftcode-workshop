@@ -30,7 +30,6 @@ public class Classification {
     @Enumerated(EnumType.STRING)
     private NamesAndOrigins namesAndOrigins;
 
-
     @OneToMany(mappedBy = "classification", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Beer> beers = new HashSet<>();
 }

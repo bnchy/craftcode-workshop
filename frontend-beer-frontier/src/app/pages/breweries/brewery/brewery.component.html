@@ -1,5 +1,5 @@
 <div class="brewery-container" *ngIf="!edit && brewery">
-    <div class="button-container">
+  <div class="button-container">
     <button mat-raised-button [routerLink]="['/beers']">+ Add beer</button>
   </div>
   <mat-card class="brewery-card">
@@ -14,7 +14,7 @@
     <mat-divider></mat-divider>
     <mat-card-content>
       <h2 class="brewery-beer-list-header">Beer list</h2>
-      <div class="brewery-beers-container" >
+      <div class="brewery-beers-container">
         <div *ngIf="beers.length === 0" class="no-items-found">
           <p>no beers founds....</p>
         </div>

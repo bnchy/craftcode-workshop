@@ -20,6 +20,6 @@ public class Brewery {
 
     private String location;
 
-    @OneToMany(mappedBy = "brewery", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "brewery", cascade = CascadeType.ALL )
     private Set<Beer> beers = new HashSet<>();
 }

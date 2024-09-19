@@ -5,32 +5,58 @@ import { MatCardModule } from '@angular/material/card';
 import { Beer } from '../../api';
 import { RouterLink } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
-import { transformEnumValue } from '../../utils/string-utils';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
+interface BeerWithPlaceholder extends Beer {
+  placeholderImage?: string;
+}
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatDividerModule, RouterLink],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatIconModule,
+    MatDividerModule,
+    RouterLink,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+  ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  beers: Beer[] = [];
+  beers: BeerWithPlaceholder[] = [];
+  beerPlaceholderImages = [
+    '/assets/images/beer-placeholder1.jpg',
+    '/assets/images/beer-placeholder2.jpg',
+    '/assets/images/beer-placeholder3.jpg',
+    '/assets/images/beer-placeholder4.png',
+  ];
 
   constructor(private beerService: BeerService) {}
 
   ngOnInit() {
     this.beerService.fetchAllBeers().subscribe(data => {
-      this.beers = data;
+      this.beers = data.map(beer => ({
+        ...beer,
+        placeholderImage: this.getRandomPlaceholder(),
+      }));
       console.log(this.beers);
     });
   }
 
-  transformEnum(value: string | undefined): string {
-    if (!value) {
-      return '';
-    }
-    console.log(value);
-    return transformEnumValue(value);
+  getRandomPlaceholder(): string {
+    const randomIndex = Math.floor(
+      Math.random() * this.beerPlaceholderImages.length
+    );
+    return this.beerPlaceholderImages[randomIndex];
   }
 }

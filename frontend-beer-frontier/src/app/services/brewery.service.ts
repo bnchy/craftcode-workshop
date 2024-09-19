@@ -32,8 +32,14 @@ export class BreweryService {
     });
   }
 
-  unlinkBeerFromBrewery(breweryId: number, beerId: number) : Observable<boolean> {
+  unlinkBeerFromBrewery(
+    breweryId: number,
+    beerId: number
+  ): Observable<boolean> {
     const headers = this.authService.getHeaders();
-    return this.http.delete<boolean>(`${this.breweryUrl}/${breweryId}/beers/${beerId}`, { headers});
+    return this.http.delete<boolean>(
+      `${this.breweryUrl}/${breweryId}/beers/${beerId}`,
+      { headers }
+    );
   }
 }
