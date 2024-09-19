@@ -12,6 +12,12 @@
   margin: 15px 5px;
 }
 
+.card-image-header {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
 .brewery-beer-list-header {
   width: 100%;
   text-align: center;
@@ -74,12 +80,21 @@
 
 .brewery-form-container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
+.manufactured-beers-header {
+  font-size: 24px;
+  border-bottom: 1px solid #b8b7b6;
+  text-align: center;
+  margin-top: 25px;
+}
+
 .brewery-form-container-item {
-  flex: 1 1 45%;
+  display: flex;
+  justify-content: space-between;
   margin: 10px 0;
 }
 
@@ -131,4 +146,32 @@
 
 .form-list-subtitle {
   margin: 10px 5px;
+}
+
+// extra's
+
+.mat-divider {
+  border-top-color: #b8b7b6;
+  margin: 10px 0;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 15px 20px;
+  width: 170px;
+  cursor: pointer;
+  background-color: #db8c4a;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+  background-color: #fb9c4e;
+}
+
+.custom-file-upload input[type='file'] {
+  display: none;
 }

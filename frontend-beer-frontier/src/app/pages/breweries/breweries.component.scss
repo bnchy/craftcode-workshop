@@ -8,3 +8,12 @@
   justify-content: end;
   margin: 15px 5px;
 }
+
+.brewery-row {
+  cursor: pointer;
+  transition: 0.1.5s ease-in-out;
+}
+
+.brewery-row:hover {
+  background-color: hsl(25, 95%, 93%);
+}

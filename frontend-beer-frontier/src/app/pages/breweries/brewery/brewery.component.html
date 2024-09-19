@@ -3,6 +3,11 @@
     <button mat-raised-button [routerLink]="['/beers']">+ Add beer</button>
   </div>
   <mat-card class="brewery-card">
+    <img
+      class="card-image-header"
+      mat-card-image
+      src="assets/images/brewery-placeholder1.jpg"
+      alt="placeholder image of a brewery" />
     <mat-card-header>
       <mat-card-title-group>
         <mat-card-title>{{ brewery.name }}</mat-card-title>
@@ -11,9 +16,8 @@
         }}</mat-card-subtitle>
       </mat-card-title-group>
     </mat-card-header>
-    <mat-divider></mat-divider>
+    <mat-divider class="mat-divider"></mat-divider>
     <mat-card-content>
-      <h2 class="brewery-beer-list-header">Beer list</h2>
       <div class="brewery-beers-container">
         <div *ngIf="beers.length === 0" class="no-items-found">
           <p>no beers founds....</p>
@@ -51,7 +55,7 @@
         }}</mat-card-subtitle>
       </mat-card-title-group>
     </mat-card-header>
-    <mat-divider></mat-divider>
+    <mat-divider class="mat-divider"></mat-divider>
     <mat-card-content>
       <div class="brewery-form-container">
         <div class="brewery-form-container-item">
@@ -65,7 +69,7 @@
           </mat-form-field>
         </div>
         <div class="brewery-form-container-item">
-          <h2 class="form-item-header">Alcohol %</h2>
+          <h2 class="form-item-header">Location</h2>
           <mat-form-field>
             <input
               matInput
@@ -75,18 +79,15 @@
           </mat-form-field>
         </div>
         <div class="brewery-form-container-item">
-          <h2 class="form-item-header">Beers (WIP)</h2>
-          <mat-form-field>
-            <input matInput placeholder="" name="beerType" />
-          </mat-form-field>
-        </div>
-        <div class="brewery-form-container-item">
           <h2 class="form-item-header">Upload banner (WIP)</h2>
-          <input type="file" />
+          <label class="custom-file-upload">
+            <input type="file" />
+            Choose File
+          </label>
         </div>
       </div>
       <div class="brewery-form-beer-list" *ngIf="beers.length > 0">
-        <h2 class="form-list-header">Manufactured beers</h2>
+        <h2 class="manufactured-beers-header">Manufactured beers</h2>
         <div class="form-list-container">
           <mat-accordion class="form-list-accordion" *ngFor="let beer of beers">
             <mat-expansion-panel hideToggle>
@@ -117,6 +118,7 @@
         </div>
       </div>
     </mat-card-content>
+    <mat-divider class="mat-divider"></mat-divider>
     <mat-card-actions class="brewery-container-actions">
       <button mat-icon-button (click)="edit = false">
         <mat-icon>cancel</mat-icon>
