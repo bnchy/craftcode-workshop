@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BeerService } from '../../../services/beer.service';
-import { Beer } from '../../../api';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Beer, Brewery } from '../../../api';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -11,6 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { BreweryService } from '../../../services/brewery.service';
 
 @Component({
   selector: 'app-beer',
@@ -24,6 +26,7 @@ import { MatInputModule } from '@angular/material/input';
     MatDividerModule,
     MatIconModule,
     MatCardModule,
+    MatSelectModule,
     RouterLink,
   ],
   templateUrl: './beer.component.html',
@@ -32,11 +35,12 @@ import { MatInputModule } from '@angular/material/input';
 export class BeerComponent implements OnInit {
   edit = false;
   beer: Beer | undefined;
+  breweries: Brewery[] = [];
 
   constructor(
     private beerService: BeerService,
-    private route: ActivatedRoute,
-    private router: Router
+    private breweryService: BreweryService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -46,6 +50,9 @@ export class BeerComponent implements OnInit {
         this.beer = data;
       });
     }
+    this.breweryService.fetchAllBreweries().subscribe(data => {
+      this.breweries = data;
+    });
   }
   transformEnum(value: string | undefined): string {
     if (!value) {
@@ -58,5 +65,14 @@ export class BeerComponent implements OnInit {
     this.beerService.updateBeer(this.beer!).subscribe(() => {
       this.edit = false;
     });
+  }
+
+  onBreweryChange(breweryId: number) {
+    const selectedBrewery = this.breweries.find(
+      brewery => brewery.id === breweryId
+    );
+    if (selectedBrewery) {
+      this.beer!.brewery = selectedBrewery;
+    }
   }
 }

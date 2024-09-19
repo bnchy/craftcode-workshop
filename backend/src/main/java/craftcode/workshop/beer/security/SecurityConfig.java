@@ -74,6 +74,13 @@ public class SecurityConfig {
                 .httpBasic(withDefaults())
                 .formLogin(form -> form
                         .loginProcessingUrl("/login")
+                        .successHandler((request, response, authentication) -> {
+                            response.setContentType("application/json");
+                            response.setStatus(HttpServletResponse.SC_OK);
+                            Map<String, String> data = new HashMap<>();
+                            data.put("message", "Login successful");
+                            new ObjectMapper().writeValue(response.getOutputStream(), data);
+                        })
                         .failureHandler((request, response, exception) -> {
                             response.setContentType("application/json");
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

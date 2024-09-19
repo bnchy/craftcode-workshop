@@ -1,5 +1,10 @@
 <div class="beer-container" *ngIf="beer && edit === false">
   <mat-card>
+    <img
+      class="card-image-header"
+      mat-card-image
+      src="assets/images/beer-placeholder1.jpg"
+      alt="placeholder image of a beer glass" />
     <mat-card-header>
       <mat-card-title-group class="beer-title-group">
         <mat-card-title>{{ beer.name }}</mat-card-title>
@@ -11,7 +16,7 @@
         <p class="beer-alcohol-percentage">{{ beer.alcoholPercentage }}%</p>
       </mat-card-title-group>
     </mat-card-header>
-    <mat-divider></mat-divider>
+    <mat-divider class="mat-divider"></mat-divider>
     <mat-card-content>
       <div class="beer-content-container">
         <div class="beer-content-container-item">
@@ -40,15 +45,17 @@
         </div>
       </div>
     </mat-card-content>
+    <mat-divider></mat-divider>
+
     <mat-card-actions class="beer-container-actions">
-      <button mat-raised-button color="warn">
+      <button mat-icon-button color="warn">
         <mat-icon>delete</mat-icon>
       </button>
       <button
-        mat-raised-button
+        mat-icon-button
         class="beer-container-edit-button"
         (click)="edit = true">
-        <mat-icon>edit</mat-icon>
+        <mat-icon class="single-icon-buttons">edit</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>
@@ -101,17 +108,36 @@
           </mat-form-field>
         </div>
         <div class="beer-content-container-item">
+          <h2 class="content-item-header">Brewery</h2>
+          <mat-form-field>
+            <mat-label>Brewery</mat-label>
+            <mat-select
+              [value]="beer.brewery?.id"
+              (selectionChange)="onBreweryChange($event.value)">
+              <mat-option
+                *ngFor="let brewery of breweries"
+                [value]="brewery.id">
+                {{ brewery.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="beer-content-container-item">
           <h2 class="content-item-header">Upload banner (WIP)</h2>
-          <input type="file" />
+          <label class="custom-file-upload">
+            <input type="file" />
+            Choose File
+          </label>
         </div>
       </div>
     </mat-card-content>
+    <mat-divider></mat-divider>
     <mat-card-actions class="beer-container-actions">
-      <button mat-raised-button (click)="edit = false">
+      <button mat-icon-button (click)="edit = false">
         <mat-icon>cancel</mat-icon>
       </button>
       <button
-        mat-raised-button
+        mat-icon-button
         (click)="updateBeer()"
         class="beer-container-save-button">
         <mat-icon>save</mat-icon>

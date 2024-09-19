@@ -30,6 +30,7 @@ public class BeerService {
             existingBeer.setName(updatedBeer.getName());
             existingBeer.setAlcoholPercentage(updatedBeer.getAlcoholPercentage());
             existingBeer.setBeerType(updatedBeer.getBeerType());
+            existingBeer.setBrewery(updatedBeer.getBrewery());
              return beerRepository.save(existingBeer);
         });
     }
