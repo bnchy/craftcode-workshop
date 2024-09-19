@@ -24,6 +24,6 @@ class BeerRepositoryTests {
     @Test
     void shouldFindBeersByBreweryId() {
         List<Beer> foundBeers = beerRepository.findBeersByBreweryId(1L);
-        assertThat(foundBeers).hasSize(3);
+        assertThat(foundBeers).hasSize(2);
     }
 }

@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -104,6 +105,18 @@ class ClassificationServiceTests {
 
         assertThat(foundClassification).isPresent();
         assertThat(foundClassification.get().getCountry()).isEqualTo(Country.GERMANY);
+    }
 
+    @Test
+    void shouldDeleteAClassification() {
+        Long id = 1L;
+
+        when(classificationRepository.existsById(id)).thenReturn(true);
+
+        boolean result = classificationService.deleteClassification(1L);
+
+        verify(classificationRepository).deleteById(id);
+
+        assertThat(result).isTrue();
     }
 }

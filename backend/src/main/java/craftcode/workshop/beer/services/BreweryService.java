@@ -55,5 +55,13 @@ public class BreweryService {
         }
         return false;
     }
+
+    public boolean deleteBrewery(long breweryId) {
+        if(breweryRepository.existsById(breweryId)) {
+            breweryRepository.deleteById(breweryId);
+            return true;
+        }
+        return false;
+    }
 }
 

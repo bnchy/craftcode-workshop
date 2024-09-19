@@ -4,6 +4,16 @@
   width: 60%;
   margin: 20px auto;
 }
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin: 15px 5px;
+}
+
+.brewery-card{
+}
 .brewery-beer-list-header {
   width: 100%;
   text-align: center;
@@ -19,9 +29,13 @@
   justify-content: space-between;
   align-items: center;
   transition:
-    color 0.3s ease,
-    border-bottom 0.4s ease;
+  color 0.3s ease,
+  border-bottom 0.4s ease;
   border-bottom: 2px solid transparent;
+}
+
+.no-items-found{
+  text-align: center;
 }
 
 .brewery-beer-item:hover {
@@ -41,6 +55,7 @@
 .brewery-container-actions {
   display: flex;
   justify-content: space-between;
+  margin-top: auto;
 
   button {
     display: flex;

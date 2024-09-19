@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -98,4 +99,19 @@ class ClassificationControllerTests {
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getCountry()).isEqualTo(updatedClassification.getCountry());
     }
+
+    @Test
+    void shouldDeleteAClassification() {
+        Classification exisitingClassification = new Classification();
+        exisitingClassification.setId(1L);
+        exisitingClassification.setUsedGrainType(GrainTypes.BARELY);
+
+        when(classificationService.deleteClassification(1L)).thenReturn(true);
+
+        ResponseEntity<Void> result = classificationController.deleteClassification(1L);
+
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
 }
+
+

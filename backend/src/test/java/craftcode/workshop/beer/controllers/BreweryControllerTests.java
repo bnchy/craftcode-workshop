@@ -111,4 +111,18 @@ class BreweryControllerTests {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
 
+    @Test
+    void shouldDeleteABrewery() {
+        Brewery existingBrewery = new Brewery();
+        existingBrewery.setId(1L);
+        existingBrewery.setName("Brewery");
+        existingBrewery.setLocation("BELGIUM");
+
+        when(breweryService.deleteBrewery(1L)).thenReturn(true);
+
+        ResponseEntity<Void> result = breweryController.deleteBreweryById(1L);
+
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
+
 }

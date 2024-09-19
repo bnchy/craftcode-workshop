@@ -6,6 +6,149 @@ servers:
   - url: http://localhost:8080
     description: Generated server url
 paths:
+  /classifications/{id}:
+    get:
+      tags:
+        - classification-controller
+      operationId: getClassificationById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Classification'
+    put:
+      tags:
+        - classification-controller
+      operationId: updateClassification
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Classification'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Classification'
+  /breweries/{id}:
+    get:
+      tags:
+        - brewery-controller
+      operationId: getBreweryById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Brewery'
+    put:
+      tags:
+        - brewery-controller
+      operationId: updateBrewery
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Brewery'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Brewery'
+  /beers/{id}:
+    get:
+      tags:
+        - beer-controller
+      operationId: getBeer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Beer'
+    put:
+      tags:
+        - beer-controller
+      operationId: updateBeer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Beer'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Beer'
+    delete:
+      tags:
+        - beer-controller
+      operationId: deleteBeer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
   /beers:
     get:
       tags:
@@ -37,6 +180,15 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Beer'
+  /user/info:
+    get:
+      tags:
+        - user-controller
+      operationId: userInfo
+      responses:
+        '200':
+          description: OK
+          content: {}
   /classifications:
     get:
       tags:
@@ -51,25 +203,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Classification'
-  /classifications/{id}:
-    get:
-      tags:
-        - classification-controller
-      operationId: getClassificationById
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Classification'
   /breweries:
     get:
       tags:
@@ -84,32 +217,13 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Brewery'
-  /breweries/{id}:
-    get:
-      tags:
-        - brewery-controller
-      operationId: getBreweryById
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Brewery'
-  /beers/{id}:
+  /beers/by-brewery/{breweryId}:
     get:
       tags:
         - beer-controller
-      operationId: getBeer
+      operationId: getBeersByBreweryId
       parameters:
-        - name: id
+        - name: breweryId
           in: path
           required: true
           schema:
@@ -121,7 +235,30 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Beer'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+  /breweries/{breweryId}/beers/{beerId}:
+    delete:
+      tags:
+        - brewery-controller
+      operationId: unlinkBeer
+      parameters:
+        - name: breweryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: beerId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
     Beer:
@@ -144,11 +281,8 @@ components:
             - CHERRY
         brewery:
           $ref: '#/components/schemas/Brewery'
-        classifications:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Classification'
+        classification:
+          $ref: '#/components/schemas/Classification'
     Brewery:
       type: object
       properties:
@@ -194,3 +328,8 @@ components:
             - ABBEY_BEER
             - TRAPPIST_BEER
             - DARK_BEER
+        beers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Beer'

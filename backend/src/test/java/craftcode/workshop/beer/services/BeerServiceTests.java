@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -116,4 +118,15 @@ class BeerServiceTests {
         assertThat(updatedBeer.get().getName()).isEqualTo("Grimbergen");
     }
 
+    @Test
+    void shouldDeleteABeer() {
+        Long beerId = 1L;
+
+        when(beerRepository.existsById(beerId)).thenReturn(true);
+
+        boolean result = beerService.deleteBeer(beerId);
+
+        verify(beerRepository).deleteById(beerId);
+        assertTrue(result);
+    }
 }

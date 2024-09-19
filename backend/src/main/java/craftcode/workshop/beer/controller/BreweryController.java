@@ -52,4 +52,14 @@ public class BreweryController {
 
         return ResponseEntity.notFound().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBreweryById(@PathVariable Long id) {
+        boolean deleted = breweryService.deleteBrewery(id);
+
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

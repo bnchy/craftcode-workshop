@@ -1,7 +1,7 @@
-.openapi-generator-ignore
 apis/BeerControllerApi.ts
 apis/BreweryControllerApi.ts
 apis/ClassificationControllerApi.ts
+apis/UserControllerApi.ts
 apis/index.ts
 index.ts
 models/Beer.ts

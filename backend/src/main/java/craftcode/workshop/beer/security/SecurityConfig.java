@@ -68,19 +68,12 @@ public class SecurityConfig {
                         .requestMatchers("/beers/**").hasRole("USER")
                         .requestMatchers("/breweries/**").hasRole("USER")
                         .requestMatchers("/classifications/**").hasRole("USER")
-                        .requestMatchers("/h2-console/**").hasRole("ADMIN")
+                        .requestMatchers("/h2-console/*cn*").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
                 .formLogin(form -> form
                         .loginProcessingUrl("/login")
-                        .successHandler((request, response, authentication) -> {
-                            response.setContentType("application/json");
-                            response.setStatus(HttpServletResponse.SC_OK);
-                            Map<String, String> data = new HashMap<>();
-                            data.put("message", "Login successful");
-                            new ObjectMapper().writeValue(response.getOutputStream(), data);
-                        })
                         .failureHandler((request, response, exception) -> {
                             response.setContentType("application/json");
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

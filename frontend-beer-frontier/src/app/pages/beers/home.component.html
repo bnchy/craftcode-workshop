@@ -21,30 +21,29 @@
     <mat-divider></mat-divider>
     <mat-card-content>
       <div
-        class="beer-content-container"
-        *ngFor="let classification of beer.classifications">
+        class="beer-content-container">
         <div class="beer-content-container-item">
           <h2 class="content-item-header">Fermentationtype</h2>
           <p class="content-item-value">
-            {{ transformEnum(classification.fermentationType) }}
+            {{ transformEnum(beer.classification?.fermentationType) }}
           </p>
         </div>
         <div class="beer-content-container-item">
           <h2 class="content-item-header">Used Graintype</h2>
           <p class="content-item-value">
-            {{ transformEnum(classification.usedGrainType) }}
+            {{ transformEnum(beer.classification?.usedGrainType) }}
           </p>
         </div>
         <div class="beer-content-container-item">
           <h2 class="content-item-header">Country</h2>
           <p class="content-item-value">
-            {{ transformEnum(classification.country) }}
+            {{ transformEnum(beer.classification?.country) }}
           </p>
         </div>
         <div class="beer-content-container-item">
           <h2 class="content-item-header">Names and origins</h2>
           <p class="content-item-value">
-            {{ transformEnum(classification.namesAndOrigins) }}
+            {{ transformEnum(beer.classification?.namesAndOrigins) }}
           </p>
         </div>
       </div>

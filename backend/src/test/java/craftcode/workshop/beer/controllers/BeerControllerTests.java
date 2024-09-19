@@ -129,5 +129,20 @@ class BeerControllerTests {
 
     }
 
+    @Test
+    void shouldDeleteABeer() {
+        Beer existingBeer = new Beer();
+        existingBeer.setId(1L);
+        existingBeer.setName("Chouffe");
+        existingBeer.setAlcoholPercentage(8);
+
+        when(beerService.deleteBeer(1L)).thenReturn(true);
+
+        ResponseEntity<Void> response = beerController.deleteBeer(1L);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+
+    }
+
 }
 

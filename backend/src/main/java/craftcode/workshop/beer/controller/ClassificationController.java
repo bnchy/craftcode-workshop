@@ -37,4 +37,14 @@ public class ClassificationController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteClassification(Long id) {
+        boolean deleted = classificationService.deleteClassification(id);
+
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

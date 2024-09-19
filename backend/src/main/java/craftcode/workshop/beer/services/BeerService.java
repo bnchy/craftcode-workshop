@@ -37,4 +37,12 @@ public class BeerService {
     public List<Beer> getBeersByBreweryId(long id) {
         return beerRepository.findBeersByBreweryId(id);
     }
+
+    public boolean deleteBeer(Long beerId) {
+        if(beerRepository.existsById(beerId)){
+            beerRepository.deleteById(beerId);
+            return true;
+        }
+        return false;
+    }
 }

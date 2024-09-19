@@ -62,4 +62,14 @@ public class BeerController {
         List<Beer> beers = beerService.getBeersByBreweryId(breweryId);
         return ResponseEntity.ok(beers);
     }
+
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteBeer(@PathVariable Long id) {
+        boolean deleted = beerService.deleteBeer(id);
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

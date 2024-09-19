@@ -11,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import static org.mockito.Mockito.verify;
+
 
 import java.util.HashSet;
 import java.util.List;
@@ -119,5 +121,17 @@ class BreweryServiceTests {
 
         assertThat(result).isTrue();
         assertThat(existingBrewery.getBeers()).isEmpty();
+    }
+
+    @Test
+    void shouldDeleteABrewery() {
+        Long breweryId = 1L;
+
+        when(breweryRepository.existsById(breweryId)).thenReturn(true);
+
+        boolean result = breweryService.deleteBrewery(1L);
+
+        verify(breweryRepository).deleteById(breweryId);
+        assertThat(result).isTrue();
     }
 }

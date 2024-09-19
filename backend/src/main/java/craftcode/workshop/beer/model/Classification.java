@@ -30,12 +30,7 @@ public class Classification {
     @Enumerated(EnumType.STRING)
     private NamesAndOrigins namesAndOrigins;
 
-    @ManyToMany
-    @JoinTable(
-            name= "classification_beer",
-            joinColumns = @JoinColumn(name = "classification_id"),
-            inverseJoinColumns = @JoinColumn(name = "beer_id")
-    )
-    @JsonIgnoreProperties("classifications")
+
+    @OneToMany(mappedBy = "classification", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Beer> beers = new HashSet<>();
 }

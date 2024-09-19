@@ -32,4 +32,12 @@ public class ClassificationService {
             return classificationRepository.save(existingClassification);
         });
     }
+
+    public boolean deleteClassification(Long id) {
+        if (classificationRepository.existsById(id)) {
+            classificationRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }

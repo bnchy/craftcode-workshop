@@ -33,8 +33,10 @@ public class Beer {
     private Brewery brewery;
 
 
-    @ManyToMany(mappedBy = "beers")
+
+    @ManyToOne
+    @JoinColumn(name = "classification_id")  // Renamed the column to reflect a single classification
     @JsonIgnoreProperties("beers")
-    private Set<Classification> classifications = new HashSet<>();
+    private Classification classification;
 
 }
