@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -9,9 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterLink } from '@angular/router';
-import { Beer, BeerBeerTypeEnum } from '../../../api';
+import { Beer, BeerBeerTypeEnum, Brewery } from '../../../api';
 import { transformEnumValue } from '../../../utils/string-utils';
 import { BeerService } from '../../../services/beer.service';
+import { BreweryService } from '../../../services/brewery.service';
 
 @Component({
   selector: 'app-add-beer',
@@ -31,20 +32,26 @@ import { BeerService } from '../../../services/beer.service';
   templateUrl: './add-beer.component.html',
   styleUrl: './add-beer.component.scss',
 })
-export class AddBeerComponent {
+export class AddBeerComponent implements OnInit {
   beer: Beer = {
     name: '',
     alcoholPercentage: undefined,
     beerType: undefined,
     brewery: undefined,
   };
+  breweries: Brewery[] = [];
 
   beerTypes = Object.values(BeerBeerTypeEnum);
 
   constructor(
     private beerService: BeerService,
+    private breweryService: BreweryService,
     private router: Router
   ) {}
+
+  ngOnInit() {
+    this.fetchBreweries();
+  }
 
   transformEnum(value: string | undefined): string {
     if (!value) {
@@ -62,6 +69,21 @@ export class AddBeerComponent {
       error: error => {
         console.error('Error creating beer:', error);
       },
+    });
+  }
+
+  onBreweryChange(breweryId: number) {
+    const selectedBrewery = this.breweries.find(
+      brewery => brewery.id === breweryId
+    );
+    if (selectedBrewery) {
+      this.beer!.brewery = selectedBrewery;
+    }
+  }
+
+  fetchBreweries() {
+    this.breweryService.fetchAllBreweries().subscribe(data => {
+      this.breweries = data;
     });
   }
 }
