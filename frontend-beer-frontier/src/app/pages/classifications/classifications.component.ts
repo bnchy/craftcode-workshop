@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClassificationsService } from '../../services/classifications.service';
+import { ClassificationService } from '../../services/classification.service';
 import { Classification } from '../../api';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,7 +22,7 @@ export class ClassificationsComponent implements OnInit {
     'namesAndOrigins',
   ];
 
-  constructor(private classification: ClassificationsService) {}
+  constructor(private classification: ClassificationService) {}
 
   ngOnInit() {
     this.classification.fetchAllClassifications().subscribe(data => {

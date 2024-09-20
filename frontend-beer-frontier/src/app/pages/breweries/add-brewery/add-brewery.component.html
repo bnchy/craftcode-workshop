@@ -1,0 +1,63 @@
+<form class="brewery-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title-group class="brewery-title-group">
+        <mat-card-title
+          >{{ brewery.name
+          }}<span *ngIf="!brewery.name"
+            >Create a new brewery</span
+          ></mat-card-title
+        >
+        <mat-card-subtitle class="brewery-subtitle">{{
+          brewery.location
+        }}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div class="brewery-content-container">
+        <div class="brewery-content-container-item">
+          <h2 class="content-item-header">Name</h2>
+          <mat-form-field class="form-field">
+            <mat-label>Breweryname</mat-label>
+            <input
+              matInput
+              placeholder=""
+              [(ngModel)]="brewery.name"
+              name="name" />
+          </mat-form-field>
+        </div>
+        <div class="brewery-content-container-item">
+          <h2 class="content-item-header">Location</h2>
+          <mat-form-field class="form-field">
+            <mat-label>Location</mat-label>
+            <input
+              matInput
+              placeholder=""
+              [(ngModel)]="brewery.location"
+              name="alcoholPercentage" />
+          </mat-form-field>
+        </div>
+        <div class="brewery-content-container-item">
+          <h2 class="content-item-header">Upload banner (WIP)</h2>
+          <label class="custom-file-upload form-field">
+            <input type="file" />
+            Choose File
+          </label>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions class="brewery-container-actions">
+      <button mat-icon-button [routerLink]="['/breweries']">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        class="brewery-container-add-button"
+        (click)="createBrewery()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

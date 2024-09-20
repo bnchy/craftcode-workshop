@@ -37,6 +37,10 @@
   margin: 10px;
 }
 
+.form-field {
+  width: 50%;
+}
+
 .beer-title-group {
   display: flex;
   justify-content: space-between;
@@ -80,7 +84,7 @@
 .custom-file-upload {
   display: inline-block;
   padding: 15px 20px;
-  width: 170px;
+  width: 309px;
   cursor: pointer;
   background-color: #db8c4a;
   color: white;

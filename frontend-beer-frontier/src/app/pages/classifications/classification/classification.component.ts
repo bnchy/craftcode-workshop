@@ -7,7 +7,7 @@ import {
   ClassificationNamesAndOriginsEnum,
   ClassificationUsedGrainTypeEnum,
 } from '../../../api';
-import { ClassificationsService } from '../../../services/classifications.service';
+import { ClassificationService } from '../../../services/classification.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
@@ -54,7 +54,7 @@ export class ClassificationComponent implements OnInit {
   readonly dialog = inject(MatDialog);
 
   constructor(
-    private classificationService: ClassificationsService,
+    private classificationService: ClassificationService,
     private beerService: BeerService,
     private route: ActivatedRoute,
     private router: Router

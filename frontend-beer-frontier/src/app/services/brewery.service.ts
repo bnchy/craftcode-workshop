@@ -24,6 +24,10 @@ export class BreweryService {
     const headers = this.authService.getHeaders();
     return this.http.get<Brewery>(`${this.breweryUrl}/${id}`, { headers });
   }
+  createABrewery(brewery: Brewery): Observable<Brewery> {
+    const headers = this.authService.getHeaders();
+    return this.http.post<Brewery>(this.breweryUrl, brewery, { headers });
+  }
 
   updateABrewery(brewery: Brewery): Observable<Brewery> {
     const headers = this.authService.getHeaders();

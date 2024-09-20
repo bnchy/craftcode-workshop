@@ -1,5 +1,6 @@
 .classification-container {
-  width: 60%;
+  width: 50%;
+  max-width: 750px;
   margin: 40px auto;
 }
 
@@ -51,6 +52,9 @@
   margin: 10px 0;
 }
 
+.form-field {
+  width: 50%;
+}
 .classification-item-header {
   font-size: 20px;
   margin: 0;

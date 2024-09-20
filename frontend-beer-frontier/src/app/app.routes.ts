@@ -8,6 +8,7 @@ import { BeerComponent } from './pages/beers/beer/beer.component';
 import { ClassificationComponent } from './pages/classifications/classification/classification.component';
 import { BreweryComponent } from './pages/breweries/brewery/brewery.component';
 import { AddBeerComponent } from './pages/beers/add-beer/add-beer.component';
+import { AddBreweryComponent } from './pages/breweries/add-brewery/add-brewery.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/beers', pathMatch: 'full' },
@@ -19,6 +20,11 @@ export const routes: Routes = [
   {
     path: 'breweries',
     component: BreweriesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'breweries/add',
+    component: AddBreweryComponent,
     canActivate: [AuthGuard],
   },
   {

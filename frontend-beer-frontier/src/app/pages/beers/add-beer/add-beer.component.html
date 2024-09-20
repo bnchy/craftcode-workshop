@@ -21,7 +21,7 @@
       <div class="beer-content-container">
         <div class="beer-content-container-item">
           <h2 class="content-item-header">Name</h2>
-          <mat-form-field>
+          <mat-form-field class="form-field">
             <mat-label>Beername</mat-label>
             <input
               matInput
@@ -32,9 +32,8 @@
         </div>
         <div class="beer-content-container-item">
           <h2 class="content-item-header">Alcohol %</h2>
-          <mat-form-field>
+          <mat-form-field class="form-field">
             <mat-label>AlcoholPercentage</mat-label>
-
             <input
               matInput
               placeholder=""
@@ -44,7 +43,7 @@
         </div>
         <div class="beer-content-container-item">
           <h2 class="content-item-header">Beertype</h2>
-          <mat-form-field>
+          <mat-form-field class="form-field">
             <mat-label>Beertype</mat-label>
             <mat-select [(ngModel)]="beer.beerType" name="beerType">
               <mat-option *ngFor="let type of beerTypes" [value]="type">{{
@@ -55,7 +54,7 @@
         </div>
         <div class="beer-content-container-item" *ngIf="breweries">
           <h2 class="content-item-header">Brewery</h2>
-          <mat-form-field>
+          <mat-form-field class="form-field">
             <mat-label>Brewery</mat-label>
             <mat-select
               [value]="beer.brewery?.id"
@@ -66,9 +65,27 @@
             </mat-select>
           </mat-form-field>
         </div>
+        <div class="beer-content-container-item" *ngIf="classifications">
+          <h2 class="content-item-header">Classification</h2>
+          <mat-form-field class="form-field">
+            <mat-label>Classification</mat-label>
+            <mat-select
+              [value]="beer.classification?.id"
+              (selectionChange)="onClassificationChange($event.value)">
+              <mat-option
+                *ngFor="let classification of classifications"
+                [value]="classification.id"
+                >{{ transformEnum(classification.namesAndOrigins) }},
+                {{ transformEnum(classification.country) }},
+                {{ transformEnum(classification.fermentationType) }},
+                {{ transformEnum(classification.usedGrainType) }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
         <div class="beer-content-container-item">
           <h2 class="content-item-header">Upload banner (WIP)</h2>
-          <label class="custom-file-upload">
+          <label class="custom-file-upload form-field">
             <input type="file" />
             Choose File
           </label>

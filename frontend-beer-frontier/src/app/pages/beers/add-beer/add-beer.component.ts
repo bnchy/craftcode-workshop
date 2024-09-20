@@ -9,10 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterLink } from '@angular/router';
-import { Beer, BeerBeerTypeEnum, Brewery } from '../../../api';
+import { Beer, BeerBeerTypeEnum, Brewery, Classification } from '../../../api';
 import { transformEnumValue } from '../../../utils/string-utils';
 import { BeerService } from '../../../services/beer.service';
 import { BreweryService } from '../../../services/brewery.service';
+import { ClassificationService } from '../../../services/classification.service';
 
 @Component({
   selector: 'app-add-beer',
@@ -40,17 +41,20 @@ export class AddBeerComponent implements OnInit {
     brewery: undefined,
   };
   breweries: Brewery[] = [];
+  classifications: Classification[] = [];
 
   beerTypes = Object.values(BeerBeerTypeEnum);
 
   constructor(
     private beerService: BeerService,
     private breweryService: BreweryService,
+    private ClassificationService: ClassificationService,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.fetchBreweries();
+    this.fetchClassifications();
   }
 
   transformEnum(value: string | undefined): string {
@@ -81,9 +85,24 @@ export class AddBeerComponent implements OnInit {
     }
   }
 
+  onClassificationChange(classificationId: number) {
+    const selectedClassification = this.classifications.find(
+      classification => classification.id === classificationId
+    );
+    if (selectedClassification) {
+      this.beer!.classification = selectedClassification;
+    }
+  }
+
   fetchBreweries() {
     this.breweryService.fetchAllBreweries().subscribe(data => {
       this.breweries = data;
+    });
+  }
+
+  fetchClassifications() {
+    this.ClassificationService.fetchAllClassifications().subscribe(data => {
+      this.classifications = data;
     });
   }
 }

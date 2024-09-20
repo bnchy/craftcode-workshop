@@ -8,7 +8,7 @@ import { Classification } from '../api';
 @Injectable({
   providedIn: 'root',
 })
-export class ClassificationsService {
+export class ClassificationService {
   constructor(
     private http: HttpClient,
     private authService: AuthService

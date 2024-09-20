@@ -1,4 +1,4 @@
-.beer-container {
+.brewery-container {
   width: 50%;
   max-width: 750px;
   margin: 40px auto;
@@ -14,12 +14,12 @@
   margin: 10px 0;
 }
 
-.beer-classification-header {
+.brewery-classification-header {
   text-align: center;
   font-size: 24px;
 }
 
-.beer-content-container {
+.brewery-content-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -29,7 +29,7 @@
   cursor: pointer;
 }
 
-.beer-content-container-item {
+.brewery-content-container-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -37,14 +37,18 @@
   margin: 10px;
 }
 
-.beer-title-group {
+.form-field {
+  width: 50%;
+}
+
+.brewery-title-group {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
-.beer-alcohol-percentage {
+.brewery-alcohol-percentage {
   font-size: larger;
 }
 
@@ -53,31 +57,27 @@
   margin: 0;
 }
 
-.form-field {
-  width: 50%;
-}
-
-.beer-container-actions {
+.brewery-container-actions {
   display: flex;
   justify-content: space-between;
 }
 
-.beer-form-container-item {
+.brewery-form-container-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.beer-container-actions button {
+.brewery-container-actions button {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.beer-container-edit-button {
+.brewery-container-edit-button {
   color: #00c3f9;
 }
 
-.beer-container-save-button {
+.brewery-container-add-button {
   color: #00b539;
 }
 

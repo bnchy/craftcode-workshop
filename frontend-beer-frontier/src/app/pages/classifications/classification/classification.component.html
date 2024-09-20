@@ -65,7 +65,7 @@
       <div class="classification-form-container">
         <div class="classification-form-container-item">
           <h2 class="classification-item-header">Fermentationtype</h2>
-          <mat-form-field>
+          <mat-form-field class="form-field">
             <mat-select
               [(ngModel)]="classification.fermentationType"
               name="fermentationType">
@@ -77,7 +77,7 @@
         </div>
         <div class="classification-form-container-item">
           <h2 class="classification-item-header">Graintype</h2>
-          <mat-form-field>
+          <mat-form-field class="form-field">
             <mat-select
               [(ngModel)]="classification.usedGrainType"
               name="usedGrainType">
@@ -89,7 +89,7 @@
         </div>
         <div class="classification-form-container-item">
           <h2 class="classification-item-header">Country</h2>
-          <mat-form-field>
+          <mat-form-field class="form-field">
             <mat-select [(ngModel)]="classification.country" name="country">
               <mat-option *ngFor="let country of countries" [value]="country">
                 {{ country }}
@@ -99,7 +99,7 @@
         </div>
         <div class="classification-form-container-item">
           <h2 class="classification-item-header">Names and Origins</h2>
-          <mat-form-field>
+          <mat-form-field class="form-field">
             <mat-select
               [(ngModel)]="classification.namesAndOrigins"
               name="namesAndOrigins">

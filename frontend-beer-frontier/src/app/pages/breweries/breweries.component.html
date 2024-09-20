@@ -1,6 +1,8 @@
 <div class="breweries-overview-container">
   <div class="button-container">
-    <button mat-raised-button>+ Add brewery</button>
+    <button mat-raised-button [routerLink]="['/breweries/add']">
+      + Add brewery
+    </button>
   </div>
 
   <table mat-table [dataSource]="breweries" class="mat-elevation-z8 demo-table">
