@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Beer, Brewery } from '../../../api';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BreweryService } from '../../../services/brewery.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -37,7 +37,7 @@ import { DialogOverviewComponent } from '../../../shared/dialog/dialog-overview/
 export class BreweryComponent implements OnInit {
   brewery!: Brewery;
   beers!: Beer[];
-  edit = true;
+  edit = false;
 
   readonly beerId = signal('');
   readonly dialog = inject(MatDialog);
@@ -45,11 +45,12 @@ export class BreweryComponent implements OnInit {
   constructor(
     private breweryService: BreweryService,
     private beerService: BeerService,
-    private router: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    const id = this.router.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.breweryService.fetchABrewery(+id!).subscribe(data => {
       this.brewery = data;
     });
@@ -95,5 +96,13 @@ export class BreweryComponent implements OnInit {
           this.fetchBeersForBrewery(this.brewery.id!);
         });
     }
+  }
+  deleteBrewery() {
+    if (!this.brewery.id) {
+      return;
+    }
+    this.breweryService.deleteBrewery(this.brewery.id).subscribe(() => {
+      this.router.navigate(['/breweries']);
+    });
   }
 }

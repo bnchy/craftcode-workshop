@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   Classification,
   ClassificationCountryEnum,
@@ -52,11 +52,12 @@ export class ClassificationComponent implements OnInit {
   constructor(
     private classificationService: ClassificationsService,
     private beerService: BeerService,
-    private router: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    const id = this.router.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.classificationService.fetchAClassification(+id!).subscribe(data => {
       this.classification = data;
     });
@@ -81,5 +82,17 @@ export class ClassificationComponent implements OnInit {
       return '';
     }
     return transformEnumValue(value);
+  }
+
+  deleteClassification() {
+    console.log(this.classification.id);
+    if (!this.classification.id) {
+      return;
+    }
+    this.classificationService
+      .deleteClassification(this.classification.id)
+      .subscribe(() => {
+        this.router.navigate(['/classifications']);
+      });
   }
 }

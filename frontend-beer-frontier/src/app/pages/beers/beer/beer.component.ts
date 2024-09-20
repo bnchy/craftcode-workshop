@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BeerService } from '../../../services/beer.service';
 import { Beer, Brewery } from '../../../api';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -34,13 +34,14 @@ import { BreweryService } from '../../../services/brewery.service';
 })
 export class BeerComponent implements OnInit {
   edit = false;
-  beer: Beer | undefined;
+  beer!: Beer;
   breweries: Brewery[] = [];
 
   constructor(
     private beerService: BeerService,
     private breweryService: BreweryService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -74,5 +75,13 @@ export class BeerComponent implements OnInit {
     if (selectedBrewery) {
       this.beer!.brewery = selectedBrewery;
     }
+  }
+  deleteBeer() {
+    if (!this.beer.id) {
+      return;
+    }
+    this.beerService.deleteBeer(this.beer.id).subscribe(() => {
+      this.router.navigate(['/beers']);
+    });
   }
 }

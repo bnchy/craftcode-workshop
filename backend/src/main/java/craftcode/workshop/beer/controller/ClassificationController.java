@@ -39,7 +39,7 @@ public class ClassificationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteClassification(Long id) {
+    public ResponseEntity<Void> deleteClassification(@PathVariable Long id) {
         boolean deleted = classificationService.deleteClassification(id);
 
         if (deleted) {
