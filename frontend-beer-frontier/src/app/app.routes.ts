@@ -7,11 +7,14 @@ import { ClassificationsComponent } from './pages/classifications/classification
 import { BeerComponent } from './pages/beers/beer/beer.component';
 import { ClassificationComponent } from './pages/classifications/classification/classification.component';
 import { BreweryComponent } from './pages/breweries/brewery/brewery.component';
+import { AddBeerComponent } from './pages/beers/add-beer/add-beer.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/beers', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'beers', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'beers/add', component: AddBeerComponent, canActivate: [AuthGuard] },
+
   { path: 'beers/:id', component: BeerComponent, canActivate: [AuthGuard] },
   {
     path: 'breweries',

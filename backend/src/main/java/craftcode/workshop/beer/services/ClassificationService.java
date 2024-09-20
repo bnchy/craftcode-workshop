@@ -40,4 +40,8 @@ public class ClassificationService {
         }
         return false;
     }
+
+    public Classification saveClassification(Classification classification) {
+        return classificationRepository.save(classification);
+    }
 }

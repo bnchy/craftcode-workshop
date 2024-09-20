@@ -83,6 +83,20 @@ class ClassificationServiceTests {
     }
 
     @Test
+    void shouldSaveAClassification(){
+        Classification classification = new Classification();
+        classification.setId(1L);
+        classification.setNamesAndOrigins(NamesAndOrigins.ABBEY_BEER);
+        classification.setCountry(Country.BELGIUM);
+
+        when(classificationRepository.save(classification)).thenReturn(classification);
+
+        Classification savedClassification = classificationService.saveClassification(classification);
+
+        assertThat(savedClassification.getNamesAndOrigins()).isEqualTo(classification.getNamesAndOrigins());
+    }
+
+    @Test
     void shouldUpdateAClassification() {
         Classification exisitingClassification = new Classification();
         exisitingClassification.setId(1L);

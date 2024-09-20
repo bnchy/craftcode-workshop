@@ -38,7 +38,7 @@ public class BeerController {
         return beer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<Beer> addBeer(@RequestBody Beer beer, HttpServletRequest request, UriComponentsBuilder ucb){
         Beer savedBeer = beerService.saveBeer(beer);
         URI locationOfNewBeer = ucb.path("/beers/{id}").buildAndExpand(savedBeer.getId()).toUri();

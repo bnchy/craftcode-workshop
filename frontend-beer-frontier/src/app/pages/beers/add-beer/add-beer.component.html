@@ -1,0 +1,81 @@
+<form class="beer-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title-group class="beer-title-group">
+        <mat-card-title
+          >{{ beer.name
+          }}<span *ngIf="!beer.name">Create a new beer</span></mat-card-title
+        >
+        <mat-card-subtitle
+          class="beer-subtitle"
+          [routerLink]="['/breweries', beer.brewery?.id]"
+          >{{ beer.brewery?.name }}</mat-card-subtitle
+        >
+        <p class="beer-alcohol-percentage" *ngIf="beer.alcoholPercentage">
+          {{ beer.alcoholPercentage }}%
+        </p>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div class="beer-content-container">
+        <div class="beer-content-container-item">
+          <h2 class="content-item-header">Name</h2>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder=""
+              [(ngModel)]="beer.name"
+              name="name" />
+          </mat-form-field>
+        </div>
+        <div class="beer-content-container-item">
+          <h2 class="content-item-header">Alcohol %</h2>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder=""
+              [(ngModel)]="beer.alcoholPercentage"
+              name="alcoholPercentage" />
+          </mat-form-field>
+        </div>
+        <div class="beer-content-container-item">
+          <h2 class="content-item-header">Beertype</h2>
+          <mat-form-field>
+            <mat-select [(ngModel)]="beer.beerType" name="beerType">
+              <mat-option *ngFor="let type of beerTypes" [value]="type">{{
+                transformEnum(type)
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="beer-content-container-item">
+          <h2 class="content-item-header">Brewery</h2>
+          <mat-form-field>
+            <mat-label>Brewery</mat-label>
+            <mat-select> </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="beer-content-container-item">
+          <h2 class="content-item-header">Upload banner (WIP)</h2>
+          <label class="custom-file-upload">
+            <input type="file" />
+            Choose File
+          </label>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions class="beer-container-actions">
+      <button mat-icon-button [routerLink]="['/beers']">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        class="beer-container-add-button"
+        (click)="createBeer()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

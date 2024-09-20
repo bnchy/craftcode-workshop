@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -75,6 +76,23 @@ class ClassificationControllerTests {
 
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getId()).isEqualTo(1L);
+    }
+    @Test
+    void shouldSaveAClassification() {
+        Classification classification = new Classification();
+        classification.setId(1L);
+        classification.setUsedGrainType(GrainTypes.BARELY);
+
+
+        when(classificationService.saveClassification(classification)).thenReturn(classification);
+
+        UriComponentsBuilder ucb = UriComponentsBuilder.fromPath("");
+
+        ResponseEntity<Classification> response = classificationController.saveClassification(classification, null, ucb);
+
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().getUsedGrainType()).isEqualTo(classification.getUsedGrainType());
     }
     @Test
     void shouldUpdateAClassification() {

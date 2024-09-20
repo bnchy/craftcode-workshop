@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashSet;
 import java.util.List;
@@ -71,6 +72,22 @@ class BreweryControllerTests {
 
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getName()).isEqualTo(breweries.get(0).getName());
+    }
+
+    @Test
+    void shouldSaveBrewery() {
+        Brewery brewery = new Brewery();
+        brewery.setName("Brewery");
+        brewery.setLocation("BELGIUM");
+
+        when(breweryService.saveBrewery(brewery)).thenReturn(brewery);
+
+        UriComponentsBuilder ucb = UriComponentsBuilder.fromPath("");
+        ResponseEntity<Brewery> response = breweryController.saveBrewery(brewery, null, ucb);
+
+        assertThat(response.getHeaders().getLocation()).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getHeaders().getLocation().toString()).isEqualTo("/breweries/1");
     }
 
     @Test

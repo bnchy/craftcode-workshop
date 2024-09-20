@@ -63,5 +63,9 @@ public class BreweryService {
         }
         return false;
     }
+
+    public Brewery saveBrewery(Brewery brewery1) {
+        return breweryRepository.save(brewery1);
+    }
 }
 

@@ -79,6 +79,19 @@ class BreweryServiceTests {
     }
 
     @Test
+    void shouldSaveABrewery() {
+        Brewery brewery1 = new Brewery();
+        brewery1.setId(1L);
+        brewery1.setName("Brewery1");
+        brewery1.setLocation("BELGIUM");
+
+        when(breweryRepository.save(brewery1)).thenReturn(brewery1);
+
+        Brewery savedBrewery = breweryService.saveBrewery(brewery1);
+        assertThat(savedBrewery.getName()).isEqualTo(brewery1.getName());
+    }
+
+    @Test
     void shouldUpdateABrewery() {
         Brewery existingBrewery = new Brewery();
         existingBrewery.setId(1L);

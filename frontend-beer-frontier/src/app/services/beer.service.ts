@@ -33,6 +33,11 @@ export class BeerService {
     });
   }
 
+  createBeer(beer: Beer): Observable<Beer> {
+    const headers = this.authService.getHeaders();
+    return this.http.post<Beer>(`${this.beersUrl}`, beer, { headers });
+  }
+
   updateBeer(beer: Beer): Observable<Beer> {
     const headers = this.authService.getHeaders();
     return this.http.put<Beer>(`${this.beersUrl}/${beer.id}`, beer, {

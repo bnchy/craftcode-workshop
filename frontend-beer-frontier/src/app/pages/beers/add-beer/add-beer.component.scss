@@ -1,0 +1,99 @@
+.beer-container {
+  width: 50%;
+  max-width: 750px;
+  margin: 40px auto;
+}
+.card-image-header {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.mat-divider {
+  border-top-color: #b8b7b6;
+  margin: 10px 0;
+}
+
+.beer-classification-header {
+  text-align: center;
+  font-size: 24px;
+}
+
+.beer-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.beer-content-container-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.beer-title-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.beer-alcohol-percentage {
+  font-size: larger;
+}
+
+.content-item-header {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.beer-container-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.beer-form-container-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.beer-container-actions button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.beer-container-edit-button {
+  color: #00c3f9;
+}
+
+.beer-container-add-button {
+  color: #00b539;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 15px 20px;
+  width: 170px;
+  cursor: pointer;
+  background-color: #db8c4a;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+  background-color: #fb9c4e;
+}
+
+.custom-file-upload input[type='file'] {
+  display: none;
+}
