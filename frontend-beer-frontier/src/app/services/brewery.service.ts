@@ -42,4 +42,8 @@ export class BreweryService {
       { headers }
     );
   }
+  deleteBrewery(id: number): Observable<void> {
+    const headers = this.authService.getHeaders();
+    return this.http.delete<void>(`${this.breweryUrl}/${id}`, { headers });
+  }
 }

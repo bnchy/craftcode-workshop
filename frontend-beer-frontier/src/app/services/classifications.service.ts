@@ -39,4 +39,12 @@ export class ClassificationsService {
       { headers }
     );
   }
+
+  deleteClassification(id: number): Observable<void> {
+    const headers = this.authService.getHeaders();
+    return this.http.delete<void>(
+      `${environment.apiUrl}/classifications/${id}`,
+      { headers }
+    );
+  }
 }
