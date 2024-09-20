@@ -9,6 +9,7 @@ import { ClassificationComponent } from './pages/classifications/classification/
 import { BreweryComponent } from './pages/breweries/brewery/brewery.component';
 import { AddBeerComponent } from './pages/beers/add-beer/add-beer.component';
 import { AddBreweryComponent } from './pages/breweries/add-brewery/add-brewery.component';
+import { AddClassificationComponent } from './pages/classifications/add-classification/add-classification.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/beers', pathMatch: 'full' },
@@ -35,6 +36,11 @@ export const routes: Routes = [
   {
     path: 'classifications',
     component: ClassificationsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'classifications/add',
+    component: AddClassificationComponent,
     canActivate: [AuthGuard],
   },
   {

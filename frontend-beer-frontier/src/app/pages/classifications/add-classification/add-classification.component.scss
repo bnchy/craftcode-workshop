@@ -1,0 +1,103 @@
+.classification-container {
+  width: 50%;
+  max-width: 750px;
+  margin: 40px auto;
+}
+.card-image-header {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.mat-divider {
+  border-top-color: #b8b7b6;
+  margin: 10px 0;
+}
+
+.classification-classification-header {
+  text-align: center;
+  font-size: 24px;
+}
+
+.classification-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.classification-content-container-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.form-field {
+  width: 50%;
+}
+
+.classification-title-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.classification-alcohol-percentage {
+  font-size: larger;
+}
+
+.content-item-header {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.classification-container-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.classification-form-container-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.classification-container-actions button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.classification-container-edit-button {
+  color: #00c3f9;
+}
+
+.classification-container-add-button {
+  color: #00b539;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 15px 20px;
+  width: 309px;
+  cursor: pointer;
+  background-color: #db8c4a;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+  background-color: #fb9c4e;
+}
+
+.custom-file-upload input[type='file'] {
+  display: none;
+}

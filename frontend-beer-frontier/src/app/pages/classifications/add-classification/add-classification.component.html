@@ -1,0 +1,96 @@
+<form class="classification-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title-group class="classification-title-group">
+        <mat-card-title
+          >{{ classification.id
+          }}<span *ngIf="!classification.id"
+            >Create a new classification</span
+          ></mat-card-title
+        >
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div class="classification-content-container">
+        <div class="classification-content-container-item">
+          <h2 class="content-item-header">FermentationType</h2>
+          <mat-form-field class="form-field">
+            <mat-label>FermentationType</mat-label>
+            <mat-select
+              [value]="classification.fermentationType"
+              (selectionChange)="onFermentationTypeChange($event.value)">
+              <mat-option
+                *ngFor="let fermentationType of fermentationTypes"
+                [value]="fermentationTypes"
+                >{{ transformEnum(fermentationType) }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="classification-content-container-item">
+          <h2 class="content-item-header">Used graintype</h2>
+          <mat-form-field class="form-field">
+            <mat-label>used graintype</mat-label>
+            <mat-select
+              [value]="classification.usedGrainType"
+              (selectionChange)="onGrainTypeChange($event.value)">
+              <mat-option
+                *ngFor="let graintype of usedGrainTypes"
+                [value]="graintype"
+                >{{ transformEnum(graintype) }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="classification-content-container-item">
+          <h2 class="content-item-header">Names and origins</h2>
+          <mat-form-field class="form-field">
+            <mat-label>names and origins</mat-label>
+            <mat-select
+              [value]="classification.namesAndOrigins"
+              (selectionChange)="onNamesAndOriginsChange($event.value)">
+              <mat-option
+                *ngFor="let namesAndOrigin of namesAndOrigins"
+                [value]="namesAndOrigin"
+                >{{ transformEnum(namesAndOrigin) }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="classification-content-container-item">
+          <h2 class="content-item-header">Country</h2>
+          <mat-form-field class="form-field">
+            <mat-label>country</mat-label>
+            <mat-select
+              [value]="classification.country"
+              (selectionChange)="onCountryChange($event.value)">
+              <mat-option *ngFor="let country of countries" [value]="country"
+                >{{ transformEnum(country) }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="classification-content-container-item">
+          <h2 class="content-item-header">Upload banner (WIP)</h2>
+          <label class="custom-file-upload form-field">
+            <input type="file" />
+            Choose File
+          </label>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions class="classification-container-actions">
+      <button mat-icon-button [routerLink]="['/classifications']">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        class="classification-container-add-button"
+        (click)="createClassification()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

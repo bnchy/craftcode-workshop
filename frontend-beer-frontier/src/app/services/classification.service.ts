@@ -47,4 +47,14 @@ export class ClassificationService {
       { headers }
     );
   }
+  createAClassification(
+    classification: Classification
+  ): Observable<Classification> {
+    const headers = this.authService.getHeaders();
+    return this.http.post<Classification>(
+      `${environment.apiUrl}/classifications`,
+      classification,
+      { headers }
+    );
+  }
 }
