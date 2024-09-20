@@ -1,6 +1,7 @@
 import { Component, inject, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -18,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
   styleUrls: ['dialog-overview.component.scss'],
   standalone: true,
   imports: [
+    CommonModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
@@ -32,7 +34,6 @@ export class DialogOverviewComponent {
   readonly dialogRef = inject(MatDialogRef<DialogOverviewComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
   readonly itemName = model(this.data.itemName);
-  readonly removeFrom = model(this.data.removeFrom);
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -43,6 +44,11 @@ export class DialogOverviewComponent {
 }
 
 export interface DialogData {
+  actionType: string;
   itemName: string;
+  itemType: string;
   removeFrom: string;
+  removeType: string;
+  hasChildren: boolean;
+  childType: string;
 }

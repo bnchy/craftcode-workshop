@@ -76,14 +76,39 @@ export class BreweryComponent implements OnInit {
     );
   }
 
-  openDialog(beerName: string, breweryName: string, beerId: number): void {
+  openDialogUnlink(
+    beerName: string,
+    breweryName: string,
+    beerId: number
+  ): void {
     const dialogRef = this.dialog.open(DialogOverviewComponent, {
-      data: { itemName: beerName, removeFrom: breweryName },
+      data: {
+        actionType: 'Unlink',
+        itemName: beerName,
+        itemType: 'beer',
+        removeFrom: breweryName,
+        removeType: 'brewery',
+      },
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.unlinkBeer(beerId);
+      }
+    });
+  }
+  openDialogDelete(): void {
+    const dialogRef = this.dialog.open(DialogOverviewComponent, {
+      data: {
+        actionType: 'Delete',
+        itemName: this.brewery!.name,
+        itemType: 'brewery',
+        hasChildren: true,
+        childType: 'beers',
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.deleteBrewery();
       }
     });
   }

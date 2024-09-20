@@ -1,9 +1,20 @@
-<h2 mat-dialog-title>Unlink {{ data.itemName }} from {{ data.removeFrom }}</h2>
+<h2 mat-dialog-title>
+  {{ data.actionType }} {{ data.itemName }}
+  <span *ngIf="data.removeFrom">from {{ data.removeFrom }}</span>
+</h2>
 <mat-dialog-content>
   <p>
-    Are you sure you want to unlink {{ data.itemName }} from
-    {{ data.removeFrom }}? <br />You can link the specific beer with a different
-    brewery from the beer page.
+    Are you sure you want to {{ data.actionType.toLowerCase() }}
+    {{ data.itemName }}?
+    <span *ngIf="data.removeFrom"> from {{ data.removeFrom }}? </span> <br />
+    <span *ngIf="data.removeFrom">
+      You can link {{ data.itemName }} with a different
+      {{ data.removeType }} from the {{ data.itemType }} page.
+    </span>
+    <span *ngIf="data.hasChildren">
+      Deleting {{ data.itemName }} will also delete all of its
+      {{ data.childType }}.
+    </span>
   </p>
 </mat-dialog-content>
 <mat-dialog-actions class="dialog-action-buttons">

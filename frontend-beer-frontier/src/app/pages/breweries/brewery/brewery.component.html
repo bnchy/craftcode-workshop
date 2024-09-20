@@ -32,7 +32,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions class="brewery-container-actions">
-      <button mat-icon-button color="warn" (click)="deleteBrewery()">
+      <button mat-icon-button color="warn" (click)="openDialogDelete()">
         <mat-icon>delete</mat-icon>
       </button>
       <button
@@ -102,7 +102,7 @@
               <mat-card-actions class="brewery-container-actions">
                 <button
                   mat-icon-button
-                  (click)="openDialog(beer.name, brewery.name, beer.id)"
+                  (click)="openDialogUnlink(beer.name, brewery.name, beer.id)"
                   *ngIf="beer.name && brewery.name && beer.id">
                   <mat-icon>link_off</mat-icon>
                 </button>
