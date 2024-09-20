@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BeerService } from '../../../services/beer.service';
 import { Beer, Brewery } from '../../../api';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -12,7 +12,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialog } from '@angular/material/dialog';
 import { BreweryService } from '../../../services/brewery.service';
+import { DialogOverviewComponent } from '../../../shared/dialog/dialog-overview/dialog-overview.component';
 
 @Component({
   selector: 'app-beer',
@@ -36,6 +38,8 @@ export class BeerComponent implements OnInit {
   edit = false;
   beer!: Beer;
   breweries: Brewery[] = [];
+
+  readonly dialog = inject(MatDialog);
 
   constructor(
     private beerService: BeerService,
@@ -82,6 +86,23 @@ export class BeerComponent implements OnInit {
     }
     this.beerService.deleteBeer(this.beer.id).subscribe(() => {
       this.router.navigate(['/beers']);
+    });
+  }
+
+  openDialogDelete(): void {
+    const dialogRef = this.dialog.open(DialogOverviewComponent, {
+      data: {
+        actionType: 'Delete',
+        itemName: this.beer!.name,
+        itemType: 'beer',
+        hasChildren: false,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.deleteBeer();
+      }
     });
   }
 }
