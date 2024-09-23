@@ -1,4 +1,10 @@
 <nav class="navbar">
+  <a class="company-link" href="https://craftcode.be">
+    <img
+      src="assets/images/craftcode-symbol_black-RGB.png"
+      alt="image of craftcode's logo"
+      class="company-logo" />
+  </a>
   <div class="navbar-content">
     <div class="navlinks">
       <a routerLink="/beers" [class.active]="isActive('/beers')">Beers</a>
@@ -12,7 +18,7 @@
       >
     </div>
   </div>
-  <button mat-button (keydown.enter)="logout()" (click)="logout()">
+  <button (keydown.enter)="logout()" (click)="logout()">
     <mat-icon class="logout-icon">exit_to_app</mat-icon>
   </button>
 </nav>

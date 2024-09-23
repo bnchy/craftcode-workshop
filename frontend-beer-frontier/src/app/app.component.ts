@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 
@@ -12,4 +12,12 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'beer-frontier';
+  showNavbar = true;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe(() => {
+      const noNavbarRouters = ['/login'];
+      this.showNavbar = !noNavbarRouters.includes(this.router.url);
+    });
+  }
 }

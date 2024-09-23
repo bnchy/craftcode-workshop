@@ -6,22 +6,18 @@ body {
 .navbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 20px;
   background-color: hsl(0, 0%, 98%);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   box-sizing: border-box;
-  position: relative;
   min-height: 60px;
 }
 
 .navbar-content {
   display: flex;
   justify-content: center;
-  flex: 1;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .navlinks {
@@ -30,14 +26,28 @@ body {
 }
 
 button {
-  position: absolute;
-  right: 10px;
-  transition: 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.company-link {
+  display: flex;
+}
+.company-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .logout-icon {
   color: #565656;
   transition: 0.2s ease-in-out;
+  font-size: 24px !important;
 }
 
 button:hover .logout-icon {
