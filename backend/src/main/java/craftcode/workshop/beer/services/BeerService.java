@@ -20,6 +20,9 @@ public class BeerService {
     public List<Beer> getAllBeers(){
         return beerRepository.findAll();
     }
+    public List<Beer> searchBeerByNameOrAlcoholPercentage(String input) {
+        return beerRepository.findBeersByNameAndAlcoholPercentage(input);
+    }
 
     public Beer saveBeer(Beer beer){
         return beerRepository.save(beer);
@@ -31,7 +34,7 @@ public class BeerService {
             existingBeer.setAlcoholPercentage(updatedBeer.getAlcoholPercentage());
             existingBeer.setBeerType(updatedBeer.getBeerType());
             existingBeer.setBrewery(updatedBeer.getBrewery());
-             return beerRepository.save(existingBeer);
+            return beerRepository.save(existingBeer);
         });
     }
 

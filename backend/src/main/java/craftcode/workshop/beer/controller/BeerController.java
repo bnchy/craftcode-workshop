@@ -37,6 +37,10 @@ public class BeerController {
         Optional<Beer> beer = beerService.getBeerById(id);
         return beer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+    @GetMapping("/search")
+    public List<Beer> searchBeers(@RequestParam String searchTerm) {
+        return beerService.searchBeerByNameOrAlcoholPercentage(searchTerm);
+    }
 
     @PostMapping()
     public ResponseEntity<Beer> addBeer(@RequestBody Beer beer, HttpServletRequest request, UriComponentsBuilder ucb){
@@ -50,10 +54,7 @@ public class BeerController {
     public ResponseEntity<Beer> updateBeer(@PathVariable long id, @RequestBody Beer beerDetails) {
         Optional<Beer> updatedBeer = beerService.updateBeer(id, beerDetails);
 
-        if (updatedBeer.isPresent()) {
-            return ResponseEntity.ok(updatedBeer.get());
-        }
-        return ResponseEntity.noContent().build();
+        return updatedBeer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
 
     }
 
