@@ -33,6 +33,16 @@ export class BeerService {
     });
   }
 
+  fetchBeersBySearch(input: string): Observable<Beer[]> {
+    const headers = this.authService.getHeaders();
+    return this.http.get<Beer[]>(
+      `${this.beersUrl}/search?searchTerm=${input}`,
+      {
+        headers,
+      }
+    );
+  }
+
   createBeer(beer: Beer): Observable<Beer> {
     const headers = this.authService.getHeaders();
     return this.http.post<Beer>(`${this.beersUrl}`, beer, { headers });

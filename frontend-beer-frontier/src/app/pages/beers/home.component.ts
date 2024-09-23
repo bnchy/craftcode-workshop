@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
 
 interface BeerWithPlaceholder extends Beer {
   placeholderImage?: string;
@@ -20,6 +21,7 @@ interface BeerWithPlaceholder extends Beer {
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     MatCardModule,
     MatIconModule,
     MatDividerModule,
@@ -34,6 +36,8 @@ interface BeerWithPlaceholder extends Beer {
 })
 export class HomeComponent implements OnInit {
   beers: BeerWithPlaceholder[] = [];
+  searchTerm = '';
+
   beerPlaceholderImages = [
     '/assets/images/beer-placeholder1.jpg',
     '/assets/images/beer-placeholder2.jpg',
@@ -44,13 +48,26 @@ export class HomeComponent implements OnInit {
   constructor(private beerService: BeerService) {}
 
   ngOnInit() {
-    this.beerService.fetchAllBeers().subscribe(data => {
-      this.beers = data.map(beer => ({
-        ...beer,
-        placeholderImage: this.getRandomPlaceholder(),
-      }));
-      console.log(this.beers);
+    this.getAllBeers();
+    this.getRandomPlaceholder();
+  }
+
+  getAllBeers(): void {
+    this.beerService.fetchAllBeers().subscribe({
+      next: data => (this.beers = data),
     });
+  }
+
+  searchBeers(): void {
+    if (this.searchTerm.trim()) {
+      this.beerService.fetchBeersBySearch(this.searchTerm).subscribe({
+        next: data => {
+          this.beers = data;
+        },
+      });
+    } else {
+      this.getAllBeers();
+    }
   }
 
   getRandomPlaceholder(): string {

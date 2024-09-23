@@ -1,7 +1,11 @@
 <div class="beers-body">
   <div class="beer-filters">
     <div class="search-input">
-      <input type="text" placeholder="search for a beer..." />
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="searchBeers()"
+        placeholder="search for a beer..." />
       <mat-icon class="search-icon">search</mat-icon>
     </div>
   </div>
