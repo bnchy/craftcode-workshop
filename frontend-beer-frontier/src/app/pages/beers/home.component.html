@@ -4,13 +4,14 @@
       <input
         type="text"
         [(ngModel)]="searchTerm"
-        (input)="searchBeers()"
+        (ngModelChange)="searchBeers()"
         placeholder="search for a beer..." />
       <mat-icon class="search-icon">search</mat-icon>
     </div>
   </div>
 
   <div class="beer-container">
+    <div class="button-spacer"></div>
     <div class="button-container">
       <button mat-raised-button [routerLink]="['/beers/add']">
         + Add beer

@@ -53,9 +53,13 @@
   justify-content: space-evenly;
   margin: 15px 0;
 }
-
+.button-spacer {
+  width: 50%;
+  max-width: 600px;
+}
 .button-container {
-  width: 100%;
+  width: 50%;
+  max-width: 600px;
   display: flex;
   justify-content: flex-end;
   margin: 30px 0;
@@ -122,11 +126,22 @@
 
 /* Media Queries for smaller screens */
 @media (max-width: 1300px) {
+  .beers-body {
+    justify-content: center;
+  }
   .beer-container {
     justify-content: center;
-    max-width: 90%;
+    max-width: 100%;
   }
   .beer-card {
-    max-width: 100%;
+    max-width: 90%;
+  }
+
+  .button-spacer {
+    width: 45%;
+  }
+
+  .button-container {
+    width: 45%;
   }
 }

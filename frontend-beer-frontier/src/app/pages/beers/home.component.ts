@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
 
 interface BeerWithPlaceholder extends Beer {
   placeholderImage?: string;
@@ -37,6 +38,7 @@ interface BeerWithPlaceholder extends Beer {
 export class HomeComponent implements OnInit {
   beers: BeerWithPlaceholder[] = [];
   searchTerm = '';
+  searchTermSubject = new Subject<string>();
 
   beerPlaceholderImages = [
     '/assets/images/beer-placeholder1.jpg',
@@ -49,6 +51,25 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getAllBeers();
+
+    this.searchTermSubject
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap(term =>
+          term
+            ? this.beerService.fetchBeersBySearch(term)
+            : this.beerService.fetchAllBeers()
+        )
+      )
+      .subscribe({
+        next: data => {
+          this.beers = data.map(beer => ({
+            ...beer,
+            placeholderImage: this.getRandomPlaceholder(),
+          }));
+        },
+      });
   }
 
   getAllBeers(): void {
@@ -63,18 +84,7 @@ export class HomeComponent implements OnInit {
   }
 
   searchBeers(): void {
-    if (this.searchTerm.trim()) {
-      this.beerService.fetchBeersBySearch(this.searchTerm).subscribe({
-        next: data => {
-          this.beers = data.map(beer => ({
-            ...beer,
-            placeholderImage: this.getRandomPlaceholder(),
-          }));
-        },
-      });
-    } else {
-      this.getAllBeers();
-    }
+    this.searchTermSubject.next(this.searchTerm);
   }
 
   getRandomPlaceholder(): string {
