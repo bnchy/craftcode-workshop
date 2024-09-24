@@ -77,6 +77,7 @@ class BreweryControllerTests {
     @Test
     void shouldSaveBrewery() {
         Brewery brewery = new Brewery();
+        brewery.setId(1);
         brewery.setName("Brewery");
         brewery.setLocation("BELGIUM");
 
