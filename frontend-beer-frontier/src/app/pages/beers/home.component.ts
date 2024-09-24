@@ -49,12 +49,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getAllBeers();
-    this.getRandomPlaceholder();
   }
 
   getAllBeers(): void {
     this.beerService.fetchAllBeers().subscribe({
-      next: data => (this.beers = data),
+      next: data => {
+        this.beers = data.map(beer => ({
+          ...beer,
+          placeholderImage: this.getRandomPlaceholder(), // Assign random placeholder image
+        }));
+      },
     });
   }
 
@@ -62,7 +66,10 @@ export class HomeComponent implements OnInit {
     if (this.searchTerm.trim()) {
       this.beerService.fetchBeersBySearch(this.searchTerm).subscribe({
         next: data => {
-          this.beers = data;
+          this.beers = data.map(beer => ({
+            ...beer,
+            placeholderImage: this.getRandomPlaceholder(),
+          }));
         },
       });
     } else {
