@@ -5,7 +5,7 @@ VALUES ('Brasserie d''Achouffe', 'Achouffe 32, 6666 Houffalize'),
 
 INSERT INTO CLASSIFICATION (country, fermentation_type, names_and_origins, used_grain_type)
 VALUES
-    ('BELGIUM', 'WARM', 'ABBEY_BEER', 'BARELY' ),
+    ('BELGIUM', 'WARM', 'ABBEY_BEER', 'BARLEY' ),
     ('GERMANY','COOL', 'TRAPPIST_BEER', 'OATS');
 
 

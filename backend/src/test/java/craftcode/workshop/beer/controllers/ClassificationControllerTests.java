@@ -1,6 +1,5 @@
 package craftcode.workshop.beer.controllers;
 
-import craftcode.workshop.beer.config.TestSecurityConfig;
 import craftcode.workshop.beer.controller.ClassificationController;
 import craftcode.workshop.beer.enums.Country;
 import craftcode.workshop.beer.enums.FermentationType;
@@ -15,16 +14,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,7 +42,7 @@ class ClassificationControllerTests {
 
         Classification classification1 = new Classification();
         classification1.setId(1L);
-        classification1.setUsedGrainType(GrainTypes.BARELY);
+        classification1.setUsedGrainType(GrainTypes.BARLEY);
         classification1.setNamesAndOrigins(NamesAndOrigins.ABBEY_BEER);
         classification1.setCountry(Country.BELGIUM);
         classification1.setFermentationType(FermentationType.SPONTANEOUS);
@@ -81,8 +79,7 @@ class ClassificationControllerTests {
     void shouldSaveAClassification() {
         Classification classification = new Classification();
         classification.setId(1L);
-        classification.setUsedGrainType(GrainTypes.BARELY);
-
+        classification.setUsedGrainType(GrainTypes.BARLEY);
 
         when(classificationService.saveClassification(classification)).thenReturn(classification);
 
@@ -90,15 +87,15 @@ class ClassificationControllerTests {
 
         ResponseEntity<Classification> response = classificationController.saveClassification(classification, null, ucb);
 
-
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getUsedGrainType()).isEqualTo(classification.getUsedGrainType());
+        assertThat(response.getBody().getId()).isEqualTo(classification.getId());
+        assertThat(response.getHeaders().getLocation().toString()).isEqualTo("/classifications/1");
     }
     @Test
     void shouldUpdateAClassification() {
         Classification exisitingClassification = new Classification();
         exisitingClassification.setId(1L);
-        exisitingClassification.setUsedGrainType(GrainTypes.BARELY);
+        exisitingClassification.setUsedGrainType(GrainTypes.BARLEY);
         exisitingClassification.setNamesAndOrigins(NamesAndOrigins.ABBEY_BEER);
         exisitingClassification.setCountry(Country.BELGIUM);
         exisitingClassification.setFermentationType(FermentationType.COOL);
@@ -122,7 +119,7 @@ class ClassificationControllerTests {
     void shouldDeleteAClassification() {
         Classification exisitingClassification = new Classification();
         exisitingClassification.setId(1L);
-        exisitingClassification.setUsedGrainType(GrainTypes.BARELY);
+        exisitingClassification.setUsedGrainType(GrainTypes.BARLEY);
 
         when(classificationService.deleteClassification(1L)).thenReturn(true);
 

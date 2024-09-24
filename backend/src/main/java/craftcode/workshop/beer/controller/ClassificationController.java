@@ -54,9 +54,8 @@ public class ClassificationController {
 
     @PostMapping
     public ResponseEntity<Classification> saveClassification(@RequestBody Classification classification, HttpServletRequest request, UriComponentsBuilder ucb) {
-
         Classification savedClassification = classificationService.saveClassification(classification);
-        URI locationOfNewClassification = ucb.path("/beers/{id}").buildAndExpand(savedClassification.getId()).toUri();
-        return ResponseEntity.created(locationOfNewClassification).build();
+        URI locationOfNewClassification = ucb.path("/classifications/{id}").buildAndExpand(savedClassification.getId()).toUri();
+        return ResponseEntity.created(locationOfNewClassification).body(savedClassification);
     }
 }

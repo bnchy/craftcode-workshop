@@ -38,7 +38,7 @@ class ClassificationServiceTests {
         classification1.setFermentationType(FermentationType.SPONTANEOUS);
         classification1.setCountry(Country.BELGIUM);
         classification1.setNamesAndOrigins(NamesAndOrigins.ABBEY_BEER);
-        classification1.setUsedGrainType(GrainTypes.BARELY);
+        classification1.setUsedGrainType(GrainTypes.BARLEY);
 
         Classification classification2 = new Classification();
         classification2.setId(2L);
@@ -56,7 +56,7 @@ class ClassificationServiceTests {
         classification1.setId(1L);
         classification1.setNamesAndOrigins(NamesAndOrigins.ABBEY_BEER);
         classification1.setCountry(Country.BELGIUM);
-        classification1.setUsedGrainType(GrainTypes.BARELY);
+        classification1.setUsedGrainType(GrainTypes.BARLEY);
         classification1.setFermentationType(FermentationType.SPONTANEOUS);
 
         when(classificationRepository.findById(1L)).thenReturn(Optional.of(classification1));
@@ -102,7 +102,7 @@ class ClassificationServiceTests {
         exisitingClassification.setId(1L);
         exisitingClassification.setNamesAndOrigins(NamesAndOrigins.ABBEY_BEER);
         exisitingClassification.setCountry(Country.BELGIUM);
-        exisitingClassification.setUsedGrainType(GrainTypes.BARELY);
+        exisitingClassification.setUsedGrainType(GrainTypes.BARLEY);
         exisitingClassification.setFermentationType(FermentationType.SPONTANEOUS);
 
         Classification updatedClassification = new Classification();

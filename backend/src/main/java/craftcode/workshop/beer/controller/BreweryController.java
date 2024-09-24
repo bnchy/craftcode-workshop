@@ -70,7 +70,7 @@ public class BreweryController {
     public ResponseEntity<Brewery> saveBrewery(@RequestBody Brewery brewery, HttpServletRequest request, UriComponentsBuilder ucb) {
 
         Brewery savedBrewery = breweryService.saveBrewery(brewery);
-        URI locationOfNewBrewery = ucb.path("/beers/{id}").buildAndExpand(savedBrewery.getId()).toUri();
+        URI locationOfNewBrewery = ucb.path("/breweries/{id}").buildAndExpand(savedBrewery.getId()).toUri();
         return ResponseEntity.created(locationOfNewBrewery).build();
     }
 }

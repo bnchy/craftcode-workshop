@@ -1,7 +1,7 @@
 package craftcode.workshop.beer.enums;
 
 public enum GrainTypes {
-    BARELY,
+    BARLEY,
     WHEAT,
     CORN,
     BASE_MALT,

@@ -5,5 +5,11 @@ public enum Country {
     GERMANY,
     AMERICA,
     SPAIN,
-    FRANCE
+    FRANCE,
+    USA,
+    CZECH,
+    UK,
+    IRELAND,
+    AUSTRIA,
+    NETHERLANDS
 }

@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
       next: data => {
         this.beers = data.map(beer => ({
           ...beer,
-          placeholderImage: this.getRandomPlaceholder(), // Assign random placeholder image
+          placeholderImage: this.getRandomPlaceholder(),
         }));
       },
     });
