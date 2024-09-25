@@ -9,11 +9,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +63,23 @@ class BeerServiceTests {
         Optional<Beer> foundBeer = beerService.getBeerById(1L);
         assertThat(foundBeer).isPresent();
         assertThat(foundBeer.get().getName()).isEqualTo("Chouffe");
+    }
+
+    @Test
+    void shouldReturnAllBeersWithPagination() {
+        int pageNr = 1;
+        int pageSize = 12;
+        Pageable pageable = PageRequest.of(pageNr, pageSize);
+
+        Page<Beer> pagedBeers = new PageImpl<>(beers, pageable, beers.size());
+
+        when(beerRepository.findAll(pageable)).thenReturn(pagedBeers);
+
+        Page<Beer> foundBeers = beerService.getAllBeersFiltered(pageNr, pageSize);
+
+        assertThat(foundBeers)
+                .isNotNull()
+                .hasSize(beers.size());
     }
 
     @Test

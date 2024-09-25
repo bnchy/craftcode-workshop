@@ -5,6 +5,7 @@ import craftcode.workshop.beer.model.Beer;
 import craftcode.workshop.beer.services.BeerService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,14 @@ public class BeerController {
     public List<Beer> searchBeers(@RequestParam String searchTerm) {
         return beerService.searchBeerByNameOrAlcoholPercentage(searchTerm);
     }
+    @GetMapping("/paginated")
+    public ResponseEntity<Page<Beer>> getAllBeersFiltered(int pageNr, int pageSize) {
+        Page<Beer> beers = beerService.getAllBeersFiltered(pageNr, pageSize);
+        if (beers.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(beers);
+    }
 
     @PostMapping()
     public ResponseEntity<Beer> addBeer(@RequestBody Beer beer, HttpServletRequest request, UriComponentsBuilder ucb){
@@ -73,4 +82,6 @@ public class BeerController {
         }
         return ResponseEntity.notFound().build();
     }
+
+
 }

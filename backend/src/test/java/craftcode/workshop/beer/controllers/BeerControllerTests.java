@@ -4,7 +4,6 @@ import craftcode.workshop.beer.controller.BeerController;
 import craftcode.workshop.beer.enums.BeerType;
 import craftcode.workshop.beer.model.Beer;
 import craftcode.workshop.beer.services.BeerService;
-import org.apache.coyote.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,10 +11,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,7 +85,22 @@ class BeerControllerTests {
 
         assertThat(foundBeers.getBody()).isNotNull();
         assertThat(foundBeers.getBody().size()).isEqualTo(beers.size());
+    }
 
+    @Test
+    void shouldReturnBeersWithPagination() {
+        int pageNr = 1;
+        int pageSize = 12;
+        Pageable pageable = PageRequest.of(pageNr,pageSize);
+        Page<Beer> beerPage = new PageImpl<>(beers, pageable, beers.size());
+
+
+        when(beerService.getAllBeersFiltered(pageNr,pageSize)).thenReturn(beerPage);
+
+        ResponseEntity<Page<Beer>> response =  beerController.getAllBeersFiltered(pageNr, pageSize);
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().getContent()).hasSize(beers.size());
     }
     @Test
     void shouldSaveABeer() {

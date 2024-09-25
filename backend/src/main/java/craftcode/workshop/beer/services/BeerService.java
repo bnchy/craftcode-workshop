@@ -3,13 +3,17 @@ package craftcode.workshop.beer.services;
 import craftcode.workshop.beer.model.Beer;
 import craftcode.workshop.beer.repository.BeerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BeerService {
+
     @Autowired
     BeerRepository beerRepository;
 
@@ -48,5 +52,9 @@ public class BeerService {
             return true;
         }
         return false;
+    }
+
+    public Page<Beer> getAllBeersFiltered(int pageNr, int pageSize) {
+        return beerRepository.findAll(PageRequest.of(pageNr, pageSize));
     }
 }

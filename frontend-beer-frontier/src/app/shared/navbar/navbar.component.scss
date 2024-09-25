@@ -44,6 +44,10 @@ button {
   object-fit: contain;
 }
 
+.logout-button {
+  padding: 0;
+}
+
 .logout-icon {
   color: #565656;
   transition: 0.2s ease-in-out;
