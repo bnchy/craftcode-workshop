@@ -126,6 +126,16 @@
   padding: 0;
 }
 
+//===no beers founds===
+.no-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #a1a1a1;
+  height: 75vh;
+}
+
 //===paginator===
 .paginator-container {
   display: flex;

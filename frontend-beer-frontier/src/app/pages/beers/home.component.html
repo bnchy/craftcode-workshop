@@ -37,6 +37,7 @@
         </mat-card-title-group>
       </mat-card-header>
     </mat-card>
+    <p class="no-items" *ngIf="beers.length === 0">No beers found...</p>
     <div class="paginator-container">
       <div class="beer-spacer"></div>
       <mat-paginator
