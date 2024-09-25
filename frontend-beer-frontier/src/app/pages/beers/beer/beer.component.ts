@@ -22,6 +22,7 @@ import { DialogOverviewComponent } from '../../../shared/dialog/dialog-overview/
   imports: [
     CommonModule,
     FormsModule,
+    RouterLink,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -29,7 +30,6 @@ import { DialogOverviewComponent } from '../../../shared/dialog/dialog-overview/
     MatIconModule,
     MatCardModule,
     MatSelectModule,
-    RouterLink,
   ],
   templateUrl: './beer.component.html',
   styleUrls: ['./beer.component.scss'],

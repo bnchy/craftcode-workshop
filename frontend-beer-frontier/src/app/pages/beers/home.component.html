@@ -11,7 +11,7 @@
   </div>
 
   <div class="beer-container">
-    <div class="button-spacer"></div>
+    <div class="beer-spacer"></div>
     <div class="button-container">
       <button mat-raised-button [routerLink]="['/beers/add']">
         + Add beer
@@ -37,5 +37,16 @@
         </mat-card-title-group>
       </mat-card-header>
     </mat-card>
+    <div class="paginator-container">
+      <div class="beer-spacer"></div>
+      <mat-paginator
+        class="beer-paginator"
+        [pageSize]="pageSize"
+        [pageIndex]="pageNr - 1"
+        [pageSizeOptions]="pageSizeOptions"
+        [length]="totalPages * pageSize"
+        (page)="onPageChange($event)">
+      </mat-paginator>
+    </div>
   </div>
 </div>
