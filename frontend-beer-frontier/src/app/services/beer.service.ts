@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
-import { Beer } from '../api';
+import { Beer, PageBeer } from '../api';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -16,9 +16,12 @@ export class BeerService {
     private authService: AuthService
   ) {}
 
-  fetchAllBeers(): Observable<Beer[]> {
+  fetchAllBeers(pageNr: number, pageSize: number): Observable<PageBeer> {
     const headers = this.authService.getHeaders();
-    return this.http.get<Beer[]>(this.beersUrl, { headers });
+    return this.http.get<PageBeer>(
+      `${this.beersUrl}?pageNr=${pageNr}&pageSize=${pageSize}`,
+      { headers }
+    );
   }
 
   fetchBeerById(id: number): Observable<Beer> {
@@ -33,10 +36,23 @@ export class BeerService {
     });
   }
 
-  fetchBeersBySearch(input: string): Observable<Beer[]> {
+  fetchBeersBySearch(
+    input: string,
+    pageNr: number,
+    pageSize: number
+  ): Observable<PageBeer> {
+    const headers = this.authService.getHeaders();
+    return this.http.get<PageBeer>(
+      `${this.beersUrl}/search?searchTerm=${input}&pageNr=${pageNr}&pageSize=${pageSize}`,
+      {
+        headers,
+      }
+    );
+  }
+  fetchBeersByPagination(pageNr: number, pageSize: number): Observable<Beer[]> {
     const headers = this.authService.getHeaders();
     return this.http.get<Beer[]>(
-      `${this.beersUrl}/search?searchTerm=${input}`,
+      `${this.beersUrl}/pagination?pageNr=${pageNr}&pageSize=${pageSize}`,
       {
         headers,
       }

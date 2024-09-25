@@ -7,5 +7,8 @@ index.ts
 models/Beer.ts
 models/Brewery.ts
 models/Classification.ts
+models/PageBeer.ts
+models/PageableObject.ts
+models/SortObject.ts
 models/index.ts
 runtime.ts

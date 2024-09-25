@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BeerService } from '../../services/beer.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { Beer } from '../../api';
+import { Beer, PageBeer } from '../../api';
 import { RouterLink } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -36,6 +36,9 @@ interface BeerWithPlaceholder extends Beer {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  pageNr = 1;
+  pageSize = 12;
+  totalPages = 0;
   beers: BeerWithPlaceholder[] = [];
   searchTerm = '';
   searchTermSubject = new Subject<string>();
@@ -58,24 +61,32 @@ export class HomeComponent implements OnInit {
         distinctUntilChanged(),
         switchMap(term =>
           term
-            ? this.beerService.fetchBeersBySearch(term)
-            : this.beerService.fetchAllBeers()
+            ? this.beerService.fetchBeersBySearch(
+                term,
+                this.pageNr,
+                this.pageSize
+              )
+            : this.beerService.fetchAllBeers(this.pageNr, this.pageSize)
         )
       )
       .subscribe({
-        next: data => {
-          this.beers = data.map(beer => ({
+        next: (data: PageBeer) => {
+          this.beers = data.content!.map(beer => ({
             ...beer,
             placeholderImage: this.getRandomPlaceholder(),
           }));
+          this.totalPages = data.totalPages!;
+        },
+        error: err => {
+          console.error('Error fetching beers:', err);
         },
       });
   }
 
   getAllBeers(): void {
-    this.beerService.fetchAllBeers().subscribe({
-      next: data => {
-        this.beers = data.map(beer => ({
+    this.beerService.fetchAllBeers(this.pageNr, this.pageSize).subscribe({
+      next: (data: PageBeer) => {
+        this.beers = data.content!.map(beer => ({
           ...beer,
           placeholderImage: this.getRandomPlaceholder(),
         }));

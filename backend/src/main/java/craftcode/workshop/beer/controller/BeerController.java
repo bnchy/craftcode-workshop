@@ -6,6 +6,8 @@ import craftcode.workshop.beer.services.BeerService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
@@ -23,31 +25,26 @@ public class BeerController {
     @Autowired
     BeerService beerService;
 
-
-    @GetMapping
-    public ResponseEntity<List<Beer>> getBeers() {
-        List<Beer> beers = beerService.getAllBeers();
-        if (beers.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(beers);
-        }}
-
     @GetMapping("/{id}")
     public ResponseEntity<Beer> getBeer(@PathVariable Long id){
         Optional<Beer> beer = beerService.getBeerById(id);
         return beer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-    @GetMapping("/search")
-    public List<Beer> searchBeers(@RequestParam String searchTerm) {
-        return beerService.searchBeerByNameOrAlcoholPercentage(searchTerm);
-    }
-    @GetMapping("/paginated")
-    public ResponseEntity<Page<Beer>> getAllBeersFiltered(int pageNr, int pageSize) {
-        Page<Beer> beers = beerService.getAllBeersFiltered(pageNr, pageSize);
+    @GetMapping()
+    public ResponseEntity<Page<Beer>> getBeers(@RequestParam(defaultValue = "1") int pageNr, @RequestParam(defaultValue = "12") int pageSize) {
+        int pageIndex = pageNr > 0 ? pageNr - 1 : 0;
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        Page<Beer> beers = beerService.getAllBeers(pageable);
         if (beers.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(beers);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<Page<Beer>> searchBeers(@RequestParam(defaultValue = "1") String searchTerm, @RequestParam(defaultValue = "12") int pageNr, @RequestParam int pageSize) {
+        int pageIndex = pageNr > 0 ? pageNr - 1 : 0;
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        Page<Beer> beers = beerService.searchBeerByNameOrAlcoholPercentage(searchTerm, pageable);
         return ResponseEntity.ok(beers);
     }
 

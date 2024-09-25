@@ -5,6 +5,7 @@ import craftcode.workshop.beer.repository.BeerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -21,11 +22,11 @@ public class BeerService {
         return beerRepository.findById(id);
     }
 
-    public List<Beer> getAllBeers(){
-        return beerRepository.findAll();
+    public Page<Beer> getAllBeers(Pageable pageable){
+        return beerRepository.findAll(pageable);
     }
-    public List<Beer> searchBeerByNameOrAlcoholPercentage(String input) {
-        return beerRepository.findBeersByNameAndAlcoholPercentage(input);
+    public Page<Beer> searchBeerByNameOrAlcoholPercentage(String input, Pageable pageable) {
+        return beerRepository.findBeersByNameAndAlcoholPercentage(input, pageable);
     }
 
     public Beer saveBeer(Beer beer){
@@ -54,7 +55,5 @@ public class BeerService {
         return false;
     }
 
-    public Page<Beer> getAllBeersFiltered(int pageNr, int pageSize) {
-        return beerRepository.findAll(PageRequest.of(pageNr, pageSize));
-    }
+
 }

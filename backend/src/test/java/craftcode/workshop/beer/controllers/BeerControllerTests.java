@@ -11,15 +11,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,13 +59,16 @@ class BeerControllerTests {
 
     @Test
     void shouldReturnAllBeers() {
+        int pageNr = 1;
+        int pageSize = 12;
+        Pageable pageable = PageRequest.of(0, pageSize);
+        Page<Beer> pagedBeers = new PageImpl<>(beers, pageable, beers.size());
+        when(beerService.getAllBeers(pageable)).thenReturn(pagedBeers);
 
-        when(beerService.getAllBeers()).thenReturn(beers);
-
-        ResponseEntity<List<Beer>> response = beerController.getBeers();
+        ResponseEntity<Page<Beer>> response = beerController.getBeers(pageNr,pageSize);
 
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().size()).isEqualTo(beers.size());
+        assertThat(response.getBody().getContent()).hasSize(beers.size());
     }
 
     @Test
@@ -87,21 +89,6 @@ class BeerControllerTests {
         assertThat(foundBeers.getBody().size()).isEqualTo(beers.size());
     }
 
-    @Test
-    void shouldReturnBeersWithPagination() {
-        int pageNr = 1;
-        int pageSize = 12;
-        Pageable pageable = PageRequest.of(pageNr,pageSize);
-        Page<Beer> beerPage = new PageImpl<>(beers, pageable, beers.size());
-
-
-        when(beerService.getAllBeersFiltered(pageNr,pageSize)).thenReturn(beerPage);
-
-        ResponseEntity<Page<Beer>> response =  beerController.getAllBeersFiltered(pageNr, pageSize);
-
-        assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getContent()).hasSize(beers.size());
-    }
     @Test
     void shouldSaveABeer() {
         Beer newBeer = new Beer();
@@ -125,6 +112,7 @@ class BeerControllerTests {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getHeaders().getLocation().toString()).isEqualTo("/beers/1");
     }
+
 
     @Test
     void shouldUpdateABeer(){

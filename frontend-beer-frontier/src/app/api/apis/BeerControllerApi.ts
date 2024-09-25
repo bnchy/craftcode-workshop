@@ -16,10 +16,13 @@
 import * as runtime from '../runtime';
 import type {
   Beer,
+  PageBeer,
 } from '../models/index';
 import {
     BeerFromJSON,
     BeerToJSON,
+    PageBeerFromJSON,
+    PageBeerToJSON,
 } from '../models/index';
 
 export interface AddBeerRequest {
@@ -34,12 +37,19 @@ export interface GetBeerRequest {
     id: number;
 }
 
+export interface GetBeersRequest {
+    pageNr: number;
+    pageSize: number;
+}
+
 export interface GetBeersByBreweryIdRequest {
     breweryId: number;
 }
 
 export interface SearchBeersRequest {
     searchTerm: string;
+    pageNr: number;
+    pageSize: number;
 }
 
 export interface UpdateBeerRequest {
@@ -149,8 +159,30 @@ export class BeerControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async getBeersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Beer>>> {
+    async getBeersRaw(requestParameters: GetBeersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PageBeer>> {
+        if (requestParameters['pageNr'] == null) {
+            throw new runtime.RequiredError(
+                'pageNr',
+                'Required parameter "pageNr" was null or undefined when calling getBeers().'
+            );
+        }
+
+        if (requestParameters['pageSize'] == null) {
+            throw new runtime.RequiredError(
+                'pageSize',
+                'Required parameter "pageSize" was null or undefined when calling getBeers().'
+            );
+        }
+
         const queryParameters: any = {};
+
+        if (requestParameters['pageNr'] != null) {
+            queryParameters['pageNr'] = requestParameters['pageNr'];
+        }
+
+        if (requestParameters['pageSize'] != null) {
+            queryParameters['pageSize'] = requestParameters['pageSize'];
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -161,13 +193,13 @@ export class BeerControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(BeerFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PageBeerFromJSON(jsonValue));
     }
 
     /**
      */
-    async getBeers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Beer>> {
-        const response = await this.getBeersRaw(initOverrides);
+    async getBeers(requestParameters: GetBeersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PageBeer> {
+        const response = await this.getBeersRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -204,7 +236,7 @@ export class BeerControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async searchBeersRaw(requestParameters: SearchBeersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Beer>>> {
+    async searchBeersRaw(requestParameters: SearchBeersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PageBeer>> {
         if (requestParameters['searchTerm'] == null) {
             throw new runtime.RequiredError(
                 'searchTerm',
@@ -212,10 +244,32 @@ export class BeerControllerApi extends runtime.BaseAPI {
             );
         }
 
+        if (requestParameters['pageNr'] == null) {
+            throw new runtime.RequiredError(
+                'pageNr',
+                'Required parameter "pageNr" was null or undefined when calling searchBeers().'
+            );
+        }
+
+        if (requestParameters['pageSize'] == null) {
+            throw new runtime.RequiredError(
+                'pageSize',
+                'Required parameter "pageSize" was null or undefined when calling searchBeers().'
+            );
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters['searchTerm'] != null) {
             queryParameters['searchTerm'] = requestParameters['searchTerm'];
+        }
+
+        if (requestParameters['pageNr'] != null) {
+            queryParameters['pageNr'] = requestParameters['pageNr'];
+        }
+
+        if (requestParameters['pageSize'] != null) {
+            queryParameters['pageSize'] = requestParameters['pageSize'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -227,12 +281,12 @@ export class BeerControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(BeerFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PageBeerFromJSON(jsonValue));
     }
 
     /**
      */
-    async searchBeers(requestParameters: SearchBeersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Beer>> {
+    async searchBeers(requestParameters: SearchBeersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PageBeer> {
         const response = await this.searchBeersRaw(requestParameters, initOverrides);
         return await response.value();
     }

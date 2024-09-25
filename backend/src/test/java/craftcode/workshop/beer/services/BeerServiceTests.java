@@ -66,7 +66,7 @@ class BeerServiceTests {
     }
 
     @Test
-    void shouldReturnAllBeersWithPagination() {
+    void shouldReturnAllBeers() {
         int pageNr = 1;
         int pageSize = 12;
         Pageable pageable = PageRequest.of(pageNr, pageSize);
@@ -75,24 +75,11 @@ class BeerServiceTests {
 
         when(beerRepository.findAll(pageable)).thenReturn(pagedBeers);
 
-        Page<Beer> foundBeers = beerService.getAllBeersFiltered(pageNr, pageSize);
+        Page<Beer> foundBeers = beerService.getAllBeers(pageable);
 
         assertThat(foundBeers)
                 .isNotNull()
                 .hasSize(beers.size());
-    }
-
-    @Test
-    void shouldReturnAllBeers() {
-        when(beerRepository.findAll()).thenReturn(beers);
-        List<Beer> foundBeers = beerService.getAllBeers();
-
-        assertThat(foundBeers)
-                .isNotEmpty()
-                .hasSize(3);
-
-        String name1 = foundBeers.get(0).getName();
-        assertThat(name1).isEqualTo("Chouffe");
     }
 
     @Test
