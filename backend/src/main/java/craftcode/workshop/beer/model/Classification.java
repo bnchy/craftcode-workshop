@@ -20,7 +20,7 @@ import java.util.Set;
 public class Classification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     @Enumerated(EnumType.STRING)
     private Country country;
     @Enumerated(EnumType.STRING)

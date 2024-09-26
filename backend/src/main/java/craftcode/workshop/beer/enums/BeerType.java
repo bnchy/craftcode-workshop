@@ -15,5 +15,7 @@ public enum BeerType {
     WITBIER,
     STOUT,
     LAGER,
-    WEISSBIER
+    WEISSBIER,
+    DUBBEL,
+    IPA
 }

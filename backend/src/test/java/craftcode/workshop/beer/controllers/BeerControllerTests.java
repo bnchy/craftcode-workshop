@@ -1,7 +1,9 @@
 package craftcode.workshop.beer.controllers;
 
 import craftcode.workshop.beer.controller.BeerController;
+import craftcode.workshop.beer.dtos.BeerDTO;
 import craftcode.workshop.beer.enums.BeerType;
+import craftcode.workshop.beer.mappers.BeerMapper;
 import craftcode.workshop.beer.model.Beer;
 import craftcode.workshop.beer.services.BeerService;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +33,9 @@ class BeerControllerTests {
     @Mock
     BeerService beerService;
 
+    @Mock
+    BeerMapper beerMapper;
+
     @InjectMocks
     BeerController beerController;
 
@@ -40,7 +45,7 @@ class BeerControllerTests {
     void setUp() {
 
         MockitoAnnotations.openMocks(this);
-        
+
         Beer beer1 = new Beer();
         beer1.setName("Chouffe");
         beer1.setAlcoholPercentage(6);
@@ -63,6 +68,7 @@ class BeerControllerTests {
         int pageSize = 12;
         Pageable pageable = PageRequest.of(0, pageSize);
         Page<Beer> pagedBeers = new PageImpl<>(beers, pageable, beers.size());
+
         when(beerService.getAllBeers(pageable)).thenReturn(pagedBeers);
 
         ResponseEntity<Page<Beer>> response = beerController.getBeers(pageNr,pageSize);
@@ -73,7 +79,10 @@ class BeerControllerTests {
 
     @Test
     void shouldReturnABeer() {
+        Beer beer = beers.get(0);
+
         when(beerService.getBeerById(1L)).thenReturn(Optional.of(beers.get(0)));
+
 
         ResponseEntity<Beer> response = beerController.getBeer(1L);
         assertThat(response.getBody()).isNotNull();
