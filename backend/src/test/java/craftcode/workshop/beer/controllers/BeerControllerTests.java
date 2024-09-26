@@ -1,7 +1,6 @@
 package craftcode.workshop.beer.controllers;
 
 import craftcode.workshop.beer.controller.BeerController;
-import craftcode.workshop.beer.dtos.BeerDTO;
 import craftcode.workshop.beer.enums.BeerType;
 import craftcode.workshop.beer.mappers.BeerMapper;
 import craftcode.workshop.beer.model.Beer;
@@ -43,9 +42,6 @@ class BeerControllerTests {
 
     @BeforeEach
     void setUp() {
-
-        MockitoAnnotations.openMocks(this);
-
         Beer beer1 = new Beer();
         beer1.setName("Chouffe");
         beer1.setAlcoholPercentage(6);

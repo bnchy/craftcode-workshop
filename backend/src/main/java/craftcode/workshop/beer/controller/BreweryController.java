@@ -20,8 +20,11 @@ import java.util.logging.Logger;
 @RequestMapping("/breweries")
 public class BreweryController {
 
-    @Autowired
-    BreweryService breweryService;
+    private final BreweryService breweryService;
+
+    public BreweryController(BreweryService breweryService) {
+        this.breweryService = breweryService;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Brewery> getBreweryById(@PathVariable long id) {

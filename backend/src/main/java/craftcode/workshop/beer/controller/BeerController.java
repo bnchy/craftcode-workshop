@@ -22,8 +22,11 @@ import java.util.Optional;
 @RequestMapping("/beers")
 public class BeerController {
 
-    @Autowired
-    BeerService beerService;
+    private final BeerService beerService;
+
+    public BeerController(BeerService beerService) {
+        this.beerService = beerService;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Beer> getBeer(@PathVariable Long id){

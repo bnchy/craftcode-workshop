@@ -17,8 +17,11 @@ import java.util.Optional;
 @RequestMapping("/classifications")
 public class ClassificationController {
 
-    @Autowired
-    ClassificationService classificationService;
+    private final ClassificationService classificationService;
+
+    public ClassificationController(ClassificationService classificationService) {
+        this.classificationService = classificationService;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Classification> getClassificationById(@PathVariable long id){

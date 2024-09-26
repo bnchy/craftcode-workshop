@@ -37,8 +37,6 @@ class BreweryControllerTests {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-
         Brewery brewery = new Brewery();
         brewery.setName("Brewery");
         brewery.setLocation("BELGIUM");

@@ -8,12 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -29,33 +24,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
-    @Bean
-    public UserDetailsService customUserDetailsService() {
-        PasswordEncoder encoder = passwordEncoder();
-        String encodedUserPassword = encoder.encode("craftcode123");
-        String encodedAdminPassword = encoder.encode("admin");
-
-        UserDetails user = User.builder()
-                .username("user")
-                .password(encodedUserPassword)
-                .roles("USER")
-                .build();
-
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(encodedAdminPassword)
-                .roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(user, admin);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
     @Bean
     public SecurityFilterChain customSecurityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -65,10 +33,10 @@ public class SecurityConfig {
                 .cors(cors -> cors
                         .configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/beers/**").hasRole("USER")
-                        .requestMatchers("/breweries/**").hasRole("USER")
-                        .requestMatchers("/classifications/**").hasRole("USER")
-                        .requestMatchers("/h2-console/*cn*").hasRole("ADMIN")
+                        .requestMatchers("/beers/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/breweries/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/classifications/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/h2-console/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
