@@ -17,27 +17,40 @@
         + Add beer
       </button>
     </div>
-    <mat-card
-      [routerLink]="['/beers', beer.id]"
-      *ngFor="let beer of beers"
-      class="beer-card"
-      appearance="raised">
-      <img
-        class="card-image-header"
-        mat-card-image
-        [src]="beer.placeholderImage"
-        alt="placeholder image of a beer glass" />
-      <mat-card-header>
-        <mat-card-title-group class="beer-title-group">
-          <mat-card-title class="beer-title">{{ beer.name }}</mat-card-title>
-          <mat-card-subtitle class="beer-subtitle">{{
-            beer.brewery?.name
-          }}</mat-card-subtitle>
-          <p class="beer-alcohol-percentage">{{ beer.alcoholPercentage }}%</p>
-        </mat-card-title-group>
-      </mat-card-header>
-    </mat-card>
-    <p class="no-items" *ngIf="beers.length === 0">No beers found...</p>
+
+    <ng-container>
+      <div
+        *ngIf="beers.length > 0"
+        @fadeInAnimation
+        class="beer-animation-container">
+        <mat-card
+          [routerLink]="['/beers', beer.id]"
+          *ngFor="let beer of beers"
+          class="beer-card"
+          appearance="raised">
+          <img
+            class="card-image-header"
+            mat-card-image
+            [src]="beer.placeholderImage"
+            alt="placeholder image of a beer glass" />
+          <mat-card-header>
+            <mat-card-title-group class="beer-title-group">
+              <mat-card-title class="beer-title">{{
+                beer.name
+              }}</mat-card-title>
+              <mat-card-subtitle class="beer-subtitle">{{
+                beer.brewery?.name
+              }}</mat-card-subtitle>
+              <p class="beer-alcohol-percentage">
+                {{ beer.alcoholPercentage }}%
+              </p>
+            </mat-card-title-group>
+          </mat-card-header>
+        </mat-card>
+      </div>
+      <p class="no-items" *ngIf="beers.length === 0">No beers found...</p>
+    </ng-container>
+
     <div class="paginator-container">
       <div class="beer-spacer"></div>
       <mat-paginator

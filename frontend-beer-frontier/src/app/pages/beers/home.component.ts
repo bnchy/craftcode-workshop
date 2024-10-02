@@ -13,6 +13,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import {
+  animate,
+  query,
+  stagger,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 interface BeerWithPlaceholder extends Beer {
   placeholderImage?: string;
@@ -36,6 +44,20 @@ interface BeerWithPlaceholder extends Beer {
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  animations: [
+    trigger('fadeInAnimation', [
+      transition(':enter', [
+        query('.beer-card', [style({ opacity: 0 })]),
+        query(
+          '.beer-card',
+          stagger('200ms', [
+            style({ opacity: 0 }),
+            animate('0.8s', style({ opacity: 1 })),
+          ])
+        ),
+      ]),
+    ]),
+  ],
 })
 export class HomeComponent implements OnInit {
   pageNr = 1;
