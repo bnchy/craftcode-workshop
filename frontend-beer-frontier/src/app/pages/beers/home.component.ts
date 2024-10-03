@@ -27,6 +27,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 interface BeerWithPlaceholder extends Beer {
   placeholderImage?: string;
+  likeProgressValue: number;
 }
 
 @Component({
@@ -82,6 +83,7 @@ export class HomeComponent implements OnInit {
   searchTerm = '';
   searchTermSubject = new Subject<string>();
   openedAccordionIndex: number | null = null;
+  likeProgressValue = 0;
 
   beerPlaceholderImages = [
     '/assets/images/beer-placeholder1.jpg',
@@ -110,13 +112,19 @@ export class HomeComponent implements OnInit {
           this.pageSize
         )
       : this.beerService.fetchAllBeers(this.pageNr, this.pageSize);
-
     fetch.subscribe({
       next: (data: PageBeer) => {
-        this.beers = data.content!.map(beer => ({
-          ...beer,
-          placeholderImage: this.getRandomPlaceholder(),
-        }));
+        this.beers = data.content!.map(beer => {
+          const totalVotes = beer.likes! + beer.dislikes!;
+          const likePercentage =
+            totalVotes > 0 ? (beer.likes! / totalVotes) * 100 : 0;
+
+          return {
+            ...beer,
+            placeholderImage: this.getRandomPlaceholder(),
+            likeProgressValue: likePercentage,
+          };
+        });
         this.totalPages = data.totalPages!;
       },
       error: err => {

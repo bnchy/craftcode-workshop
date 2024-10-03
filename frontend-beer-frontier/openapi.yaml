@@ -247,16 +247,18 @@ paths:
       parameters:
         - name: pageNr
           in: query
-          required: true
+          required: false
           schema:
             type: integer
             format: int32
+            default: 1
         - name: pageSize
           in: query
-          required: true
+          required: false
           schema:
             type: integer
             format: int32
+            default: 12
       responses:
         '200':
           description: OK
@@ -298,15 +300,17 @@ paths:
       parameters:
         - name: searchTerm
           in: query
-          required: true
+          required: false
           schema:
             type: string
+            default: '1'
         - name: pageNr
           in: query
-          required: true
+          required: false
           schema:
             type: integer
             format: int32
+            default: 12
         - name: pageSize
           in: query
           required: true
@@ -393,10 +397,18 @@ components:
             - STOUT
             - LAGER
             - WEISSBIER
+            - DUBBEL
+            - IPA
         brewery:
           $ref: '#/components/schemas/Brewery'
         classification:
           $ref: '#/components/schemas/Classification'
+        likes:
+          type: integer
+          format: int32
+        dislikes:
+          type: integer
+          format: int32
     Brewery:
       type: object
       properties:
@@ -470,10 +482,6 @@ components:
         totalPages:
           type: integer
           format: int32
-        first:
-          type: boolean
-        last:
-          type: boolean
         size:
           type: integer
           format: int32
@@ -493,6 +501,10 @@ components:
           format: int32
         pageable:
           $ref: '#/components/schemas/PageableObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
         empty:
           type: boolean
     PageableObject:
@@ -505,6 +517,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SortObject'
+        paged:
+          type: boolean
         pageNumber:
           type: integer
           format: int32
@@ -512,8 +526,6 @@ components:
           type: integer
           format: int32
         unpaged:
-          type: boolean
-        paged:
           type: boolean
     SortObject:
       type: object

@@ -1,14 +1,10 @@
 package craftcode.workshop.beer.model;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import craftcode.workshop.beer.enums.BeerType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -38,5 +34,11 @@ public class Beer {
     @JoinColumn(name = "classification_id")  // Renamed the column to reflect a single classification
     @JsonIgnoreProperties("beers")
     private Classification classification;
+
+    private int likes;
+
+    private int dislikes;
+
+
 
 }
