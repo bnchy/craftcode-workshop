@@ -82,14 +82,14 @@
   max-width: 600px;
   height: 350px;
   margin: 30px 0;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition:
+    transform 0.3s ease-in-out,
+    margin-bottom 0.3s ease-in-out;
 }
 
 .beer-card:hover {
   transform: scale(1.05);
 }
-
 .card-image-header {
   width: 100%;
   height: 270px;
@@ -136,6 +136,43 @@
   padding: 0;
 }
 
+//===accordion===
+.accordion-button {
+  background-color: #fff8f5;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  border-radius: 0 0 15px 15px;
+  transition: border-radius 0.3s ease;
+}
+
+.expanded-card .accordion-button {
+  border-radius: 0;
+}
+
+.accordion-content {
+  padding: 1rem;
+  overflow: hidden;
+  background-color: #fff8f5;
+  border-radius: 0 0 15px 15px;
+  transition: max-height 0.3s ease;
+  border-top: 1px solid #e1e1e1;
+}
+
+.accordion-button mat-icon {
+  transition: transform 0.5s ease;
+}
+
+.expanded-card .accordion-button mat-icon {
+  transform: rotate(180deg);
+}
+.expanded-card {
+  margin-bottom: 80px;
+}
 //===no beers founds===
 .no-items {
   display: flex;
@@ -160,7 +197,7 @@
 }
 
 :host ::ng-deep .mat-mdc-paginator-container {
-  padding: 0 !important; /* Removed unnessacery padding */
+  padding: 0 !important;
 }
 
 //===spacer===

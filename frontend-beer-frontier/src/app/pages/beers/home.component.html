@@ -24,9 +24,9 @@
         @fadeInAnimation
         class="beer-animation-container">
         <mat-card
-          [routerLink]="['/beers', beer.id]"
-          *ngFor="let beer of beers"
+          *ngFor="let beer of beers; let i = index"
           class="beer-card"
+          [ngClass]="{ 'expanded-card': openedAccordionIndex === i }"
           appearance="raised">
           <img
             class="card-image-header"
@@ -46,6 +46,13 @@
               </p>
             </mat-card-title-group>
           </mat-card-header>
+          <button class="accordion-button" (click)="toggleAccordion(i)">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+          <div
+            class="accordion-content"
+            [@accordionAnimation]
+            *ngIf="openedAccordionIndex === i"></div>
         </mat-card>
       </div>
       <p class="no-items" *ngIf="beers.length === 0">No beers found...</p>

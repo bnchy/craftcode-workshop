@@ -21,6 +21,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 interface BeerWithPlaceholder extends Beer {
   placeholderImage?: string;
@@ -41,6 +42,7 @@ interface BeerWithPlaceholder extends Beer {
     MatSelectModule,
     MatButtonModule,
     MatPaginatorModule,
+    MatExpansionModule,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -57,6 +59,15 @@ interface BeerWithPlaceholder extends Beer {
         ),
       ]),
     ]),
+    trigger('accordionAnimation', [
+      transition(':enter', [
+        style({ height: 0, opacity: 0 }),
+        animate('300ms ease-out', style({ height: '*', opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ height: 0, opacity: 0 })),
+      ]),
+    ]),
   ],
 })
 export class HomeComponent implements OnInit {
@@ -67,6 +78,7 @@ export class HomeComponent implements OnInit {
   beers: BeerWithPlaceholder[] = [];
   searchTerm = '';
   searchTermSubject = new Subject<string>();
+  openedAccordionIndex: number | null = null;
 
   beerPlaceholderImages = [
     '/assets/images/beer-placeholder1.jpg',
@@ -125,5 +137,10 @@ export class HomeComponent implements OnInit {
     this.pageNr = event.pageIndex + 1;
     this.pageSize = event.pageSize;
     this.fetchBeers();
+  }
+
+  toggleAccordion(index: number): void {
+    this.openedAccordionIndex =
+      this.openedAccordionIndex === index ? null : index;
   }
 }
