@@ -161,6 +161,10 @@
   border-radius: 0 0 15px 15px;
   transition: max-height 0.3s ease;
   border-top: 1px solid #e1e1e1;
+  min-height: 35px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .accordion-button mat-icon {
@@ -171,8 +175,37 @@
   transform: rotate(180deg);
 }
 .expanded-card {
-  margin-bottom: 80px;
+  margin-bottom: 120px;
 }
+
+.like-container {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  width: 100%;
+}
+.like-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.like-buttons button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  opacity: 0.5;
+}
+
+.like-buttons button:hover {
+  opacity: 1;
+}
+
+.like-button:hover {
+  color: #fb9c4e;
+}
+
 //===no beers founds===
 .no-items {
   display: flex;

@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -43,6 +45,7 @@ interface BeerWithPlaceholder extends Beer {
     MatButtonModule,
     MatPaginatorModule,
     MatExpansionModule,
+    MatProgressBarModule,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -142,5 +145,13 @@ export class HomeComponent implements OnInit {
   toggleAccordion(index: number): void {
     this.openedAccordionIndex =
       this.openedAccordionIndex === index ? null : index;
+  }
+
+  handleLikeDislikeClick(index: number): void {
+    if (this.openedAccordionIndex === index) {
+      return;
+    }
+
+    this.toggleAccordion(index);
   }
 }

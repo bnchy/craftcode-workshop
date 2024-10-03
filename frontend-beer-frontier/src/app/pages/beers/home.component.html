@@ -33,7 +33,7 @@
             mat-card-image
             [src]="beer.placeholderImage"
             alt="placeholder image of a beer glass" />
-          <mat-card-header>
+          <mat-card-header (click)="toggleAccordion(i)">
             <mat-card-title-group class="beer-title-group">
               <mat-card-title class="beer-title">{{
                 beer.name
@@ -46,13 +46,27 @@
               </p>
             </mat-card-title-group>
           </mat-card-header>
-          <button class="accordion-button" (click)="toggleAccordion(i)">
+          <button (click)="toggleAccordion(i)" class="accordion-button">
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
           <div
             class="accordion-content"
             [@accordionAnimation]
-            *ngIf="openedAccordionIndex === i"></div>
+            *ngIf="openedAccordionIndex === i">
+            <div class="like-container">
+              <div class="like-buttons">
+                <button class="like-button" (click)="handleLikeDislikeClick(i)">
+                  <mat-icon>thumb_up</mat-icon>
+                </button>
+                <button
+                  class="dislike-button"
+                  (click)="handleLikeDislikeClick(i)">
+                  <mat-icon>thumb_down</mat-icon>
+                </button>
+              </div>
+              <mat-progress-bar></mat-progress-bar>
+            </div>
+          </div>
         </mat-card>
       </div>
       <p class="no-items" *ngIf="beers.length === 0">No beers found...</p>
