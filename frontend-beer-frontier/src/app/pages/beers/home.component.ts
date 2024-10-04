@@ -155,11 +155,44 @@ export class HomeComponent implements OnInit {
       this.openedAccordionIndex === index ? null : index;
   }
 
-  handleLikeDislikeClick(index: number): void {
-    if (this.openedAccordionIndex === index) {
-      return;
-    }
+  likeBeer(index: number): void {
+    const beerId = this.beers[index].id!;
+    this.beerService.likeBeer(beerId).subscribe({
+      next: updatedBeer => {
+        // Update the beer in the local list with the new data
+        const totalVotes = updatedBeer.likes! + updatedBeer.dislikes!;
+        const likePercentage =
+          totalVotes > 0 ? (updatedBeer.likes! / totalVotes) * 100 : 0;
 
-    this.toggleAccordion(index);
+        this.beers[index] = {
+          ...updatedBeer,
+          placeholderImage: this.getRandomPlaceholder(),
+          likeProgressValue: likePercentage,
+        };
+      },
+      error: () => {
+        console.error('Error liking beer');
+      },
+    });
+  }
+
+  dislikeBeer(index: number): void {
+    const beerId = this.beers[index].id!;
+    this.beerService.dislikeBeer(beerId).subscribe({
+      next: updatedBeer => {
+        const totalVotes = updatedBeer.likes! + updatedBeer.dislikes!;
+        const likePercentage =
+          totalVotes > 0 ? (updatedBeer.likes! / totalVotes) * 100 : 0;
+
+        this.beers[index] = {
+          ...updatedBeer,
+          placeholderImage: this.getRandomPlaceholder(),
+          likeProgressValue: likePercentage,
+        };
+      },
+      error: () => {
+        console.error('Error disliking beer');
+      },
+    });
   }
 }

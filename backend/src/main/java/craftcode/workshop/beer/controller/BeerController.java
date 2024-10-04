@@ -1,19 +1,15 @@
 package craftcode.workshop.beer.controller;
 
 import craftcode.workshop.beer.model.Beer;
-
 import craftcode.workshop.beer.services.BeerService;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.swing.text.html.Option;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -51,11 +47,30 @@ public class BeerController {
         return ResponseEntity.ok(beers);
     }
 
+    @GetMapping("by-brewery/{breweryId}")
+    public ResponseEntity<List<Beer>> getBeersByBreweryId(@PathVariable Long breweryId) {
+        List<Beer> beers = beerService.getBeersByBreweryId(breweryId);
+        return ResponseEntity.ok(beers);
+    }
+
+
     @PostMapping()
     public ResponseEntity<Beer> addBeer(@RequestBody Beer beer, HttpServletRequest request, UriComponentsBuilder ucb){
         Beer savedBeer = beerService.saveBeer(beer);
         URI locationOfNewBeer = ucb.path("/beers/{id}").buildAndExpand(savedBeer.getId()).toUri();
         return ResponseEntity.created(locationOfNewBeer).build();
+    }
+
+    @PostMapping("{id}/like")
+    public ResponseEntity<Beer> likeBeer(@PathVariable long id){
+        Optional<Beer> updatedBeer = beerService.likeBeer(id);
+        return updatedBeer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("{id}/dislike")
+    public ResponseEntity<Beer> dislikeBeer(@PathVariable long id){
+        Optional<Beer> updatedBeer = beerService.dislikeBeer(id);
+        return updatedBeer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
@@ -66,13 +81,6 @@ public class BeerController {
         return updatedBeer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
 
     }
-
-    @GetMapping("by-brewery/{breweryId}")
-    public ResponseEntity<List<Beer>> getBeersByBreweryId(@PathVariable Long breweryId) {
-        List<Beer> beers = beerService.getBeersByBreweryId(breweryId);
-        return ResponseEntity.ok(beers);
-    }
-
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteBeer(@PathVariable Long id) {

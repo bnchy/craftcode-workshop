@@ -75,4 +75,19 @@ export class BeerService {
     const headers = this.authService.getHeaders();
     return this.http.delete<void>(`${this.beersUrl}/${id}`, { headers });
   }
+
+  likeBeer(id: number): Observable<Beer> {
+    const headers = this.authService.getHeaders();
+    return this.http.post<Beer>(`${this.beersUrl}/${id}/like`, {}, { headers });
+  }
+  dislikeBeer(id: number): Observable<Beer> {
+    const headers = this.authService.getHeaders();
+    return this.http.post<Beer>(
+      `${this.beersUrl}/${id}/dislike`,
+      {},
+      {
+        headers,
+      }
+    );
+  }
 }

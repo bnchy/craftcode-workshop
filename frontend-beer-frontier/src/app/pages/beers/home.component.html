@@ -55,12 +55,10 @@
             *ngIf="openedAccordionIndex === i">
             <div class="like-container">
               <div class="like-buttons">
-                <button class="like-button" (click)="handleLikeDislikeClick(i)">
+                <button class="like-button" (click)="likeBeer(beer.id!)">
                   <mat-icon>thumb_up</mat-icon>
                 </button>
-                <button
-                  class="dislike-button"
-                  (click)="handleLikeDislikeClick(i)">
+                <button class="dislike-button" (click)="dislikeBeer(beer.id!)">
                   <mat-icon>thumb_down</mat-icon>
                 </button>
               </div>

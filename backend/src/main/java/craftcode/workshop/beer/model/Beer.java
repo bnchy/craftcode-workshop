@@ -40,5 +40,21 @@ public class Beer {
     private int dislikes;
 
 
+     public int incrementLikes() {
+        return ++likes;
+    }
+
+    public int decrementLikes() {
+        return --likes;
+    }
+
+    public int incrementDislikes() {
+        return ++dislikes;
+    }
+
+    public int decrementDislikes() {
+        return --dislikes;
+    }
+
 
 }

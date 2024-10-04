@@ -4,10 +4,8 @@ import craftcode.workshop.beer.model.Beer;
 import craftcode.workshop.beer.repository.BeerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -56,4 +54,23 @@ public class BeerService {
     }
 
 
+    public Optional<Beer> likeBeer(long id) {
+        return beerRepository.findById(id).map(beer -> {
+            beer.incrementLikes();
+            beer.decrementDislikes();
+            beerRepository.save(beer);
+            return beer;
+        });
+
+    }
+
+    public Optional<Beer> dislikeBeer(long id) {
+        return beerRepository.findById(id).map(beer -> {
+            beer.incrementDislikes();
+            beer.decrementLikes();
+            beerRepository.save(beer);
+
+            return beer;
+        });
+    }
 }
